@@ -1,0 +1,18 @@
+<div class="content-thumbnails">
+  <h2>Some recent work</h2>
+
+  <div class="thumbs-wrap">
+    <div class="recent-work-wrap" *ngFor="let work of works">
+      <a routerLink="/{{ work.url }}">
+        <div class="img-wrapper" [ngStyle]="{ 'background-color': work.color }">
+          <img src="../../../assets/img/hero/{{work.img}}" alt="{{ work.name }}" />
+        </div>
+      </a>
+      <div class="work-title">
+        <h3><a routerLink="/{{ work.url }}">{{ work.name }}</a></h3>
+        <p>{{ work.desc }}</p>
+        <a routerLink="/{{ work.url }}" class="view-project">View Project</a>
+      </div>
+    </div> 
+  </div>
+</div>

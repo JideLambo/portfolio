@@ -1,0 +1,48 @@
+<div class="container">
+    <div class="work-page-title">
+      <h3>Share It -</h3>
+    </div>
+  </div>
+  <!-- <app-works-hero></app-works-hero> -->
+  <div class="work-hero-wrap" *ngFor = 'let hero of heros'>
+    <div class="hero-bckgrnd" style="background-color: #fbcfa9">
+      <img src="../../../assets/img/hero/{{hero.mock}}" alt="" />
+      <img src="../../../assets/img/hero/{{hero.mockSm}}" alt="" />
+    </div>
+  </div>
+  <div class="container">
+    <article class="project-desc">
+      <div class="desc-more">
+        <h2 class="desc-title">Introduction</h2>
+        <p></p>
+      </div>
+  
+      <div class="desc-more">
+        <h2 class="desc-title-sm">Challenge</h2>
+        <p>
+            Lagos is famous around the world as the birthplace of innovative hustle. But everybody is often 
+            struck by the awful traffic. On the other hand, high rents are driving people to spend beyond their 
+            budget. We identified both challenges that have been deterring people from being productive with their lives.
+            So, we are faced with less productive hours in Lagos traffic and the high rent burning a hole in people's pocket.
+        </p>
+        <p>GTPay needed a better data display interface, and a new website to deliver a modern personalized user experience. 
+          Feedbacks from existing merchants had shown that certain features were needed to help drive their business financially.</p>
+      </div>
+
+      <div class="desc-more">
+        <h2 class="desc-title-sm">Solution</h2>
+        <p>
+            In order to make our people work fast and smarter, we at the Business solution’s team at GTBank know that we have to solve everyday issues for our people. After interviewing our people, we learned from a bunch of their needs, problems and some even proffered solutions right on the spot. People needed some sort of arrangement that will help them broker ride and flat sharing.        </p>
+        <p>
+            From my user interviews, I had gathered enough user problems and was quick to write down ideas. These ideas were rapidly prototyped and tested on our users; thereby, helping me identify pain-points and better ways to visually display features. We finally came up with a user-friendly web and mobile responsive interface. The platform is currently being accessed and used only by GTBank's staffs.
+          </p>
+      </div>
+  
+    </article>
+  </div>
+  <div class="know-me-wrap">
+    <div class="know-me">
+      <a routerLink="/about">Know more about me</a>
+    </div>
+  </div>
+  <app-footer-social></app-footer-social>
