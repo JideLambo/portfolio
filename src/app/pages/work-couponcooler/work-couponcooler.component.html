@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="work-page-title">
+    <h3>Coupon Cooler - <a href="https://drive.google.com/drive/folders/1E3ACSZrB5Fy2pTFoJH2k6CpYcdrjsxKV" target="_blank">View project here</a></h3>
+  </div>
+</div>
+<!-- <app-works-hero></app-works-hero> -->
+<div class="work-hero-wrap" *ngFor = 'let hero of heros'>
+  <div class="hero-bckgrnd" style="background-color: #fdf182">
+    <img src="../../../assets/img/hero/{{hero.mock}}" alt="" />
+    <img src="../../../assets/img/hero/{{hero.mockSm}}" alt="" />
+  </div>
+</div>
+<div class="container">
+  <article class="project-desc">
+    <div class="desc-more">
+      <h2 class="desc-title">Problem to be solved. Make shopping online with coupon deals very easy and interesting</h2>
+      <p>The couponcooler.com on mobile experience is to address shoppers who search for interesting deals, and discounts. The business wanted a one-stop shop for shoppers.</p>
+      <p>I worked with 5-man team (4 developers, 1 project manager). My role was to detect what problems exists, and propose a solution at the usability and interface level for web mobile only.</p>
+    </div>
+
+    <div class="desc-more">
+      <h2 class="desc-title-sm">Project Approach</h2>
+      <ul>
+        <li>I asked my client a few questions like “How are the benefits of using coupons? What information is relevant for their shopping experience? And many other relevant questions...”</li>
+        <li>I interviewed shoppers and workers of a few vendors site. I was able to have a deeper understanding of their needs. The shoppers needed to do quick search for items. Shoppers also needed to get first-hand information about available discounted deals. Shoppers wanted convenience while shopping. Defining the problems helped me gather ideas for features and other elements that will allow us solve the problems.</li>
+        <li>With a reasonable amount of knowledge gathered, we brainstromed ideas like having menus categorized by Deals, Brands and Coupons. We also came up with ideas to filter available deals by how Recent and also how soon they’ll be Expiring. Deals should have brief description and discocunt value.</li>
+        <li>I designed Lo-Fi designs with these specific features and tested it within the business team and a small group of users. This experiment helped us to identify the possible solution for the problems identified earlier. At the end, we were able to have a better idea of how our real users would behave when interacting with the product.</li>
+        <li>Having understood how the users behaved with the Lo-Fi prototype, I designed a Hi-Fi prototype and we tested it again on our users. we had great feedback and continued iterating for best user experience. I coded the mockups using HTML, CSS and Javascript while all considering mobile responsiveness.</li>
+        
+      </ul>
+    </div>
+
+    <div class="desc-more">
+      <h2 class="desc-title-sm">Relevant tools used</h2>
+      <ul>
+        <li>Gather user’s needs via Interviews and Questionnaire
+        </li>
+        <li>User personas to identify our key stakeholder to design for. Card-sorting to help pin-point the common needs of our users.</li>
+        <li>Design prototypes with sketch. Test prototypes using Invision.</li>  
+        <li>Code prototype in HTML, CSS, and Javascript.</li>
+      </ul>
+    </div>
+  </article>
+</div>
+<div class="know-me-wrap">
+  <div class="know-me">
+    <a routerLink="/about">Know more about me</a>
+  </div>
+</div>
+<app-footer-social></app-footer-social>

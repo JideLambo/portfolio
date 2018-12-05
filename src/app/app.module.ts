@@ -16,6 +16,10 @@ import { WorkShareitComponent } from './pages/work-shareit/work-shareit.componen
 import { DesignProcessComponent } from './pages/design-process/design-process.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { WorkCouponcoolerComponent } from './pages/work-couponcooler/work-couponcooler.component';
+import { WorkMicrofinanceComponent } from './pages/work-microfinance/work-microfinance.component';
+
 
 const appRoutes: Routes = [
   { path: '', component: HomePageComponent },
@@ -23,7 +27,11 @@ const appRoutes: Routes = [
   { path: 'GIGM', component: WorkGigmComponent },
   { path: 'gtpay', component: WorkGtpayComponent },
   { path: 'shareit', component: WorkShareitComponent },
-  { path: 'design-process', component: DesignProcessComponent }
+  { path: 'design-process', component: DesignProcessComponent },
+  { path: 'couponcooler', component: WorkCouponcoolerComponent },
+  { path: 'microfinance', component: WorkMicrofinanceComponent },
+  { path: 'not-found', component: PageNotFoundComponent},
+  { path: '**', redirectTo: 'not-found'}
 ];
 
 @NgModule({
@@ -40,6 +48,9 @@ const appRoutes: Routes = [
     WorkGtpayComponent,
     WorkShareitComponent,
     DesignProcessComponent,
+    PageNotFoundComponent,
+    WorkCouponcoolerComponent,
+    WorkMicrofinanceComponent,
   ],
   imports: [
     BrowserModule,

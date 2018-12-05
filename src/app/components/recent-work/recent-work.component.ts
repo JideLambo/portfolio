@@ -15,7 +15,7 @@ export class RecentWorkComponent implements OnInit {
     color: 'rgb(250, 211, 224)' },
     { url: 'shareit',
     name: 'Share It',
-    desc: 'Helping the organisation\'s staffs with ride and flat sharing',
+    desc: 'Helping the organisation\'s staff with ride and flat sharing',
     img: 'shareit-web.png',
     color: '#fbcfa9' },
     { url: 'gtpay',
@@ -23,6 +23,16 @@ export class RecentWorkComponent implements OnInit {
     desc: 'Payment solution\'s redesign for better user\'s experience',
     img: 'gtpay-mobile.png',
     color: '#a2c8d8' },
+    { url: 'couponcooler',
+    name: 'Coupon Cooler',
+    desc: 'Coupon deals, and discount for shoppers on mobile experience',
+    img: 'couponcooler.png',
+    color: '#fdf182' },
+    { url: 'microfinance',
+    name: 'Micro-Finance Bank',
+    desc: 'Designing a banking platform to enable people apply for Loans easily',
+    img: 'MFBank.png',
+    color: '#f49961' }
   ];
 
   constructor() { }

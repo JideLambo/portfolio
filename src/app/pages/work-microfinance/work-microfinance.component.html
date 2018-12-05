@@ -1,0 +1,61 @@
+<div class="container">
+  <div class="work-page-title">
+    <h3>Microfinance Bank - <a href="http://stellasmfb.com/index.html" target="_blank">View project here</a></h3>
+  </div>
+</div>
+<!-- <app-works-hero></app-works-hero> -->
+<div class="work-hero-wrap" *ngFor = 'let hero of heros'>
+  <div class="hero-bckgrnd" style="background-color: #f49961">
+    <img src="../../../assets/img/hero/{{hero.mock}}" alt="" />
+    <img src="../../../assets/img/hero/{{hero.mockSm}}" alt="" />
+  </div>
+</div>
+<div class="container">
+  <article class="project-desc">
+    <div class="desc-more">
+      <h2 class="desc-title">Problem to be solved.</h2>
+      <p>We designed the microfinance bank's website to showcase the portfolio of the new bank and to also enable people apply for Bank Loans easily. 
+          Our audience ranges from market men and women, transporters and student soft loans. I won't be 
+      </p>
+    </div>
+
+    <div class="desc-more">
+      <h2 class="desc-title-sm">Business / User's Goals</h2>
+      <ul>
+        <li>Apply for loans easily.</li>
+        <li>Learn more about other loan packages and offers for customers.</li>
+        <li>Reach out easily to a Loan officer.</li>
+      </ul>
+    </div>
+
+    <div class="desc-more">
+      <h2 class="desc-title-sm">Project Approach</h2>
+      <ul>
+        <li>We gathered information from our users about their needs and how to easily apply for loan. Feedback from our user research showed that users needed to aware of their options, loan availability and real-time information from loan officers.</li>
+
+        <li>Using these feedbacks , I came up with the following ideas like having a quick form for loan request, Learn about lending rates, Learn more about bank products and finally directly contact a Loan officer.</li>  
+        
+        <li>I designed a Hi-Fi prototype and tested with a small group of the bank’s customers. We tested for user’s behaviors while using the prototype. We made user’s go through task on their own and took note of their reaction.</li>
+
+        <li>Furthermore, I coded with Hi-Fi mockups with HTML, CSS and Javascript. We ran A/B Testing experiments using Google Optimize.</li>
+      </ul>
+    </div>
+
+    <div class="desc-more">
+      <h2 class="desc-title-sm">Relevant tools used</h2>
+      <ul>
+        <li>Gather user’s needs via Interviews and Questionnaire
+        </li>
+        <li>User personas to identify our key stakeholder to design for. Card-sorting to help pin-point the common needs of our users.</li>
+        <li>Design prototypes with sketch. Test prototypes using Invision.</li>  
+        <li>Code prototype in HTML, CSS, and Javascript.</li>
+      </ul>
+    </div>
+  </article>
+</div>
+<div class="know-me-wrap">
+  <div class="know-me">
+    <a routerLink="/about">Know more about me</a>
+  </div>
+</div>
+<app-footer-social></app-footer-social>
