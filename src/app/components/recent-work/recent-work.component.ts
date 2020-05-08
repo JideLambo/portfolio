@@ -8,6 +8,11 @@ import { Component, OnInit } from '@angular/core';
 export class RecentWorkComponent implements OnInit {
 
   works: Object[] = [
+    { url: '/',
+    name: 'BCaster OY, Finland',
+    desc: 'First scalable, channel-independent platform for brands to activate and engage users.',
+    img: 'ICC-Dashboard-banner.png',
+    color: '#162447' },
     { url: 'GIGM',
     name: 'GIGM.com',
     desc: 'Changing the road transport system approach in Nigeria',
