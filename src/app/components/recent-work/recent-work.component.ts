@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class RecentWorkComponent implements OnInit {
 
   works: Object[] = [
-    { url: '/',
+    { url: 'bcaster-dashboard',
     name: 'BCaster OY, Finland',
     desc: 'First scalable, channel-independent platform for brands to activate and engage users.',
     img: 'ICC-Dashboard-banner.png',

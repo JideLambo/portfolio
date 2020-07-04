@@ -20,6 +20,7 @@ import { environment } from '../environments/environment';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { WorkCouponcoolerComponent } from './pages/work-couponcooler/work-couponcooler.component';
 import { WorkMicrofinanceComponent } from './pages/work-microfinance/work-microfinance.component';
+import { WorkBcasterComponent } from './pages/work-bcaster/work-bcaster.component';
 
 
 const appRoutes: Routes = [
@@ -31,6 +32,7 @@ const appRoutes: Routes = [
   { path: 'design-process', component: DesignProcessComponent },
   { path: 'couponcooler', component: WorkCouponcoolerComponent },
   { path: 'microfinance', component: WorkMicrofinanceComponent },
+  { path: 'bcaster-dashboard', component: WorkBcasterComponent },
   { path: 'not-found', component: PageNotFoundComponent},
   { path: '**', redirectTo: 'not-found'}
 ];
@@ -52,6 +54,7 @@ const appRoutes: Routes = [
     PageNotFoundComponent,
     WorkCouponcoolerComponent,
     WorkMicrofinanceComponent,
+    WorkBcasterComponent,
   ],
   imports: [
     BrowserModule,
