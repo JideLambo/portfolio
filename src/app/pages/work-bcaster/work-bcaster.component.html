@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container max-w-5xl">
     <div class="work-page-title">
       <h3>BCaster</h3>
     </div>
@@ -6,11 +6,11 @@
   <!-- <app-works-hero></app-works-hero> -->
   <div class="work-hero-wrap" *ngFor = 'let hero of heros'>
     <div class="hero-bckgrnd" style="background-color: #ee8933">
-      <img src="../../../assets/img/hero/{{hero.mock}}" alt="" />
-      <img src="../../../assets/img/hero/{{hero.mockSm}}" alt="" />
+      <img src="../../../assets/img/hero/{{hero.mock}}" alt="{{hero.mock}}" />
+      <img src="../../../assets/img/hero/{{hero.mockSm}}" alt="{{hero.mockSm}}" />
     </div>
   </div>
-  <div class="container">
+  <div class="container max-w-5xl">
     <article class="project-desc">
       <div class="desc-more">
         <h2 class="desc-title">About BCaster</h2>
@@ -25,11 +25,8 @@
         I can take photos or videos of myself driving my Tesla and post these media content on one or many of the social media apps. 
         As a Tesla marketing manager, how can I take stock of all these media content from a customer; especially when this content is lost in the sea of information on Facebook, Twitter, or Instagram.
         </p>
-        <p>We designed and built tools to help business owners get direct media content from their customers (of course, with consent), 
+        <p>How do we design tools to help business owners get direct media content from their customers (of course, with consent), 
             reward them for sharing, and use this content for advert and other business purposes. 
-        </p>
-        <p>We experimented and iterated a lot especially as no one had bothered to work on a product like this. 
-            We needed to build tools that would be easy-to-use, self-explanatory, and help business owners easily get media content from their customers. 
         </p>
       </div>
   
@@ -47,6 +44,33 @@
             The project challenged me to look for new ways to understand BCaster's business goals as it constantly changed and also advocate for an easy-to-use experience for our users. 
             I had to dig deep into how to best present photos and videos on the tool for our users. I also had to learn how best to design usable search features and data visualization.
         </p>
+        <p>We experimented and iterated a lot especially as no one had bothered to work on a product like this. 
+          We needed to build tools that would be easy-to-use, self-explanatory, and help business owners easily get media content from their customers. 
+      </p>
+      </div>
+
+      <div class="desc-more">
+        <h2 class="desc-title-sm">Task:</h2>
+        <ol>
+          <li>
+            <p>
+              One of our business goals was to help brand's curate media content (images and videos) from their product customers. We scheduled a few interview sessions with people from our client's marketing team to learn about their current workflow while trying to get hold of media content for marketing purposes.
+            </p>
+            <ul>
+              <li>
+                These conversations helped us understand that content presentation was quite important for our clients to see their growth.
+              </li>
+              <li>
+                They also want to make smart decisions when preparing content for marketing ads or promotional purposes.
+              </li>
+            </ul>
+            <p>We learned that to help our users feel comfortable with content presentation and make the best of it, we designed an interface to give them options to switch between list or grid view. We also designed an experience to perform actions to easily search, view, and download media content.</p>
+          </li>
+
+          <li>
+            <p>For our clients to easily run promotions and get real-time media content from their product customers, we designed and built a light-weight Web App camera. This camera would be easily integrated on our client's promotional website and can be customized specifically for campaigns. The camera also needs to be a few clicks away from taking a photo or video and sending content to our client's dashboard.</p>
+          </li>
+        </ol>
       </div>
     </article>
   </div>
