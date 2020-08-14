@@ -1,36 +1,21 @@
 .brief-wrap {
-    width: 60%;
-    margin-top: 60px;
+  width: 60%;
 
-    @media only screen and (min-width: 320px) and (max-width: 480px) {
-        width: 100%;
-        margin-top: 30px;
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    width: 100%;
+  }
+
+  @media only screen and (min-width: 481px) and (max-width: 1120px) {
+    width: 100%;
+  }
+
+  .brief-desc {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 2rem;
+
+    a {
+      color: #fa416d;
     }
-
-    @media only screen and (min-width: 481px) and (max-width: 1120px) {
-        width: 100%;
-        margin-top: 30px;
-    }
-
-    h2 {
-        font-size: 1.5rem;
-        font-weight: 400;
-        line-height: 2rem;
-        letter-spacing: 0.5px;
-
-        @media only screen and (min-width: 320px) and (max-width: 480px) {
-            font-size: 1.2rem;
-            line-height: 1.8rem;
-        }
-    }
-
-    .brief-desc {
-        font-size: 1rem;
-        font-weight: 400;
-        line-height: 2rem;
-
-        a {
-            color: #FA416D;
-        }
-    }
+  }
 }

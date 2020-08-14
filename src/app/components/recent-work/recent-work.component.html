@@ -1,18 +1,24 @@
 <div class="content-thumbnails">
-  <h2>Some of my work</h2>
+  <h2 class="text-2xl font-bold mb-4">Some of my work</h2>
 
   <div class="thumbs-wrap">
     <div class="recent-work-wrap" *ngFor="let work of works">
       <a routerLink="/{{ work.url }}">
         <div class="img-wrapper" [ngStyle]="{ 'background-color': work.color }">
-          <img src="../../../assets/img/hero/{{work.img}}" alt="{{ work.name }}" />
+          <img
+            src="../../../assets/img/hero/{{ work.img }}"
+            alt="{{ work.name }}"
+            loading="lazy"
+          />
         </div>
       </a>
       <div class="work-title">
-        <h3><a routerLink="/{{ work.url }}">{{ work.name }}</a></h3>
+        <h3>
+          <a routerLink="/{{ work.url }}">{{ work.name }}</a>
+        </h3>
         <p>{{ work.desc }}</p>
         <a routerLink="/{{ work.url }}" class="view-project">View Project</a>
       </div>
-    </div> 
+    </div>
   </div>
 </div>

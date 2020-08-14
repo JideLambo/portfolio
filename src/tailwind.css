@@ -1,0 +1,13 @@
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+:root {
+  --main-color-pink: #fa416d;
+}
+
+.color-pink {
+  color: var(--main-color-pink);
+}

@@ -1,24 +1,43 @@
-<div class="container max-w-5xl">
+<div class="container mx-auto">
   <section class="about-wrap">
-    <h2>Hi again, 🙂</h2>
+    <h2 class="text-2xl font-medium leading-10 mb-6">Hi again, 🙂</h2>
 
-    <article class="about-desc">
-      <p>I’m a Helsinki-based user experience &amp; user-interface designer. My professional journey started as I nurtured my creative side through graphic design, and later on became proficient in prototype design, user interface development, and recently service design.</p>
-      <p>My passion as a user experience (UX) designer is derived from the deep interest in how people connect with services, and products - and a passion for cultures.</p>
-      <p>I’ve collaborated with awesome people to design products for the road travel industry in Africa, SaaS products, fintech applications, user-generated content business, and most recently products around cloud services.
-        I focus on solving problems and creating coherent, clean and simple experiences across the devices I design for. The user is always at the center of my process. </p>
-      <p>In addition to my day job, I spend time teaching how to design interfaces and code with HTML and CSS. When I'm not working, I enjoy taking city photographs, and horse back riding.</p>
-      <p>I extend my ability to develop more effective web and mobile apps with HTML5, SCSS, Javascript.</p>
-
+    <article class="text-lg leading-10">
+      <p>
+        I’m a Helsinki-based user experience &amp; user-interface designer. My
+        professional journey started as I nurtured my creative side through
+        graphic design, and later on became proficient in prototype design, user
+        interface development, and recently service design.
+      </p>
+      <p>
+        My passion as a user experience (UX) designer is derived from the deep
+        interest in how people connect with services, and products - and a
+        passion for cultures.
+      </p>
+      <p>
+        I’ve collaborated with awesome people to design products for the road
+        travel industry, SaaS products, fintech applications, user-generated
+        content business, and most recently products around cloud services. I
+        focus on solving problems and creating coherent, clean and simple
+        experiences across the devices I design for. The user is always at the
+        center of my process.
+      </p>
+      <p>
+        In addition to my day job, I spend time teaching how to design
+        interfaces and code with HTML and CSS. When I'm not working, I enjoy
+        taking city photographs, and horse back riding.
+      </p>
     </article>
   </section>
 
-  <section class="about-wrap">
-    <h2>Relevant Skills &amp; Tools</h2>
+  <section class="about-wrap mt-10">
+    <h2 class="text-2xl font-bold mb-4">Relevant Skills &amp; Tools 🔧</h2>
 
     <div class="skills-wrap">
       <ul class="skills-list">
-        <li *ngFor='let skill of skills'>{{ skill.name }}</li>
+        <li class="text-lg leading-10" *ngFor="let skill of skills">
+          {{ skill.name }}
+        </li>
       </ul>
     </div>
   </section>
