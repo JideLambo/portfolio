@@ -35,10 +35,10 @@
 
       a {
         text-decoration: none;
-        color: #333333;
+        color: #fff;
 
         &.active {
-          color: #fa416d;
+          text-decoration: underline;
         }
       }
     }

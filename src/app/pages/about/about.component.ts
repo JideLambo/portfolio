@@ -7,13 +7,13 @@ import { Component, OnInit } from "@angular/core";
 })
 export class AboutComponent implements OnInit {
   skills: Object[] = [
-    { name: "Research techniques." },
-    { name: "Flow diagrams & Wireframes." },
-    { name: "User Interface development: HTML5, CSS3, JavaScript" },
-    { name: "Sketching & Prototyping." },
+    { name: "UX Thinking & Research techniques." },
+    { name: "User Interface design for web and mobile apps." },
+    { name: "User Interface development: HTML5, CSS3, JavaScript." },
+    { name: "Flow diagrams, Wireframes & Prototyping." },
     { name: "Mobile & Responsive design." },
-    { name: "Proficient with Sketchapp and other prototyping tools." },
-    { name: "Github version control." },
+    { name: "Proficient with Sketchapp, figma and other prototyping tools." },
+    { name: "User testing & web accessibility." },
   ];
 
   constructor() {}
