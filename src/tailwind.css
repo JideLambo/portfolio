@@ -6,8 +6,13 @@
 
 :root {
   --main-color-pink: #fa416d;
+  --main-color-green: #68d391;
 }
 
 .color-pink {
   color: var(--main-color-pink);
+}
+
+.color-green {
+  color: var(--main-color-green);
 }
