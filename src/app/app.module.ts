@@ -28,8 +28,7 @@ const appRoutes: Routes = [
   { path: "design-process", component: DesignProcessComponent },
   { path: "couponcooler", component: WorkCouponcoolerComponent },
   { path: "bcaster-dashboard", component: WorkBcasterComponent },
-  { path: "not-found", component: PageNotFoundComponent },
-  { path: "**", redirectTo: "not-found" },
+  { path: "**", component: PageNotFoundComponent },
 ];
 
 @NgModule({
