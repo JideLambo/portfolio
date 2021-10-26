@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { WorksHeroComponent } from './../../components/works-hero/works-hero.component';
 
 @Component({
   selector: 'app-work-bcaster',

@@ -22,13 +22,13 @@ export class RecentWorkComponent implements OnInit {
       img: "gigm-web.png",
       color: "rgb(250, 211, 224)",
     },
-    {
-      url: "couponcooler",
-      name: "Coupon Cooler",
-      desc: "Coupon deals, and discount for shoppers on mobile experience",
-      img: "couponcooler.png",
-      color: "#fdf182",
-    },
+    // {
+    //   url: "couponcooler",
+    //   name: "Coupon Cooler",
+    //   desc: "Coupon deals, and discount for shoppers on mobile experience",
+    //   img: "couponcooler.png",
+    //   color: "#fdf182",
+    // },
   ];
 
   constructor() {}

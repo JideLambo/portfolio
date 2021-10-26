@@ -4,9 +4,10 @@
 
 .thumbs-wrap {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: flex-start;
     flex-wrap: wrap;
+    gap: 40px;
 
     .recent-work-wrap {
         width: 32%;
