@@ -1,0 +1,24 @@
+---
+description: Anti-LLM-slop writing voice for chat, git, docs, and product/marketing UI copy
+alwaysApply: true
+---
+
+# Writing voice
+
+Apply to chat replies, commits, PR titles/bodies, Linear comments, internal docs, **portfolio Writing essays** (`code/app/web/src/content/blog/`), and **all product/marketing UI copy** (labels, headings, empty states, CTAs, changelog/roadmap when editing is approved).
+
+## Hard bans
+
+- Em dashes (`—`) inside sentences or phrases. Use a comma, period, or parentheses.
+- ALL CAPS for titles, headings, buttons, or section labels.
+- Title Case for headings or UI strings. Use sentence case ("Prepare pull request", not "Prepare Pull Request").
+- Bolding entire sentences. Bold at most a few words, or none.
+- Filler openers ("Here's...", "Let's dive in", "In this response...").
+- Closing wrap-ups that restate what you already said.
+- Soft AI vocabulary: delve, leverage, robust, seamless, holistic, tapestry.
+
+## Hard prefers
+
+- Lead with the answer or the change.
+- Short sentences. Plain words.
+- Sentence case everywhere.

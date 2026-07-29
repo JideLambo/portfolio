@@ -63,7 +63,8 @@
   --font-sans:
     ui-sans-serif, system-ui, -apple-system, "Segoe UI", roboto, helvetica,
     arial, sans-serif;
-  --font-serif: "Source Serif 4", georgia, "Times New Roman", serif;
+  --font-serif:
+    "American Typewriter", "Source Serif 4", georgia, "Times New Roman", serif;
   --font-mono:
     ui-monospace, sfmono-regular, "SF Mono", menlo, consolas, "Liberation Mono",
     monospace;

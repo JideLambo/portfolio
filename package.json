@@ -8,7 +8,7 @@
     "typescript": "7.0.2",
     "vitest": "4.1.10"
   },
-  "name": "mysayo-monorepo",
+  "name": "portfolio-monorepo",
   "overrides": {
     "@astrojs/react": {
       "@vitejs/plugin-react": "6.0.3"
@@ -17,23 +17,15 @@
   },
   "private": true,
   "scripts": {
-    "bump-deps": "ncu -u --removeRange --cooldown 5 --cwd code/app/server && ncu -u --removeRange --cooldown 5 --cwd code/app/shared && ncu -u --removeRange --cooldown 5 --cwd code/app/web && ncu -u --removeRange --cooldown 5 --cwd code/doc && ncu -u --removeRange --cooldown 5 --cwd code/bin && ncu -u --removeRange --cooldown 5",
+    "bump-deps": "ncu -u --removeRange --cooldown 5 --cwd code/app/shared && ncu -u --removeRange --cooldown 5 --cwd code/app/web && ncu -u --removeRange --cooldown 5",
     "clean": "npm run clean --workspaces --if-present",
-    "deploy:web": "npm run deploy -w web",
     "dev": "npm run dev:web",
     "dev:web": "npm run dev:web -w web",
-    "filter-terraform-plan": "npm run filter-terraform-plan -w bin --",
-    "fix": "npm run fix --workspaces --if-present && npm run knip && terraform -chdir=infrastructure fmt -recursive",
-    "fix:bin": "npm run fix -w bin && npm run knip",
-    "fix:doc": "npm run fix -w doc && npm run knip",
-    "fix:server": "npm run fix -w server && npm run knip",
+    "fix": "npm run fix --workspaces --if-present && npm run knip",
     "fix:shared": "npm run fix -w shared && npm run knip",
     "fix:web": "npm run fix -w web && npm run knip",
     "knip": "knip",
     "lint": "npm run lint --workspaces --if-present",
-    "lint:bin": "npm run lint -w bin",
-    "lint:doc": "npm run lint -w doc",
-    "lint:server": "npm run lint -w server",
     "lint:shared": "npm run lint -w shared",
     "lint:web": "npm run lint -w web",
     "rasterize": "npm run rasterize -w web --",
@@ -44,8 +36,7 @@
   },
   "type": "module",
   "workspaces": [
-    "code/app/*",
-    "code/bin",
-    "code/doc"
+    "code/app/shared",
+    "code/app/web"
   ]
 }

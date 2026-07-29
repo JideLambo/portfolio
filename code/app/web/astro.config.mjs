@@ -9,10 +9,7 @@ export default defineConfig({
   integrations: [
     react(),
     sitemap({
-      filter: page =>
-        !page.endsWith('/rss.xml') &&
-        !page.endsWith('/blog') &&
-        !page.includes('/blog/'),
+      filter: page => !page.endsWith('/rss.xml'),
     }),
   ],
   markdown: {
@@ -22,7 +19,7 @@ export default defineConfig({
     },
   },
   output: 'static',
-  site: 'https://mysayo.com',
+  site: 'https://jidelambo.com',
   vite: {
     plugins: [babel({ presets: [reactCompilerPreset()] })],
     resolve: {

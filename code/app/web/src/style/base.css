@@ -52,7 +52,7 @@ h3 {
   font-size: var(--step-2);
 }
 
-/* Display headings use the serif across hero, article, and prose. */
+/* Display headings: American Typewriter on Mac, Source Serif 4 elsewhere. */
 .hero h1,
 .article__title,
 .prose h2,

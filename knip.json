@@ -1,11 +1,9 @@
 {
   "$schema": "https://unpkg.com/knip@6/schema.json",
-  "ignoreBinaries": ["terraform"],
   "ignoreDependencies": [
     "react-compiler-runtime"
   ],
   "ignoreExportsUsedInFile": true,
-  "ignoreWorkspaces": ["infrastructure"],
   "treatConfigHintsAsErrors": false,
   "workspaces": {
     "code/app/shared": {
@@ -36,21 +34,6 @@
       "vitest": {
         "config": ["vitest.config.js"]
       }
-    },
-    "code/bin": {
-      "paths": {
-        "@/*": ["./src/*"]
-      },
-      "project": ["src/**/*.ts"],
-      "vite": {
-        "config": ["vite.config.js"]
-      }
-    },
-    "code/doc": {
-      "paths": {
-        "@/*": ["./src/*"]
-      },
-      "project": ["src/**/*.ts"]
     }
   }
 }

@@ -13,7 +13,7 @@ const blog = defineCollection({
       .string()
       .regex(
         /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
-        'slug must be lowercase kebab-case (e.g. building-mysayo)',
+        'slug must be lowercase kebab-case (e.g. example-post)',
       ),
     tags: z.array(z.enum(tagValues)).default([]),
     title: z.string(),

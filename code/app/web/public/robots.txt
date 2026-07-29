@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://mysayo.com/sitemap-index.xml
+Sitemap: https://jidelambo.com/sitemap-index.xml

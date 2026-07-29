@@ -2,12 +2,7 @@ import type { CollectionEntry } from 'astro:content'
 import { getCollection } from 'astro:content'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-import {
-  featuredPostSlugs,
-  getHomepageWriting,
-  getPostSlug,
-  getPublishedPosts,
-} from '@/lib/post'
+import { getHomepageWriting, getPostSlug, getPublishedPosts } from '@/lib/post'
 
 const blogPost = (
   data: Partial<CollectionEntry<'blog'>['data']> &
@@ -33,9 +28,9 @@ describe('post', () => {
 
   describe('getPostSlug', () => {
     it('returns the slug from frontmatter', () => {
-      const post = blogPost({ pubDate: new Date(), slug: 'building-mysayo' })
+      const post = blogPost({ pubDate: new Date(), slug: 'example-post' })
 
-      expect(getPostSlug(post)).toBe('building-mysayo')
+      expect(getPostSlug(post)).toBe('example-post')
     })
   })
 
@@ -90,63 +85,33 @@ describe('post', () => {
   })
 
   describe('getHomepageWriting', () => {
-    it('returns latest and the first two featured when latest is not featured', async () => {
+    it('returns the latest published post', async () => {
       const posts = [
         blogPost({
           pubDate: new Date('2026-07-01T00:00:00.000Z'),
-          slug: 'unrelated-latest',
+          slug: 'latest-post',
         }),
-        ...featuredPostSlugs.map((slug, index) =>
-          blogPost({
-            pubDate: new Date(`2026-0${index + 1}-01T00:00:00.000Z`),
-            slug,
-          }),
-        ),
+        blogPost({
+          pubDate: new Date('2026-01-01T00:00:00.000Z'),
+          slug: 'older-post',
+        }),
       ]
 
       vi.mocked(getCollection).mockImplementation(
         async (_collection, filter) => (filter ? posts.filter(filter) : posts),
       )
 
-      const { featuredPosts, latestPosts } = await getHomepageWriting()
+      const { latestPosts } = await getHomepageWriting()
 
-      expect(latestPosts.map(getPostSlug)).toEqual(['unrelated-latest'])
-      expect(featuredPosts.map(getPostSlug)).toEqual([
-        featuredPostSlugs[0],
-        featuredPostSlugs[1],
-      ])
+      expect(latestPosts.map(getPostSlug)).toEqual(['latest-post'])
     })
 
-    it('excludes latest from featured and fills from the next candidates', async () => {
-      const posts = featuredPostSlugs.map((slug, index) =>
-        blogPost({
-          // First configured featured slug is newest → becomes latest, not featured.
-          pubDate: new Date(
-            `2026-0${featuredPostSlugs.length - index}-01T00:00:00.000Z`,
-          ),
-          slug,
-        }),
-      )
-
-      vi.mocked(getCollection).mockImplementation(
-        async (_collection, filter) => (filter ? posts.filter(filter) : posts),
-      )
-
-      const { featuredPosts, latestPosts } = await getHomepageWriting()
-
-      expect(latestPosts.map(getPostSlug)).toEqual([featuredPostSlugs[0]])
-      expect(featuredPosts.map(getPostSlug)).toEqual([
-        featuredPostSlugs[1],
-        featuredPostSlugs[2],
-      ])
-    })
-
-    it('throws when a featured slug is missing', async () => {
+    it('returns an empty list when there are no published posts', async () => {
       vi.mocked(getCollection).mockResolvedValue([])
 
-      await expect(getHomepageWriting()).rejects.toThrow(
-        `Featured blog slug not found: ${featuredPostSlugs[0]}`,
-      )
+      const { latestPosts } = await getHomepageWriting()
+
+      expect(latestPosts).toEqual([])
     })
   })
 })
