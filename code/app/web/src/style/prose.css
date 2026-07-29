@@ -17,7 +17,7 @@
   font-weight: 600;
 }
 
-/* Editorial drafting ruler — partial baseline + corner tick (see building-mysayo essay). */
+/* Editorial drafting ruler — partial baseline + corner tick. */
 .prose h2.prose-heading-ruler {
   overflow: visible;
 }

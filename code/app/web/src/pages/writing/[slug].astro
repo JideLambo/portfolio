@@ -3,7 +3,7 @@ import Layout from '@/layout/Layout.astro'
 import PostTags from '@/component/PostTags.astro'
 import { formatDate, toISODate } from '@/lib/date'
 import { getPostSlug, getPublishedPosts } from '@/lib/post'
-import { blogPostSourceUrl, siteUrl, xDiscussUrl } from '@shared/lib/site'
+import { siteUrl, xDiscussUrl } from '@shared/lib/site'
 import '@/style/prose.css'
 import { render } from 'astro:content'
 
@@ -43,7 +43,6 @@ const styles = postStyleHref ? [postStyleHref] : []
 
   <article class="wrap wrap-text">
     <header class="article__header">
-      <p class="eyebrow">Writing</p>
       <h1 class="article__title">{title}</h1>
       <div class="article__meta">
         <time class="post-date" datetime={toISODate(pubDate)}>
@@ -63,15 +62,6 @@ const styles = postStyleHref ? [postStyleHref] : []
           target="_blank"
         >
           Discuss on X
-          <span class="visually-hidden"> (opens in new tab)</span>
-        </a>
-        <a
-          class="post-date article__source external-link"
-          href={blogPostSourceUrl(post.id)}
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          View source
           <span class="visually-hidden"> (opens in new tab)</span>
         </a>
       </div>

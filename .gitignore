@@ -33,29 +33,11 @@ plan.md
 *.sln
 *.sw?
 
-# Terraform
-**/.terraform/*
-*.tfstate
-*.tfstate.*
-crash.log
-crash.*.log
-*.tfvars
-*.tfvars.json
-override.tf
-override.tf.json
-*_override.tf
-*_override.tf.json
-.terraformrc
-terraform.rc
-tfplan
-plan.txt
-plan-filtered.txt
-infrastructure/backend.hcl
-
 **/.env
 **/.env.*
 !**/.env.example
 **/.dev.vars
+.vercel
 
 # Avoid committing any mistakenly compiled JS.
 code/app/**/src/**/*.js

@@ -36,10 +36,6 @@
   color: var(--accent);
 }
 
-.brand__mark {
-  color: var(--accent);
-}
-
 .site-header__actions {
   display: flex;
   align-items: center;

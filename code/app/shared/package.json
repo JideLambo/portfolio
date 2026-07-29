@@ -1,5 +1,5 @@
 {
-  "description": "Utilities shared between the server and web app",
+  "description": "Utilities shared across the portfolio monorepo",
   "devDependencies": {
     "@types/node": "26.1.1",
     "typescript": "7.0.2",

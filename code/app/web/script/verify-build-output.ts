@@ -2,8 +2,11 @@ import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
+import { siteUrl } from '@shared/lib/site'
+
 const dist = new URL('../dist/', import.meta.url)
 const distPath = fileURLToPath(dist)
+const repoRoot = fileURLToPath(new URL('../../../../', import.meta.url))
 
 const file = (path: string) => new URL(path, dist)
 
@@ -33,18 +36,29 @@ const listXmlFiles = (directory: string): string[] => {
 
 assertExists('index.html')
 assertExists('about/index.html')
-assertExists('work/index.html')
-assertExists('reading/index.html')
 assertExists('writing/index.html')
-assertExists('writing/building-mysayo/index.html')
 assertExists('og/writing.png')
-assertExists('og/writing/building-mysayo.png')
 assertExists('rss.xml')
 assertExists('sitemap-index.xml')
-assertExists('_redirects')
+assertExists('llms.txt')
+assertExists('robots.txt')
+
+const llms = read('llms.txt')
+assert(llms.includes('Jide Lambo'), 'llms.txt should identify Jide Lambo')
+assert(llms.includes(`${siteUrl}/writing`), 'llms.txt should link to writing')
+assert(
+  llms.includes('https://firstdistro.com'),
+  'llms.txt should link FirstDistro',
+)
+assert(llms.includes('https://uselay.com'), 'llms.txt should link UseLay')
 
 const home = read('index.html')
+assert(home.includes('href="/about"'), 'Home page should link to /about')
 assert(home.includes('href="/writing"'), 'Home page should link to /writing')
+assert(
+  !home.includes('href="/projects"'),
+  'Home page must not link to /projects',
+)
 assert(!home.includes('href="/blog"'), 'Home page must not link to /blog')
 
 const about = read('about/index.html')
@@ -52,88 +66,69 @@ assert(about.includes('href="/writing"'), 'About page should link to /writing')
 assert(!about.includes('href="/blog"'), 'About page must not link to /blog')
 
 const notFound = read('404.html')
-assert(notFound.includes('href="/writing"'), '404 page should link to /writing')
 assert(!notFound.includes('href="/blog"'), '404 page must not link to /blog')
 
-const post = read('writing/building-mysayo/index.html')
-assert(
-  post.includes('/writing/brain-1.webp'),
-  'Writing post should use /writing asset paths',
-)
-assert(
-  !post.includes('/blog/brain-'),
-  'Writing post must not use /blog asset paths',
-)
-
 const rss = read('rss.xml')
-assert(
-  rss.includes('/writing/building-mysayo/'),
-  'RSS should link to canonical /writing post URLs',
-)
 assert(!rss.includes('/blog/'), 'RSS must not contain /blog URLs')
 
-const redirects = read('_redirects')
-assert(
-  redirects.includes('/blog /writing 301'),
-  '_redirects should redirect /blog to /writing',
+const writingDir = join(distPath, 'writing')
+const writingSlugs = readdirSync(writingDir, { withFileTypes: true }).filter(
+  entry => entry.isDirectory() && entry.name !== 'index',
 )
 assert(
-  redirects.includes('/blog/* /writing/:splat 301'),
-  '_redirects should redirect /blog/* to /writing/*',
+  writingSlugs.length >= 1,
+  'Build should include at least one writing post',
 )
 
-const blogIndexRedirect = read('blog/index.html')
-assert(
-  blogIndexRedirect.includes('Redirecting to: /writing') &&
-    blogIndexRedirect.includes('content="0;url=/writing"') &&
-    blogIndexRedirect.includes('name="robots" content="noindex"'),
-  '/blog should be a noindex redirect page',
-)
-
-const blogPostRedirect = read('blog/building-mysayo/index.html')
-assert(
-  blogPostRedirect.includes('Redirecting to: /writing/building-mysayo') &&
-    blogPostRedirect.includes('content="0;url=/writing/building-mysayo"') &&
-    blogPostRedirect.includes('name="robots" content="noindex"'),
-  '/blog/building-mysayo should be a noindex redirect page',
-)
-
-const listHtmlFiles = (directory: string, prefix = ''): string[] => {
-  const entries = readdirSync(directory, { withFileTypes: true })
-  return entries.flatMap(entry => {
-    const entryPath = join(directory, entry.name)
-    if (entry.isDirectory()) {
-      return listHtmlFiles(entryPath, `${prefix}${entry.name}/`)
-    }
-
-    return entry.name === 'index.html' ? [`${prefix}${entry.name}`] : []
-  })
+type VercelRedirect = {
+  source: string
+  destination: string
+  permanent: boolean
 }
+type VercelConfig = { redirects?: VercelRedirect[] }
 
-const assertNoSubstackCrossPostLinks = (html: string) =>
-  !html.includes('oluwasayo.substack.com/p/') &&
-  !html.includes('substack.com/@oluwasayo/p-')
-
-assertExists('writing/on-compilers-compression-and-llms/index.html')
-assertExists('writing/pull-requests-where-engineering-culture/index.html')
-
-for (const relativePath of listHtmlFiles(join(distPath, 'writing'))) {
-  const html = read(`writing/${relativePath}`)
-  assert(
-    assertNoSubstackCrossPostLinks(html),
-    `Writing page writing/${relativePath} must not link to Substack posts`,
+const vercelConfigPath = join(repoRoot, 'vercel.json')
+assert(existsSync(vercelConfigPath), 'Expected vercel.json at repo root')
+const vercelConfig = JSON.parse(
+  readFileSync(vercelConfigPath, 'utf8'),
+) as VercelConfig
+const redirects = vercelConfig.redirects ?? []
+const hasRedirect = (source: string, destination: string) =>
+  redirects.some(
+    redirect =>
+      redirect.source === source && redirect.destination === destination,
   )
-}
+
+assert(
+  hasRedirect('/blog', '/writing'),
+  'vercel.json should redirect /blog to /writing',
+)
+assert(
+  hasRedirect('/blog/:path*', '/writing/:path*'),
+  'vercel.json should redirect /blog/* to /writing/*',
+)
+assert(
+  hasRedirect('/projects', '/about'),
+  'vercel.json should redirect /projects to /about',
+)
+assert(
+  hasRedirect('/work', '/about'),
+  'vercel.json should redirect /work to /about',
+)
+assert(
+  hasRedirect('/reading', '/'),
+  'vercel.json should redirect /reading to /',
+)
 
 const sitemap = listXmlFiles(distPath)
   .map(path => readFileSync(path, 'utf8'))
   .join('\n')
 assert(
-  sitemap.includes('https://mysayo.com/writing'),
+  sitemap.includes(`${siteUrl}/writing`),
   'Sitemap should include /writing URLs',
 )
 assert(
-  !sitemap.includes('https://mysayo.com/blog'),
+  !sitemap.includes(`${siteUrl}/blog`),
   'Sitemap must not include /blog URLs',
 )
 

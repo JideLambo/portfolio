@@ -1,147 +1,115 @@
 ---
-import { Image } from 'astro:assets'
-import portrait from '@/asset/sayo.jpg'
 import Layout from '@/layout/Layout.astro'
-import { profileLinks, siteAuthor } from '@shared/lib/site'
-
-const stack = [
-  {
-    label: 'Primary',
-    value:
-      'TypeScript, React, Node.js, GraphQL, AWS, Terraform, PostgreSQL, GitHub Actions',
-  },
-  { label: 'Others', value: 'Kotlin, Java, Java EE, REST, MySQL, GCP' },
-  {
-    label: 'Focus',
-    value: 'Agent orchestration, AI-native development, evals, observability, developer tools',
-  },
-]
+import { siteTagline } from '@shared/lib/site'
 ---
 
 <Layout
   title="About"
-  description="Sayo Oladeji — software engineer building products, systems, and AI-native infrastructure."
+  description="Software designer who builds products. FirstDistro, UseLay, and product design at Sinch."
 >
   <div class="wrap">
-    <section class="hero about-hero">
-      <div class="about-hero__text">
-        <p class="eyebrow">About</p>
-        <h1>Software engineer building products, systems, and AI-native infrastructure.</h1>
-        <p class="lead">
-          I started programming long before it became my work, and have built
-          software professionally since 2012 — across product, infrastructure,
-          media, developer tools, and agent systems.
-        </p>
-      </div>
-      <Image
-        class="about-portrait"
-        src={portrait}
-        alt={siteAuthor}
-        widths={[256, 384, 512]}
-        sizes="(min-width: 48rem) 16rem, 55vw"
-        loading="eager"
-      />
-    </section>
+    <header class="hero">
+      <h1>Hi, I'm Jide</h1>
+      <p class="lead hero__lead">{siteTagline}</p>
+    </header>
 
-    <div class="about-prose wrap-text">
-      <p>
-        My path runs through competitive programming as a student, a Google
-        internship, creative infrastructure at Smartly and Meta, low-latency
-        audio at Speechify, and engineering effectiveness products at Swarmia.
-        Along the way I co-founded and ran engineering for Tellerpoint, a
-        fintech platform that moved money at national scale.
-      </p>
-      <p>
-        These days I build production agent systems: task orchestration
-        frameworks, multi-phase LLM agents, human-in-the-loop tooling, and the
-        product surfaces around them. I also work AI-natively, using Cursor and
-        Codex for planning, implementation, debugging, and repeatable automation
-        across my toolchain.
-      </p>
-      <p>
-        I've spoken at JavaOne in San Francisco on deploying end-to-end Kotlin
-        inside a Java enterprise.
-      </p>
-    </div>
-
-    <section class="home-section">
+    <section class="home-section" aria-labelledby="recent">
       <div class="home-section__head">
-        <h2>Currently</h2>
+        <h2 id="recent">Recent</h2>
       </div>
-      <p class="about-prose">
-        CTO at Kreia, building autonomous marketing infrastructure for
-        real estate and construction. The work spans customer-signal ingestion,
-        real-time prioritization, multi-phase agents, media generation, and the
-        production platform that holds it together.
-      </p>
-    </section>
-
-    <section class="home-section">
-      <div class="home-section__head">
-        <h2>How I work</h2>
-      </div>
-      <p class="about-prose">
-        I like calm, direct ownership: understand the product, design the system,
-        write the code, operate it in production, and keep tightening the loop.
-        I enjoy small senior teams where technical judgment, taste, and
-        execution all matter. And I place a high value on velocity, readability
-        and testability.
-      </p>
-    </section>
-
-    <section class="home-section">
-      <div class="home-section__head">
-        <h2>Stack</h2>
-      </div>
-      <dl class="about-stack">
-        {
-          stack.map(item => (
-            <div class="about-stack__row">
-              <dt>{item.label}</dt>
-              <dd>{item.value}</dd>
-            </div>
-          ))
-        }
-      </dl>
-    </section>
-
-    <section class="home-section">
-      <div class="home-section__head">
-        <h2>Work authorization</h2>
-      </div>
-      <p class="about-prose muted">
-        US permanent resident (EB-1A, extraordinary ability). Full work
-        authorization in the US and EU.
-      </p>
-    </section>
-
-    <section class="home-section">
-      <div class="home-section__head">
-        <h2>Elsewhere</h2>
-      </div>
-      <ul class="about-links">
-        {
-          profileLinks.map(link => (
-            <li>
-              <a
-                class:list={[link.external && 'external-link']}
-                href={link.href}
-                rel={link.external ? 'noopener noreferrer' : undefined}
-                target={link.external ? '_blank' : undefined}
-              >
-                {link.label}
-                {link.external && (
-                  <span class="visually-hidden"> (opens in new tab)</span>
-                )}
-              </a>
-            </li>
-          ))
-        }
+      <ul class="about-chat">
+        <li>
+          I am building{' '}
+          <a
+            href="https://firstdistro.com"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            FirstDistro
+            <span class="visually-hidden"> (opens in new tab)</span>
+          </a>
+          , account intelligence that catches silent churn and proves the
+          revenue you kept.
+        </li>
+        <li>
+          I also built{' '}
+          <a
+            href="https://uselay.com"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            UseLay
+            <span class="visually-hidden"> (opens in new tab)</span>
+          </a>
+          , in-app feedback that lets users point at what's broken instead of
+          describing it.
+        </li>
+        <li>
+          I am a Senior Product Designer at{' '}
+          <a
+            href="https://sinch.com"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Sinch
+            <span class="visually-hidden"> (opens in new tab)</span>
+          </a>
+          , working on inbox and AI for messaging at scale.
+        </li>
       </ul>
-      <p class="about-cta">
-        <a class="text-link" href="/work">See selected work →</a>
-        <a class="text-link" href="/writing">Read my writing →</a>
-      </p>
+    </section>
+
+    <section class="home-section" aria-labelledby="career">
+      <div class="home-section__head">
+        <h2 id="career">Career</h2>
+      </div>
+      <ul class="about-chat">
+        <li>
+          I created Wonderstand, conversational and AI companion experiments.
+          The product is shut down.
+        </li>
+        <li>
+          I created TokiApp, personal AI assistants for everyone. Also shut
+          down.
+        </li>
+        <li>
+          At{' '}
+          <a
+            href="https://nordcloud.com"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Nordcloud
+            <span class="visually-hidden"> (opens in new tab)</span>
+          </a>
+          {' '}(an IBM company), I was lead designer on the BMW Public Cloud
+          Platform.
+        </li>
+        <li>
+          At{' '}
+          <a
+            href="https://bcaster.com"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            BCaster
+            <span class="visually-hidden"> (opens in new tab)</span>
+          </a>
+          , I was founding design engineer on an AI user-generated content platform.
+        </li>
+        <li>
+          At{' '}
+          <a
+            href="https://www.gtbank.com"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            GTBank
+            <span class="visually-hidden"> (opens in new tab)</span>
+          </a>
+          , I was lead software product designer on the GTWorld app.
+        </li>
+      </ul>
     </section>
   </div>
 </Layout>

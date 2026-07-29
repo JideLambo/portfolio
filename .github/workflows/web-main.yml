@@ -1,11 +1,11 @@
-name: Web Validate
+name: Web Main Checks
 
 on:
-  pull_request:
+  push:
     branches: [main]
     paths:
       - '.github/workflows/web-checks-reusable.yml'
-      - '.github/workflows/web-validate.yml'
+      - '.github/workflows/web-main.yml'
       - 'code/app/shared/**'
       - 'code/app/web/**'
       - 'knip.json'
@@ -15,6 +15,7 @@ on:
       - 'vite.shared.js'
       - 'vitest.config.js'
 
+# Quality gate on main. Production deploys via Vercel (Git integration).
 jobs:
   validate-web:
     uses: ./.github/workflows/web-checks-reusable.yml
