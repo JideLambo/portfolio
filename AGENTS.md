@@ -129,6 +129,7 @@ See `.cursor/commands/bump-dependencies.md` for npm + GHA tracks.
 | Astro + compiler | `code/app/web/astro.config.mjs` |
 | Site identity / nav | `code/app/shared/src/lib/site.ts` |
 | Vercel | `vercel.json` |
+| Agent map | `code/app/web/public/llms.txt` |
 | Browser tests | `code/app/web/vitest.config.js` |
 | Blog prose + callouts | `code/app/web/src/style/prose.css` |
 | Lint | `biome.json`, knip |

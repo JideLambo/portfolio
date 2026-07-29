@@ -40,6 +40,17 @@ assertExists('writing/index.html')
 assertExists('og/writing.png')
 assertExists('rss.xml')
 assertExists('sitemap-index.xml')
+assertExists('llms.txt')
+assertExists('robots.txt')
+
+const llms = read('llms.txt')
+assert(llms.includes('Jide Lambo'), 'llms.txt should identify Jide Lambo')
+assert(
+  llms.includes(`${siteUrl}/writing`),
+  'llms.txt should link to writing',
+)
+assert(llms.includes('https://firstdistro.com'), 'llms.txt should link FirstDistro')
+assert(llms.includes('https://uselay.com'), 'llms.txt should link UseLay')
 
 const home = read('index.html')
 assert(home.includes('href="/about"'), 'Home page should link to /about')

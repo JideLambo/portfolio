@@ -1,0 +1,38 @@
+# Jide Lambo
+
+> Software designer who builds products. Site: https://jidelambo.com
+
+Personal site for Jide Lambo. Nav: Home, About, Writing. Hosted on Vercel.
+
+## About
+
+- Bio and career: https://jidelambo.com/about
+- Full-time: Senior Product Designer at Sinch (inbox and AI for messaging at scale)
+- Building: FirstDistro, UseLay
+- Earlier products (shut down): Wonderstand, TokiApp
+- Earlier roles: Nordcloud (IBM / BMW Public Cloud Platform), BCaster (founding design engineer), GTBank (GTWorld app)
+
+## Products
+
+- [FirstDistro](https://firstdistro.com): Account intelligence that catches silent churn and proves the revenue you kept
+- [UseLay](https://uselay.com): In-app feedback that lets users point at what's broken instead of describing it
+- Sinch: Employer only (https://sinch.com). Not a founder product
+
+## Writing
+
+Index: https://jidelambo.com/writing
+
+- [Dashboards don't save accounts](https://jidelambo.com/writing/dashboards-dont-save-accounts): Visibility is not a finished outcome. Catch the risk, save the account, prove the dollars.
+- [Saved revenue as a receipt](https://jidelambo.com/writing/saved-revenue-as-a-receipt): Health scores warn. Saved revenue is the receipt after you act.
+- [Which customers need you this week](https://jidelambo.com/writing/which-customers-need-you-this-week): A 15-minute Monday triage: health trend, silence, renewal proximity.
+- [Clear Jobs, not a call center](https://jidelambo.com/writing/clear-jobs-not-a-call-center): Why FirstDistro skipped a general-purpose agent harness and shipped clear AI jobs, context, and MCP.
+- [I'm done gatekeeping SaaS playbooks](https://jidelambo.com/writing/im-done-gatekeeping-saas-playbooks): The account-intelligence playbook behind FirstDistro, open enough to rebuild yourself.
+
+RSS: https://jidelambo.com/rss.xml
+
+## Elsewhere
+
+- X: https://x.com/JideLambo
+- LinkedIn: https://www.linkedin.com/in/jidelambo/
+- GitHub: https://github.com/JideLambo
+- Source: https://github.com/JideLambo/portfolio

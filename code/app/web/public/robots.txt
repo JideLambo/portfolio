@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 
+# Optional map for AI agents: https://jidelambo.com/llms.txt
 Sitemap: https://jidelambo.com/sitemap-index.xml
