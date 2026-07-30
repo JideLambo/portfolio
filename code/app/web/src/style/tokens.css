@@ -8,76 +8,83 @@
 @property --bg {
   syntax: "<color>";
   inherits: true;
-  initial-value: #fff;
+  initial-value: #fbfdff;
 }
 
 @property --bg-subtle {
   syntax: "<color>";
   inherits: true;
-  initial-value: #f4f4f2;
+  initial-value: #f4f7fb;
 }
 
 @property --text {
   syntax: "<color>";
   inherits: true;
-  initial-value: #18181b;
+  initial-value: #222a4c;
 }
 
 @property --text-muted {
   syntax: "<color>";
   inherits: true;
-  initial-value: #59595f;
+  initial-value: #5f647c;
 }
 
 @property --border {
   syntax: "<color>";
   inherits: true;
-  initial-value: #e3e3df;
+  initial-value: #e5e8ed;
 }
 
 @property --accent {
   syntax: "<color>";
   inherits: true;
-  initial-value: #e04e1a;
+  initial-value: #0066e3;
 }
 
 @property --accent-strong {
   syntax: "<color>";
   inherits: true;
-  initial-value: #c23f10;
+  initial-value: #0052b8;
+}
+
+@property --accent-wash {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #e4ecf5;
 }
 
 @property --selection {
   syntax: "<color>";
   inherits: true;
-  initial-value: rgb(224 78 26 / 18%);
+  initial-value: rgb(0 102 227 / 16%);
 }
 
 @property --focus {
   syntax: "<color>";
   inherits: true;
-  initial-value: #e04e1a;
+  initial-value: #0066e3;
 }
 
 :root {
-  --font-sans:
-    ui-sans-serif, system-ui, -apple-system, "Segoe UI", roboto, helvetica,
-    arial, sans-serif;
+  /* Site voice: American Typewriter for UI text (mono stays for code/chrome marks). */
   --font-serif:
-    "American Typewriter", "Source Serif 4", georgia, "Times New Roman", serif;
+    "American Typewriter", "Courier New", courier, georgia, "Times New Roman",
+    serif;
   --font-mono:
     ui-monospace, sfmono-regular, "SF Mono", menlo, consolas, "Liberation Mono",
     monospace;
 
-  --bg: #fff;
-  --bg-subtle: #f4f4f2;
-  --text: #18181b;
-  --text-muted: #59595f;
-  --border: #e3e3df;
-  --accent: #e04e1a;
-  --accent-strong: #c23f10;
-  --selection: rgb(224 78 26 / 18%);
-  --focus: #e04e1a;
+  --bg: #fbfdff;
+  --bg-subtle: #f4f7fb;
+  --text: #222a4c;
+  --text-muted: #5f647c;
+  --border: #e5e8ed;
+  --accent: #0066e3;
+  --accent-strong: #0052b8;
+  --accent-wash: #e4ecf5;
+  --selection: rgb(0 102 227 / 16%);
+  --focus: #0066e3;
+  --grid-dot: rgb(34 42 76 / 6%);
 
   --radius: 0;
   --border-thin: 1px solid var(--border);
@@ -93,7 +100,7 @@
 
   /*
    * Code highlighting — Shiki "css-variables" theme.
-   * Duotone, three tiers so shell commands don't read as a wall of orange:
+   * Duotone, three tiers so shell commands don't read as a wall of accent:
    *   accent  → keywords, function/command names, links (the "verbs")
    *   text    → strings, constants, parameters, identifiers (the payload)
    *   muted   → comments, punctuation
@@ -122,25 +129,29 @@
     --text: #ededee;
     --text-muted: #9a9aa2;
     --border: #26262b;
-    --accent: #ff6f4d;
-    --accent-strong: #ff8a70;
-    --selection: rgb(255 111 77 / 22%);
-    --focus: #ff6f4d;
+    --accent: #5ba3ff;
+    --accent-strong: #7bb6ff;
+    --accent-wash: rgb(91 163 255 / 12%);
+    --selection: rgb(91 163 255 / 22%);
+    --focus: #5ba3ff;
+    --grid-dot: rgb(237 237 238 / 5%);
 
     color-scheme: dark;
   }
 }
 
 [data-theme="light"] {
-  --bg: #fff;
-  --bg-subtle: #f4f4f2;
-  --text: #18181b;
-  --text-muted: #59595f;
-  --border: #e3e3df;
-  --accent: #e04e1a;
-  --accent-strong: #c23f10;
-  --selection: rgb(224 78 26 / 18%);
-  --focus: #e04e1a;
+  --bg: #fbfdff;
+  --bg-subtle: #f4f7fb;
+  --text: #222a4c;
+  --text-muted: #5f647c;
+  --border: #e5e8ed;
+  --accent: #0066e3;
+  --accent-strong: #0052b8;
+  --accent-wash: #e4ecf5;
+  --selection: rgb(0 102 227 / 16%);
+  --focus: #0066e3;
+  --grid-dot: rgb(34 42 76 / 6%);
 
   color-scheme: light;
 }
@@ -151,10 +162,12 @@
   --text: #ededee;
   --text-muted: #9a9aa2;
   --border: #26262b;
-  --accent: #ff6f4d;
-  --accent-strong: #ff8a70;
-  --selection: rgb(255 111 77 / 22%);
-  --focus: #ff6f4d;
+  --accent: #5ba3ff;
+  --accent-strong: #7bb6ff;
+  --accent-wash: rgb(91 163 255 / 12%);
+  --selection: rgb(91 163 255 / 22%);
+  --focus: #5ba3ff;
+  --grid-dot: rgb(237 237 238 / 5%);
 
   color-scheme: dark;
 }
@@ -169,6 +182,7 @@
       --border 220ms ease,
       --accent 220ms ease,
       --accent-strong 220ms ease,
+      --accent-wash 220ms ease,
       --selection 220ms ease,
       --focus 220ms ease;
   }

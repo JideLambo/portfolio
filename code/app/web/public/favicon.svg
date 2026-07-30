@@ -1,14 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="JKL">
-  <rect width="32" height="32" fill="#e04e1a" />
+  <rect width="32" height="32" fill="#fbfdff" />
+  <rect x="7" y="7" width="9" height="2.5" fill="#0066e3" />
   <text
     x="16"
-    y="21.5"
+    y="23"
     text-anchor="middle"
     dominant-baseline="middle"
-    font-family="ui-sans-serif, system-ui, sans-serif"
+    font-family="American Typewriter, 'Courier New', Courier, monospace"
     font-size="11"
     font-weight="700"
-    letter-spacing="-0.6"
-    fill="#fff"
+    letter-spacing="-0.5"
+    fill="#222a4c"
   >JKL</text>
 </svg>

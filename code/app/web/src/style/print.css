@@ -13,14 +13,16 @@
     --text: #000;
     --text-muted: #333;
     --border: #999;
-    --accent: #c23f10;
-    --accent-strong: #a33409;
+    --accent: #0052b8;
+    --accent-strong: #003d8a;
+    --accent-wash: transparent;
     --selection: transparent;
 
     color-scheme: light;
   }
 
   body {
+    background-image: none;
     -webkit-font-smoothing: auto;
     -moz-osx-font-smoothing: auto;
   }

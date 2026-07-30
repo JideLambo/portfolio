@@ -12,8 +12,10 @@ body {
   display: flex;
   flex-direction: column;
   background-color: var(--bg);
+  background-image: radial-gradient(var(--grid-dot) 1px, transparent 1px);
+  background-size: 14px 14px;
   color: var(--text);
-  font-family: var(--font-sans);
+  font-family: var(--font-serif);
   font-size: var(--step-0);
   line-height: 1.65;
   font-synthesis: none;
@@ -50,15 +52,6 @@ h2 {
 
 h3 {
   font-size: var(--step-2);
-}
-
-/* Display headings: American Typewriter on Mac, Source Serif 4 elsewhere. */
-.hero h1,
-.article__title,
-.prose h2,
-.prose h3 {
-  font-family: var(--font-serif);
-  letter-spacing: -0.02em;
 }
 
 p {
