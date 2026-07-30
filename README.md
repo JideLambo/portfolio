@@ -2,8 +2,6 @@
 
 Personal site at [jidelambo.com](https://jidelambo.com).
 
-Structure adapted from [oluwasayo/mysayo](https://github.com/oluwasayo/mysayo) (Astro static site). Hosted on **Vercel**.
-
 **Repository → [github.com/JideLambo/portfolio](https://github.com/JideLambo/portfolio)**
 
 ## Quick start
