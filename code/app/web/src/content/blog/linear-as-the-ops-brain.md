@@ -45,41 +45,37 @@ Skip those until a simple loop is actually used every session.
 One picture. Three parts.
 
 <figure class="ops-brain-figure">
-  <div class="ops-brain-figure__diagram" role="img" aria-label="Temporary agent session exchanges memory with a durable Linear ops brain. Read from Linear at session start. Write to Linear at session end. A harness instruction forces both.">
-    <div class="ops-brain-figure__row">
-      <div class="ops-brain-figure__node ops-brain-figure__node--chat">
-        <span class="ops-brain-figure__label">Agent session</span>
-        <span class="ops-brain-figure__meta">Temporary</span>
-      </div>
-      <div class="ops-brain-figure__exchange">
-        <div class="ops-brain-figure__flows" aria-hidden="true">
-          <span class="ops-brain-figure__flow">
-            <span class="ops-brain-figure__dir ops-brain-figure__dir--stack">↑ Read at start</span>
-            <span class="ops-brain-figure__dir ops-brain-figure__dir--row">← Read at start</span>
-          </span>
-          <span class="ops-brain-figure__flow">
-            <span class="ops-brain-figure__dir ops-brain-figure__dir--stack">↓ Write at end</span>
-            <span class="ops-brain-figure__dir ops-brain-figure__dir--row">Write at end →</span>
-          </span>
-        </div>
-        <div class="ops-brain-figure__rule">
-          <span class="ops-brain-figure__rule-bridge" aria-hidden="true">
-            <span class="ops-brain-figure__rule-arrow"></span>
-            <span class="ops-brain-figure__rule-label">forces</span>
-          </span>
-          <div class="ops-brain-figure__node ops-brain-figure__node--rule">
-            <span class="ops-brain-figure__label">Harness instruction</span>
-            <span class="ops-brain-figure__meta">Read + write every session</span>
-          </div>
-        </div>
-      </div>
-      <div class="ops-brain-figure__node ops-brain-figure__node--linear">
-        <span class="ops-brain-figure__label">Linear</span>
-        <span class="ops-brain-figure__meta">Ops brain · durable</span>
+  <div class="ops-brain-figure__diagram" role="img" aria-label="Temporary agent session exchanges memory with a durable Linear ops brain. Read from Linear at session start. Write to Linear at session end. A harness instruction requires both.">
+    <div class="ops-brain-figure__node ops-brain-figure__node--chat">
+      <span class="ops-brain-figure__label">Agent session</span>
+      <span class="ops-brain-figure__meta">Temporary</span>
+    </div>
+    <div class="ops-brain-figure__flows" aria-hidden="true">
+      <span class="ops-brain-figure__flow">
+        <span class="ops-brain-figure__dir ops-brain-figure__dir--stack">↑ Read at start</span>
+        <span class="ops-brain-figure__dir ops-brain-figure__dir--row">← Read at start</span>
+      </span>
+      <span class="ops-brain-figure__flow">
+        <span class="ops-brain-figure__dir ops-brain-figure__dir--stack">↓ Write at end</span>
+        <span class="ops-brain-figure__dir ops-brain-figure__dir--row">Write at end →</span>
+      </span>
+    </div>
+    <div class="ops-brain-figure__node ops-brain-figure__node--linear">
+      <span class="ops-brain-figure__label">Linear</span>
+      <span class="ops-brain-figure__meta">Ops brain · durable</span>
+    </div>
+    <div class="ops-brain-figure__rule">
+      <span class="ops-brain-figure__rule-bridge" aria-hidden="true">
+        <span class="ops-brain-figure__rule-arrow"></span>
+        <span class="ops-brain-figure__rule-label">requires</span>
+      </span>
+      <div class="ops-brain-figure__node ops-brain-figure__node--rule">
+        <span class="ops-brain-figure__label">Harness instruction</span>
+        <span class="ops-brain-figure__meta">Read + write every session</span>
       </div>
     </div>
   </div>
-  <figcaption>Temporary agent session. Durable Linear ops brain. The harness instruction forces the read and write between them. In Cursor that is a rule. Elsewhere it is project instructions, <code>CLAUDE.md</code>, or whatever your harness loads every session.</figcaption>
+  <figcaption>Temporary agent session. Durable Linear ops brain. The harness instruction requires the read and write between them. In Cursor that is a rule. Elsewhere it is project instructions, <code>CLAUDE.md</code>, or whatever your harness loads every session.</figcaption>
 </figure>
 
 **Durable memory = curated Linear docs.** The chat is temporary. Capture only what should survive.
