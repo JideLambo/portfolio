@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 import { Resvg } from '@resvg/resvg-js'
-import { siteAuthor, siteName, siteTagline, siteUrl } from '@shared/lib/site'
+import { siteName, siteTagline, siteUrl } from '@shared/lib/site'
 import type { APIContext, GetStaticPaths } from 'astro'
 import satori from 'satori'
 import { html } from 'satori-html'
@@ -15,16 +15,16 @@ const readFont = (file: string) =>
 
 const fonts = [
   {
-    data: readFont('SourceSerif4-Regular.ttf'),
-    name: 'Source Serif 4',
+    data: readFont('CourierPrime-Regular.ttf'),
+    name: 'Courier Prime',
     style: 'normal' as const,
     weight: 400 as const,
   },
   {
-    data: readFont('SourceSerif4-SemiBold.ttf'),
-    name: 'Source Serif 4',
+    data: readFont('CourierPrime-Bold.ttf'),
+    name: 'Courier Prime',
     style: 'normal' as const,
-    weight: 600 as const,
+    weight: 700 as const,
   },
 ]
 
@@ -39,6 +39,20 @@ const truncate = (value: string, max = 120) =>
   value.length > max ? `${value.slice(0, max - 1).trimEnd()}…` : value
 
 const siteHost = new URL(siteUrl).host
+
+const og = {
+  accent: '#0066e3',
+  ink: '#222a4c',
+  muted: '#5f647c',
+  paper: '#fbfdff',
+} as const
+
+/** Satori ignores CSS radial-gradient tiles; paint paper + dots under transparent content. */
+const withPaperGrid = (svg: string) =>
+  svg.replace(
+    /<svg([^>]*)>/,
+    `<svg$1><defs><pattern id="og-dots" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="${og.ink}" fill-opacity="0.1"/></pattern></defs><rect width="100%" height="100%" fill="${og.paper}"/><rect width="100%" height="100%" fill="url(#og-dots)"/>`,
+  )
 
 export const getStaticPaths = (async () => {
   const posts = await getPublishedPosts()
@@ -78,15 +92,12 @@ export const getStaticPaths = (async () => {
 
 const card = ({ title, description }: OgCard) =>
   html(`
-    <div style="height:100%;width:100%;display:flex;align-items:center;justify-content:center;background-color:#0d0d0f;color:#ededee;padding:96px 88px;font-family:'Source Serif 4';">
-      <div style="display:flex;flex-direction:column;flex:1;justify-content:center;border-left:10px solid #ff6f4d;padding-left:48px;">
-        <div style="display:flex;font-size:26px;font-weight:400;letter-spacing:8px;text-transform:uppercase;color:#9a9aa2;margin-bottom:28px;">${escapeHtml(siteHost)}</div>
-        <div style="display:flex;font-size:60px;font-weight:600;line-height:1.08;letter-spacing:-2px;">${escapeHtml(title)}</div>
-        <div style="display:flex;font-size:30px;font-weight:400;color:#9a9aa2;line-height:1.35;margin-top:26px;">${escapeHtml(truncate(description, 105))}</div>
-        <div style="display:flex;align-items:center;gap:14px;margin-top:36px;font-size:24px;color:#9a9aa2;">
-          <span style="display:flex;width:16px;height:16px;background-color:#ff6f4d;"></span>
-          <span style="display:flex;">${escapeHtml(siteAuthor)}</span>
-        </div>
+    <div style="height:100%;width:100%;display:flex;align-items:center;justify-content:center;background-color:transparent;color:${og.ink};padding:96px 88px;font-family:'Courier Prime';">
+      <div style="display:flex;flex-direction:column;flex:1;justify-content:center;">
+        <div style="display:flex;font-size:26px;font-weight:400;letter-spacing:8px;text-transform:uppercase;color:${og.muted};margin-bottom:28px;">${escapeHtml(siteHost)}</div>
+        <div style="display:flex;width:72px;height:4px;background-color:${og.accent};margin-bottom:28px;"></div>
+        <div style="display:flex;font-size:60px;font-weight:700;line-height:1.08;letter-spacing:-2px;color:${og.ink};">${escapeHtml(title)}</div>
+        <div style="display:flex;font-size:30px;font-weight:400;color:${og.muted};line-height:1.35;margin-top:26px;">${escapeHtml(truncate(description, 105))}</div>
       </div>
     </div>
   `)
@@ -98,7 +109,9 @@ export async function GET({ props }: APIContext) {
     typeof satori
   >[0]
 
-  const svg = await satori(markup, { fonts, height: 630, width: 1200 })
+  const svg = withPaperGrid(
+    await satori(markup, { fonts, height: 630, width: 1200 }),
+  )
 
   const png = new Resvg(svg, {
     fitTo: { mode: 'width', value: 1200 },
