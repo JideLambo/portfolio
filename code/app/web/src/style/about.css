@@ -1,4 +1,38 @@
-/* About page: conversation-style recent / career lists. */
+/* About page: hero with photo + conversation-style lists. */
+
+.about-hero {
+  display: grid;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.about-hero__photo {
+  display: block;
+  width: min(12.5rem, 48vw);
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border: var(--border-thin);
+  background: var(--bg-subtle);
+}
+
+@media (width >= 40rem) {
+  .about-hero {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 2rem;
+  }
+
+  .about-hero__copy {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .about-hero__photo {
+    grid-column: 2;
+    grid-row: 1;
+    width: 16.5rem;
+  }
+}
 
 .about-chat {
   margin: 0;
