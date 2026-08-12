@@ -1,6 +1,6 @@
 # Jide Lambo
 
-> Software designer who builds products. Site: https://jidelambo.com
+> Product design engineer. I ship products and the AI agent workflows around it. Site: https://jidelambo.com
 
 Personal site for Jide Lambo. Nav: Home, About, Writing. Hosted on Vercel.
 

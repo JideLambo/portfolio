@@ -1,0 +1,65 @@
+/* Conceptual diagram for ai-prompt-install (FIR-662)
+ * Pattern: linear-as-the-ops-brain.css
+ *
+ * UI screenshot (Figure B) uses default .prose img / figcaption styles.
+ */
+
+.install-figure {
+  margin: 1.75em 0;
+}
+
+.install-figure__diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.65rem;
+  padding: 1.1rem 1rem;
+  border: var(--border-thin);
+  background: var(--bg-subtle);
+}
+
+.install-figure__actors,
+.install-figure__outcomes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.install-figure__node {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.55rem 0.75rem;
+  border: var(--border-thin);
+  background: var(--bg);
+  font-size: 0.875em;
+  line-height: 1.3;
+  text-align: center;
+  min-width: 5.5rem;
+}
+
+.install-figure__node--contract {
+  align-self: center;
+  min-width: min(100%, 18rem);
+}
+
+.install-figure__node--out {
+  min-width: 7rem;
+}
+
+.install-figure__label {
+  font-weight: 600;
+}
+
+.install-figure__meta {
+  color: var(--text-muted);
+  font-size: 0.8em;
+}
+
+.install-figure__arrow {
+  text-align: center;
+  opacity: 0.55;
+  line-height: 1;
+  color: var(--text-muted);
+}
