@@ -1,16 +1,23 @@
 ---
 import Layout from '@/layout/Layout.astro'
-import { siteTagline } from '@shared/lib/site'
+import { aboutLead } from '@shared/lib/site'
 ---
 
-<Layout
-  title="About"
-  description="Product design engineer. I ship products and the AI agent workflows around it. FirstDistro, UseLay, and product design at Sinch."
->
+<Layout title="About" description={aboutLead}>
   <div class="wrap">
-    <header class="hero">
-      <h1>Hi, I'm Jide</h1>
-      <p class="lead hero__lead">{siteTagline}</p>
+    <header class="hero about-hero">
+      <img
+        class="about-hero__photo"
+        src="/jide.jpg"
+        alt="Jide Lambo"
+        width="400"
+        height="400"
+        decoding="async"
+      />
+      <div class="about-hero__copy">
+        <h1>Hi, I'm Jide</h1>
+        <p class="lead hero__lead">{aboutLead}</p>
+      </div>
     </header>
 
     <section class="home-section" aria-labelledby="recent">
@@ -54,7 +61,7 @@ import { siteTagline } from '@shared/lib/site'
             Sinch
             <span class="visually-hidden"> (opens in new tab)</span>
           </a>
-          , working on inbox and AI for messaging at scale.
+          , working on intelligent inbox and AI messaging at scale for businesses.
         </li>
       </ul>
     </section>

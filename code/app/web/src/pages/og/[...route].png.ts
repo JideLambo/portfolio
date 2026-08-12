@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 import { Resvg } from '@resvg/resvg-js'
-import { siteName, siteTagline, siteUrl } from '@shared/lib/site'
+import { aboutLead, siteName, siteTagline, siteUrl } from '@shared/lib/site'
 import type { APIContext, GetStaticPaths } from 'astro'
 import satori from 'satori'
 import { html } from 'satori-html'
@@ -65,7 +65,7 @@ export const getStaticPaths = (async () => {
     {
       params: { route: 'about' },
       props: {
-        description: siteTagline,
+        description: aboutLead,
         title: 'About',
       },
     },
