@@ -11,10 +11,11 @@ export const xDiscussUrl = (pageUrl: string) =>
     text: `${pageUrl} @${siteXHandle}`,
   })}`
 
-export const siteTagline = 'Software designer who builds products.'
+export const siteTagline =
+  'Product design engineer. I ship products and the AI agent workflows around it.'
 
 export const siteDescription =
-  'Jide Lambo. Software designer who builds products.'
+  'Jide Lambo. Product design engineer. I ship products and the AI agent workflows around it.'
 
 export type NavItem = {
   external?: boolean
