@@ -119,11 +119,18 @@
       }
     },
     {
-      "includes": ["code/app/web/script/**/*.ts"],
+      "includes": ["code/app/web/script/**/*.{ts,mjs}"],
       "linter": {
         "rules": {
           "suspicious": {
-            "noConsole": "off"
+            "noConsole": "off",
+            "noShadow": "off"
+          },
+          "style": {
+            "useBlockStatements": "off"
+          },
+          "correctness": {
+            "noUnusedVariables": "off"
           }
         }
       }

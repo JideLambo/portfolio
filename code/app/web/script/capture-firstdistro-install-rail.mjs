@@ -1,32 +1,96 @@
-import { chromium } from 'playwright'
 import { mkdir } from 'node:fs/promises'
 import path from 'node:path'
+import { chromium } from 'playwright'
 
 const outDir = path.resolve('public/work/firstdistro-install-rail')
-const baseUrl = process.env.FIRSTDISTRO_BASE_URL ?? 'http://localhost:3000'
+const baseUrl = process.env.FIRSTDISTRO_BASE_URL ?? 'https://firstdistro.com'
 const mailpitUrl = process.env.MAILPIT_URL ?? 'http://127.0.0.1:8025'
+const storageStatePath = process.env.FIRSTDISTRO_STORAGE_STATE ?? null
 const stamp = Date.now()
-const email = process.env.CAPTURE_EMAIL ?? `portfolio-gre17-${stamp}@mailinator.com`
-const password = process.env.CAPTURE_PASSWORD ?? `FdCapture!${stamp}`
+const captureEmail = process.env.CAPTURE_EMAIL ?? null
+const capturePassword = process.env.CAPTURE_PASSWORD ?? null
+const email = captureEmail ?? `portfolio-gre17-${stamp}@mailinator.com`
+const password = capturePassword ?? `FdCapture!${stamp}`
 const name = 'Portfolio Capture'
 const inbox = email.split('@')[0]
 const companyName = `Portfolio Demo ${stamp}`
 const companyDomain = `portfoliodemo-${stamp}.com`
 
-async function screenshot(page, fileName, selector) {
+const viewport = { height: 900, width: 1440 }
+const deviceScaleFactor = 2
+
+const outputs = {
+  emptyAi: 'firstdistro-install-rail-empty-ai.png',
+  prompt: 'firstdistro-install-prompt.png',
+  verify: 'firstdistro-install-verify.png',
+}
+
+const hideFloatingChrome = async page => {
+  await page.evaluate(() => {
+    for (const element of document.querySelectorAll(
+      'button, a, [role="button"]',
+    )) {
+      if (element.textContent?.includes('Ask FirstDistro')) {
+        element.style.setProperty('display', 'none', 'important')
+      }
+    }
+  })
+}
+
+const screenshotInstallTab = async (installSection, fileName) => {
   const file = path.join(outDir, fileName)
-  if (selector) {
-    const el = page.locator(selector).first()
-    await el.waitFor({ state: 'visible', timeout: 30_000 })
-    await el.screenshot({ path: file })
-  } else {
-    await page.screenshot({ path: file, fullPage: false })
+  const sectionBox = await installSection.boundingBox()
+  const headingBox = await installSection
+    .getByRole('heading', { name: /start seeing who needs attention/i })
+    .boundingBox()
+  const terminalBox = await installSection
+    .getByText('npx firstdistro init')
+    .boundingBox()
+
+  if (sectionBox && headingBox && terminalBox) {
+    await installSection.screenshot({
+      clip: {
+        height: terminalBox.y + terminalBox.height - headingBox.y + 20,
+        width: sectionBox.width,
+        x: 0,
+        y: headingBox.y - sectionBox.y,
+      },
+      path: file,
+    })
+    console.log(`saved ${file}`)
+    return
   }
+
+  await installSection.screenshot({ path: file })
+  console.log(`saved ${file}`)
+}
+
+const dashboardInstallSection = page =>
+  page
+    .locator('section')
+    .filter({
+      has: page.getByRole('heading', {
+        name: /start seeing who needs attention/i,
+      }),
+    })
+    .first()
+
+const settingsVerifyPanel = page =>
+  page
+    .getByRole('heading', { name: /^install firstdistro$/i })
+    .locator('xpath=ancestor::div[contains(@class,"mx-auto")][1]')
+
+async function screenshotLocator(locator, fileName) {
+  const file = path.join(outDir, fileName)
+  await locator.waitFor({ state: 'visible', timeout: 30_000 })
+  await locator.screenshot({ path: file })
   console.log(`saved ${file}`)
 }
 
 function extractVerificationLink(text) {
-  const match = text.match(/https?:\/\/[^\s"'<>]+(?:verify|confirm|callback)[^\s"'<>]*/i)
+  const match = text.match(
+    /https?:\/\/[^\s"'<>]+(?:verify|confirm|callback)[^\s"'<>]*/i,
+  )
   return match?.[0]?.replace(/[)>.,\]]+$/, '') ?? null
 }
 
@@ -39,10 +103,12 @@ async function fetchMailpitVerificationLink() {
   const payload = await response.json()
   const messages = payload.messages ?? payload ?? []
   for (const message of messages) {
-    const detailResponse = await fetch(`${mailpitUrl}/api/v1/message/${message.ID}`)
+    const detailResponse = await fetch(
+      `${mailpitUrl}/api/v1/message/${message.ID}`,
+    )
     if (!detailResponse.ok) continue
     const detail = await detailResponse.json()
-    const recipients = detail.To?.map((entry) => entry.Address).join(' ') ?? ''
+    const recipients = detail.To?.map(entry => entry.Address).join(' ') ?? ''
     if (!recipients.includes(email)) continue
     const body = [detail.Text, detail.HTML].filter(Boolean).join('\n')
     const link = extractVerificationLink(body)
@@ -68,7 +134,10 @@ async function fetchMailinatorVerificationLink() {
     )
     if (!detailResponse.ok) continue
     const detail = await detailResponse.json()
-    const body = [detail.parts?.map((part) => part.body).join('\n'), detail.subject]
+    const body = [
+      detail.parts?.map(part => part.body).join('\n'),
+      detail.subject,
+    ]
       .filter(Boolean)
       .join('\n')
     const link = extractVerificationLink(body)
@@ -89,7 +158,9 @@ async function completeEmailVerification(page) {
     if (baseUrl.includes('localhost') || baseUrl.includes('127.0.0.1')) {
       verificationLink = await fetchMailpitVerificationLink().catch(() => null)
     } else if (email.endsWith('@mailinator.com')) {
-      verificationLink = await fetchMailinatorVerificationLink().catch(() => null)
+      verificationLink = await fetchMailinatorVerificationLink().catch(
+        () => null,
+      )
     }
 
     if (!verificationLink) {
@@ -112,144 +183,162 @@ async function completeOnboarding(page) {
     await page.getByRole('button', { name: /^continue$/i }).click({
       timeout: 15_000,
     })
-    await page.waitForURL((url) => !url.pathname.includes('complete-profile'), {
+    await page.waitForURL(url => !url.pathname.includes('complete-profile'), {
       timeout: 60_000,
     })
   }
 
   if (page.url().includes('select-plan')) {
-    await page.getByRole('button', { name: /free|continue|start/i }).click({
-      timeout: 10_000,
-    }).catch(() => {})
+    await page
+      .getByRole('button', { name: /free|continue|start/i })
+      .click({
+        timeout: 10_000,
+      })
+      .catch(() => {})
     await page.waitForTimeout(2000)
   }
 }
 
+async function ensureDashboard(page) {
+  await page.goto(`${baseUrl}/dashboard`, { waitUntil: 'networkidle' })
+  await page.waitForTimeout(2000)
+  await dashboardInstallSection(page).waitFor({
+    state: 'visible',
+    timeout: 30_000,
+  })
+}
+
+async function captureDashboardFrames(page) {
+  const installSection = dashboardInstallSection(page)
+
+  await page.getByRole('tab', { name: /^install$/i }).click()
+  await page.waitForTimeout(300)
+  await hideFloatingChrome(page)
+  await screenshotInstallTab(installSection, outputs.emptyAi)
+
+  await page.getByRole('tab', { name: /^manual$/i }).click()
+  await page.waitForTimeout(400)
+  await hideFloatingChrome(page)
+
+  const showFullPrompt = page
+    .getByRole('button', { name: /show full prompt/i })
+    .or(page.getByText(/^show full prompt$/i))
+  if (await showFullPrompt.count()) {
+    await showFullPrompt.first().click()
+    await page.waitForTimeout(400)
+  }
+
+  await screenshotLocator(installSection, outputs.prompt)
+}
+
+async function captureSettingsVerify(page) {
+  await page.goto(`${baseUrl}/dashboard/settings`, {
+    waitUntil: 'networkidle',
+  })
+  await page.waitForTimeout(1500)
+  await page
+    .getByRole('link', { name: /configure/i })
+    .first()
+    .click({
+      timeout: 15_000,
+    })
+  await page.waitForTimeout(1500)
+  await hideFloatingChrome(page)
+
+  const verifyPanel = settingsVerifyPanel(page)
+  await verifyPanel
+    .getByText(/live events/i)
+    .first()
+    .waitFor({ state: 'visible', timeout: 30_000 })
+  await screenshotLocator(verifyPanel, outputs.verify)
+}
+
 const browser = await chromium.launch({ headless: true })
-const context = await browser.newContext({
-  viewport: { width: 1440, height: 900 },
-  deviceScaleFactor: 2,
-})
+const context = storageStatePath
+  ? await browser.newContext({
+      deviceScaleFactor,
+      storageState: storageStatePath,
+      viewport,
+    })
+  : await browser.newContext({
+      deviceScaleFactor,
+      viewport,
+    })
 const page = await context.newPage()
 
 await mkdir(outDir, { recursive: true })
 
 try {
   console.log(`baseUrl=${baseUrl}`)
-  await page.goto(`${baseUrl}/auth/register`, { waitUntil: 'networkidle' })
-  await page.locator('#name').fill(name)
-  await page.locator('#email').fill(email)
-  await page.locator('#password').fill(password)
-  await page.getByRole('button', { name: /create account/i }).click()
+  await hideFloatingChrome(page)
 
-  await page.waitForURL(
-    (url) => !url.pathname.includes('/auth/register'),
-    { timeout: 90_000 },
-  ).catch(async () => {
-    await page.waitForTimeout(5000)
-  })
-
-  if (page.url().includes('/auth/register')) {
-    const bodyText = await page.locator('body').innerText()
-    await page.screenshot({
-      path: path.join(outDir, 'capture-register-error.png'),
-      fullPage: true,
-    })
-    throw new Error(`Still on register after submit. URL: ${page.url()}\n${bodyText.slice(0, 800)}`)
-  }
-
-  await completeEmailVerification(page)
-
-  if (page.url().includes('/auth/login')) {
+  if (storageStatePath) {
+    await ensureDashboard(page)
+  } else if (captureEmail && capturePassword) {
+    await page.goto(`${baseUrl}/auth/login`, { waitUntil: 'networkidle' })
     await page.locator('#email').fill(email)
     await page.locator('#password').fill(password)
-    await page.getByRole('button', { name: /^sign in$/i }).click()
-    await page.waitForURL((url) => !url.pathname.includes('/auth/login'), {
+    await page
+      .locator('form')
+      .getByRole('button', { name: /^sign in$/i })
+      .click()
+    await page.waitForURL(url => !url.pathname.includes('/auth/login'), {
       timeout: 90_000,
     })
-  }
-
-  await completeOnboarding(page)
-
-  await page.goto(`${baseUrl}/dashboard`, { waitUntil: 'networkidle' })
-  await page.waitForTimeout(2000)
-
-  const installCard = page
-    .locator('div')
-    .filter({ hasText: /start seeing who needs attention/i })
-    .filter({ has: page.getByRole('tab', { name: /^install$/i }) })
-    .first()
-  await installCard.waitFor({ state: 'visible', timeout: 30_000 })
-
-  await page.getByRole('tab', { name: /^install$/i }).click()
-  await installCard.screenshot({ path: path.join(outDir, 'firstdistro-install-rail-empty-ai.png') })
-  console.log(`saved ${path.join(outDir, 'firstdistro-install-rail-empty-ai.png')}`)
-
-  await page.getByRole('tab', { name: /^email$/i }).click()
-  await installCard.screenshot({ path: path.join(outDir, 'firstdistro-install-email-tab.png') })
-  console.log(`saved ${path.join(outDir, 'firstdistro-install-email-tab.png')}`)
-
-  await page.getByRole('tab', { name: /^install$/i }).click()
-  await installCard.screenshot({ path: path.join(outDir, 'firstdistro-install-prompt.png') })
-  console.log(`saved ${path.join(outDir, 'firstdistro-install-prompt.png')}`)
-
-  await page.goto(`${baseUrl}/dashboard/settings`, { waitUntil: 'networkidle' })
-  await page.waitForTimeout(1500)
-  await page.getByRole('link', { name: /configure/i }).first().click({
-    timeout: 15_000,
-  })
-  await page.waitForTimeout(1500)
-
-  const settingsInstallCard = page
-    .locator('div')
-    .filter({ hasText: /^install firstdistro$/i })
-    .locator('xpath=ancestor::div[contains(@class,"rounded")][1]')
-    .first()
-
-  if (await settingsInstallCard.isVisible().catch(() => false)) {
-    await settingsInstallCard.screenshot({
-      path: path.join(outDir, 'firstdistro-install-rail-settings.png'),
-    })
+    await completeOnboarding(page)
+    await ensureDashboard(page)
   } else {
-    const fallbackCard = page
-      .locator('div')
-      .filter({ hasText: /install firstdistro/i })
-      .filter({ has: page.getByRole('tab', { name: /^install$/i }) })
-      .first()
-    await fallbackCard.screenshot({
-      path: path.join(outDir, 'firstdistro-install-rail-settings.png'),
-    })
-  }
-  console.log(`saved ${path.join(outDir, 'firstdistro-install-rail-settings.png')}`)
+    await page.goto(`${baseUrl}/auth/register`, { waitUntil: 'networkidle' })
+    await page.locator('#name').fill(name)
+    await page.locator('#email').fill(email)
+    await page.locator('#password').fill(password)
+    await page.getByRole('button', { name: /create account/i }).click()
 
-  const liveEventsCard = page
-    .locator('div')
-    .filter({ hasText: /live events/i })
-    .filter({ hasText: /waiting for first event/i })
-    .first()
-  if (await liveEventsCard.isVisible().catch(() => false)) {
-    await liveEventsCard.screenshot({
-      path: path.join(outDir, 'firstdistro-install-verify.png'),
-    })
-  } else {
-    await page.goto(`${baseUrl}/dashboard`, { waitUntil: 'networkidle' })
-    await page.waitForTimeout(1500)
-    const verifyCard = page
-      .locator('div')
-      .filter({ hasText: /start seeing who needs attention/i })
-      .filter({ has: page.getByRole('tab', { name: /^install$/i }) })
-      .first()
-    await verifyCard.screenshot({
-      path: path.join(outDir, 'firstdistro-install-verify.png'),
-    })
-  }
-  console.log(`saved ${path.join(outDir, 'firstdistro-install-verify.png')}`)
+    await page
+      .waitForURL(url => !url.pathname.includes('/auth/register'), {
+        timeout: 90_000,
+      })
+      .catch(async () => {
+        await page.waitForTimeout(5000)
+      })
 
-  console.log(JSON.stringify({ ok: true, email, url: page.url(), baseUrl }))
+    if (page.url().includes('/auth/register')) {
+      const bodyText = await page.locator('body').innerText()
+      await page.screenshot({
+        fullPage: true,
+        path: path.join(outDir, 'capture-register-error.png'),
+      })
+      throw new Error(
+        `Still on register after submit. URL: ${page.url()}\n${bodyText.slice(0, 800)}`,
+      )
+    }
+
+    await completeEmailVerification(page)
+
+    if (page.url().includes('/auth/login')) {
+      await page.locator('#email').fill(email)
+      await page.locator('#password').fill(password)
+      await page
+        .locator('form')
+        .getByRole('button', { name: /^sign in$/i })
+        .click()
+      await page.waitForURL(url => !url.pathname.includes('/auth/login'), {
+        timeout: 90_000,
+      })
+    }
+
+    await completeOnboarding(page)
+    await ensureDashboard(page)
+  }
+
+  await captureDashboardFrames(page)
+  await captureSettingsVerify(page)
+
+  console.log(JSON.stringify({ baseUrl, email, ok: true, url: page.url() }))
 } catch (error) {
   await page.screenshot({
-    path: path.join(outDir, 'capture-error.png'),
     fullPage: true,
+    path: path.join(outDir, 'capture-error.png'),
   })
   console.error(error)
   process.exit(1)

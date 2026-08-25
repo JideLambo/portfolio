@@ -61,9 +61,12 @@ Vite overrides in root `package.json` keep `@vitejs/plugin-react` on v6 with Ast
 | `/writing` | Essays |
 | `/writing/{slug}` | Post |
 
-Redirects (see `vercel.json`): `/blog` → `/writing`, `/projects` and `/work` → `/about`, `/reading` → `/`.
+| `/work` | Design case studies (FirstDistro, UseLay) |
+| `/work/{slug}` | Case study |
 
-Nav: Home · About · Writing.
+Redirects (see `vercel.json`): `/blog` → `/writing`, `/projects` → `/about`, `/reading` → `/`.
+
+Nav: Home · About · Work · Writing.
 
 ---
 

@@ -1,0 +1,49 @@
+---
+import type { WorkFrame } from '@/lib/work'
+
+type Props = {
+  frame: WorkFrame
+  step?: string
+}
+
+const { frame, step } = Astro.props
+const frameStyle = frame.displayMaxWidth
+  ? `--work-frame-max: ${frame.displayMaxWidth}px`
+  : undefined
+---
+
+<figure
+  class="work-frame work-frame--focus"
+  style={frameStyle}
+>
+  {
+    step && (
+      <p class="work-frame__step" aria-hidden="true">
+        {step}
+      </p>
+    )
+  }
+  <img
+    class="work-frame__img"
+    src={frame.src}
+    alt={frame.alt}
+    width={frame.width}
+    height={frame.height}
+    loading="lazy"
+    decoding="async"
+  />
+  {
+    frame.caption && (
+      <figcaption class="work-frame__caption">{frame.caption}</figcaption>
+    )
+  }
+  {
+    frame.callouts && frame.callouts.length > 0 && (
+      <ul class="work-frame__callouts">
+        {frame.callouts.map(callout => (
+          <li>{callout}</li>
+        ))}
+      </ul>
+    )
+  }
+</figure>

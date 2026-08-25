@@ -3,6 +3,11 @@
 
 # Local script outputs
 /.out/
+**/.playwright-*-profile/
+code/app/web/public/work/**/capture-error.png
+code/app/web/public/work/**/_full-*.png
+code/app/web/public/work/**/_after-submit-check.png
+code/app/web/public/work/focus-manifest.json
 
 # Logs
 logs

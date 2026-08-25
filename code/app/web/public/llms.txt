@@ -2,7 +2,7 @@
 
 > Product design engineer. I ship products and the AI agent workflows around it. Site: https://jidelambo.com
 
-Personal site for Jide Lambo. Nav: Home, About, Writing. Hosted on Vercel.
+Personal site for Jide Lambo. Nav: Home, About, Work, Writing. Hosted on Vercel.
 
 ## About
 
@@ -17,6 +17,13 @@ Personal site for Jide Lambo. Nav: Home, About, Writing. Hosted on Vercel.
 - [FirstDistro](https://firstdistro.com): Account intelligence that catches silent churn and proves the revenue you kept
 - [UseLay](https://uselay.com): In-app feedback that lets users point at what's broken instead of describing it
 - Sinch: Employer only (https://sinch.com). Not a founder product
+
+## Work
+
+Index: https://jidelambo.com/work
+
+- [FirstDistro install rail](https://jidelambo.com/work/firstdistro-install-rail): One install contract for founders, developers, and coding agents
+- [UseLay conversational follow-up](https://jidelambo.com/work/uselay-conversational-follow-up): Five-second capture, then at most one clarifying question
 
 ## Writing
 
