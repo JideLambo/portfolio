@@ -1,0 +1,147 @@
+---
+import WorkFrame from '@/component/WorkFrame.astro'
+import Layout from '@/layout/Layout.astro'
+import { getWorkCase, getWorkCases } from '@/lib/work'
+
+export const getStaticPaths = () =>
+  getWorkCases().map(workCase => ({
+    params: { slug: workCase.slug },
+  }))
+
+const { slug } = Astro.params
+const workCase = slug ? getWorkCase(slug) : undefined
+
+if (!workCase) {
+  return Astro.redirect('/404')
+}
+---
+
+<Layout title={workCase.title} description={workCase.description}>
+  <article class="wrap prose">
+    <header class="article__header">
+      <p class="muted">
+        <a href={workCase.productUrl} rel="noopener noreferrer" target="_blank">
+          {workCase.product}
+          <span class="visually-hidden"> (opens in new tab)</span>
+        </a>
+      </p>
+      <h1 class="article__title">{workCase.title}</h1>
+      <p class="lead">{workCase.oneLiner}</p>
+    </header>
+
+    <figure
+      class="work-case__hero work-frame--focus"
+      style={
+        workCase.hero.displayMaxWidth
+          ? `--work-frame-max: ${workCase.hero.displayMaxWidth}px`
+          : undefined
+      }
+    >
+      <img
+        src={workCase.hero.src}
+        alt={workCase.hero.alt}
+        width={workCase.hero.width}
+        height={workCase.hero.height}
+        loading="eager"
+        decoding="async"
+      />
+    </figure>
+
+    <section class="work-section" aria-labelledby="role">
+      <h2 id="role">My role</h2>
+      <p>{workCase.role}</p>
+    </section>
+
+    <section class="work-section" aria-labelledby="why">
+      <h2 id="why">Why this problem now</h2>
+      <p>{workCase.whyNow}</p>
+    </section>
+
+    <section class="work-section" aria-labelledby="bet">
+      <h2 id="bet">The bet</h2>
+      <p>{workCase.bet}</p>
+    </section>
+
+    <section class="work-section" aria-labelledby="decisions">
+      <h2 id="decisions">Three decisions</h2>
+      {
+        workCase.decisions.map(decision => (
+          <div class="work-decision">
+            <h3>{decision.title}</h3>
+            <dl>
+              <div>
+                <dt>Context</dt>
+                <dd>{decision.context}</dd>
+              </div>
+              <div>
+                <dt>Rejected</dt>
+                <dd>{decision.rejected}</dd>
+              </div>
+              <div>
+                <dt>Shipped</dt>
+                <dd>{decision.shipped}</dd>
+              </div>
+              <div>
+                <dt>Why</dt>
+                <dd>{decision.why}</dd>
+              </div>
+            </dl>
+            {decision.frame && <WorkFrame frame={decision.frame} />}
+          </div>
+        ))
+      }
+    </section>
+
+    <section class="work-section" aria-labelledby="flow">
+      <h2 id="flow">Key flow</h2>
+      <div class="work-flow">
+        {
+          workCase.flow.map((frame, index) => (
+            <WorkFrame
+              frame={frame}
+              step={`${index + 1} of ${workCase.flow.length}`}
+            />
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="work-section" aria-labelledby="before-after">
+      <h2 id="before-after">Before vs after</h2>
+      <table class="work-table">
+        <thead>
+          <tr>
+            <th scope="col">Before</th>
+            <th scope="col">After</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            workCase.beforeAfter.map(row => (
+              <tr>
+                <td>{row.before}</td>
+                <td>{row.after}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </section>
+
+    <section class="work-section" aria-labelledby="outcome">
+      <h2 id="outcome">Outcome</h2>
+      <p>{workCase.outcome}</p>
+      {
+        workCase.depthLink && (
+          <p>
+            <a href={workCase.depthLink.href}>{workCase.depthLink.label} →</a>
+          </p>
+        )
+      }
+    </section>
+
+    <footer class="work-case__footer">
+      <a class="work-case__back" href="/work">← All work</a>
+    </footer>
+  </article>
+</Layout>

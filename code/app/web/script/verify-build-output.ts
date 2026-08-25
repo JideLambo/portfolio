@@ -36,6 +36,9 @@ const listXmlFiles = (directory: string): string[] => {
 
 assertExists('index.html')
 assertExists('about/index.html')
+assertExists('work/index.html')
+assertExists('work/firstdistro-install-rail/index.html')
+assertExists('work/uselay-conversational-follow-up/index.html')
 assertExists('writing/index.html')
 assertExists('og/writing.png')
 assertExists('rss.xml')
@@ -112,12 +115,12 @@ assert(
   'vercel.json should redirect /projects to /about',
 )
 assert(
-  hasRedirect('/work', '/about'),
-  'vercel.json should redirect /work to /about',
-)
-assert(
   hasRedirect('/reading', '/'),
   'vercel.json should redirect /reading to /',
+)
+assert(
+  !hasRedirect('/work', '/about'),
+  'vercel.json must not redirect /work to /about',
 )
 
 const sitemap = listXmlFiles(distPath)
@@ -127,6 +130,7 @@ assert(
   sitemap.includes(`${siteUrl}/writing`),
   'Sitemap should include /writing URLs',
 )
+assert(sitemap.includes(`${siteUrl}/work`), 'Sitemap should include /work URLs')
 assert(
   !sitemap.includes(`${siteUrl}/blog`),
   'Sitemap must not include /blog URLs',

@@ -1,0 +1,54 @@
+---
+import Layout from '@/layout/Layout.astro'
+import { getWorkCases } from '@/lib/work'
+
+const cases = getWorkCases()
+---
+
+<Layout
+  title="Work"
+  description="Design case studies from products I founded and still ship."
+>
+  <div class="wrap">
+    <header class="hero">
+      <h1>Work</h1>
+      <p class="lead work-index__lead">
+        Two recent flows from products I founded. Each covers the problem, what I
+        rejected, and what shipped.
+      </p>
+    </header>
+
+    <section class="home-section" aria-label="Case studies">
+      <ul class="work-card-list">
+        {
+          cases.map(workCase => (
+            <li class="work-card">
+              <a class="work-card__link" href={`/work/${workCase.slug}`}>
+                <div class="work-card__media">
+                  <img
+                    src={workCase.hero.src}
+                    alt=""
+                    width={workCase.hero.width}
+                    height={workCase.hero.height}
+                    style={
+                      workCase.hero.displayMaxWidth
+                        ? `--work-frame-max: ${workCase.hero.displayMaxWidth}px`
+                        : undefined
+                    }
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                <div class="work-card__copy">
+                  <span class="work-card__product">{workCase.product}</span>
+                  <span class="work-card__title">{workCase.title}</span>
+                  <span class="work-card__desc">{workCase.oneLiner}</span>
+                </div>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </div>
+</Layout>

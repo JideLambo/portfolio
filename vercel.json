@@ -21,11 +21,6 @@
       "permanent": true
     },
     {
-      "source": "/work",
-      "destination": "/about",
-      "permanent": true
-    },
-    {
       "source": "/reading",
       "destination": "/",
       "permanent": true
