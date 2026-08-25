@@ -33,6 +33,7 @@ export type WorkCase = {
   oneLiner: string
   outcome: string
   product: string
+  productContext?: string
   productUrl: string
   role: string
   slug: string
@@ -180,6 +181,8 @@ const workCases: WorkCase[] = [
     outcome:
       'Shipped in the FirstDistro dashboard and npm package. Install tab is the default empty-state story. Manual and Email remain peers.',
     product: 'FirstDistro',
+    productContext:
+      'FirstDistro is customer health software for B2B SaaS. It connects product usage, CRM, and revenue signals so teams see which accounts need attention before renewal.',
     productUrl: 'https://firstdistro.com',
     role: 'I founded FirstDistro and own product direction, design, and the shipped install experience. This case is the setup contract I wrote for a world where the installer might be a founder, a developer, or a coding agent in Cursor.',
     slug: 'firstdistro-install-rail',
@@ -191,60 +194,60 @@ const workCases: WorkCase[] = [
     beforeAfter: [
       {
         after: 'At most one follow-up question',
-        before: 'Open "tell us more" textarea after submit',
+        before: 'Open "tell us more" box after every comment',
       },
       {
-        after: 'Terminal done state; skip always wins',
-        before: 'Multi-turn thread in the widget',
+        after: 'Done after one answer or skip',
+        before: 'Back-and-forth thread in the widget',
       },
       {
-        after:
-          'Post-submit state machine; fires only when enrichment changes triage',
+        after: 'Follow-up only when the answer would change what the team does',
         before: 'Follow-up on every comment',
       },
     ],
-    bet: 'Keep the five-second capture. Optionally deepen signal with one bounded follow-up. Not a ticket form. Not a thread.',
+    bet: 'Commenting should stay as fast as pinning on Figma. When the team needs a bit more signal, ask one question. Not a form. Not a chat.',
     decisions: [
       {
         context:
-          'Not every comment needs AI. Follow-up on everything feels like a chatbot.',
+          'Not every comment needs a follow-up. Ask on everything and the tool starts to feel like support chat.',
         frame: frame(
           `${uselayBase}/uselay-conversational-follow-up-compose.png`,
           'UseLay comment compose modal with a short message.',
           {
             callouts: [
-              'Fast capture stays the default path.',
-              'Follow-up fires only after submit, not on every hover.',
+              'Leave a comment in a few seconds.',
+              'Follow-up comes only after submit.',
             ],
           },
         ),
         rejected: 'Always-on chat drawer. Multi-turn thread after submit.',
         shipped:
-          'Post-submit state machine. Follow-up only when enrichment would change triage.',
+          'Ask only after someone submits. Only when the extra answer would change what the team does next.',
         title: 'When to follow up',
-        why: 'The widget is a capture tool, not a support desk.',
+        why: 'UseLay is for critique and capture, not a help desk.',
       },
       {
-        context: 'Open text after submit kills the speed promise.',
+        context:
+          'A big empty text box after submit breaks the pace people liked in the first place.',
         frame: frame(
           `${uselayBase}/uselay-conversational-follow-up-question.png`,
           'UseLay follow-up question asking whether the link did nothing or opened the wrong page.',
           {
             callouts: [
               'One question, not a thread.',
-              'Triage-shaped wording, not open chat.',
+              'Plain wording, not open-ended chat.',
             ],
           },
         ),
-        rejected: '"Tell us more" textarea. Free-form agent ramble.',
+        rejected: '"Tell us more" textarea. Long AI-generated ramble.',
         shipped:
-          'One question. Short answer chips or a single tap. Pre-authored paths where possible.',
+          'One short question. Tap an answer or skip. Pre-written options where we can.',
         title: 'What to ask',
-        why: 'Constrained output beats clever generation for bug signal.',
+        why: 'A tight question beats a clever paragraph for bug reports.',
       },
       {
         context:
-          'One good question can 10x signal. Three questions turn the widget into Intercom.',
+          'One good question can sharpen a report. Three questions turn the widget into Intercom.',
         frame: frame(
           `${uselayBase}/uselay-conversational-follow-up-chips.png`,
           'UseLay follow-up with Skip and Reply controls.',
@@ -257,27 +260,26 @@ const workCases: WorkCase[] = [
         ),
         rejected: 'Thread that keeps going. "Anything else?" loops.',
         shipped:
-          'Terminal done state after answer or skip. No inbox thread in the widget.',
+          'Close after they answer or skip. No conversation history in the widget.',
         title: 'When to stop',
-        why: "Respect the user's original intent: point, comment, leave.",
+        why: 'People came to point, comment, and leave.',
       },
     ],
     description:
-      'How I added one bounded AI step after fast in-app capture without turning the widget into a chat product.',
+      'How I added one optional follow-up question after fast in-app comments, without turning UseLay into a chat product.',
     flow: [
       frame(
         `${uselayBase}/uselay-conversational-follow-up-highlight.png`,
         'UseLay homepage with comment mode active.',
         {
-          caption:
-            'Press C, then click the element. Spatial context at click time.',
+          caption: 'Press C, then click what you want to talk about.',
         },
       ),
       frame(
         `${uselayBase}/uselay-conversational-follow-up-compose.png`,
         'UseLay comment compose modal.',
         {
-          caption: 'Five-second capture. Comment, submit.',
+          caption: 'Leave a short comment and submit.',
         },
       ),
       frame(
@@ -290,18 +292,21 @@ const workCases: WorkCase[] = [
     ],
     hero: frame(
       `${uselayBase}/uselay-conversational-follow-up-question.png`,
-      'UseLay follow-up question after a fast capture.',
+      'UseLay follow-up question after a fast comment.',
     ),
-    oneLiner: 'Five-second capture, then at most one clarifying question.',
+    oneLiner:
+      'Fast comments on live work, then at most one follow-up question.',
     outcome:
-      'Shipped in the UseLay widget. Capture stays fast. Teams get richer signal when the follow-up fires.',
+      'Shipped in the UseLay widget. Commenting stays quick. Teams get a clearer report when the follow-up runs.',
     product: 'UseLay',
+    productContext:
+      'UseLay brings Figma-style commenting to live prototypes. Press a key, click the spot, leave a note. I built it when more designers started prototyping in code but lost the pin-and-comment flow that makes critique sessions work. Without it, teams slipped back to static files just to collect feedback.',
     productUrl: 'https://uselay.com',
-    role: 'I founded UseLay and set the product line: fast in-app capture first, AI second. This case is the follow-up step I added without turning the widget into a support desk or an open chat harness.',
+    role: 'I founded UseLay to fix that gap. This case is a later product decision: one optional follow-up after someone leaves a comment, without turning the tool into a support chat.',
     slug: 'uselay-conversational-follow-up',
     title: 'UseLay conversational follow-up',
     whyNow:
-      'End users want a five-second loop: point, comment, leave. Teams need enough signal to triage. Those goals collide the moment you add a form, a thread, or an always-on chat drawer.',
+      'Pin-and-comment on live work solved the first problem. The next tension was depth. Sometimes the team needs one more detail before they can act on a note. A long form or a chat thread brings back the friction we were trying to remove.',
   },
 ]
 

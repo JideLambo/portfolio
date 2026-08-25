@@ -47,6 +47,15 @@ if (!workCase) {
       />
     </figure>
 
+    {
+      workCase.productContext && (
+        <section class="work-section" aria-labelledby="product">
+          <h2 id="product">What {workCase.product} is</h2>
+          <p>{workCase.productContext}</p>
+        </section>
+      )
+    }
+
     <section class="work-section" aria-labelledby="role">
       <h2 id="role">My role</h2>
       <p>{workCase.role}</p>
