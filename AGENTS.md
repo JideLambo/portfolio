@@ -134,3 +134,11 @@ See `.cursor/commands/bump-dependencies.md` for npm + GHA tracks.
 | Blog prose + callouts | `code/app/web/src/style/prose.css` |
 | Lint | `biome.json`, knip |
 | CI | `.github/workflows/web-*.yml` |
+
+---
+
+## Cursor Cloud specific instructions
+
+- **Node version gotcha.** The VM ships a fixed `/exec-daemon/node` (v22) that sits ahead of nvm in `PATH`, so `nvm use 26` alone does not win. Node 26 is installed via nvm and set as the nvm default; interactive login shells (including the tmux dev shell) get it because `~/.bashrc` prepends the nvm default's bin to `PATH`. In a plain non-login shell you may still hit v22 — prefix commands with `export PATH="$HOME/.nvm/versions/node/$(nvm version default)/bin:$PATH"` if `node --version` is wrong.
+- **No external services.** Static Astro site; nothing to run besides the dev server. No database, Docker, or env vars needed for local dev.
+- **Run/lint/test/build** commands are in `## Commands` above. Dev server serves on `http://localhost:4321/`. Vitest uses Playwright Chromium (browser mode); run `npm run install:testing:deps -w web` once per machine to fetch the browser.
