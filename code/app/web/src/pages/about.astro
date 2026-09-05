@@ -1,5 +1,6 @@
 ---
 import Layout from '@/layout/Layout.astro'
+import ProjectsSection from '@/component/ProjectsSection.astro'
 import { aboutLead } from '@shared/lib/site'
 ---
 
@@ -20,51 +21,7 @@ import { aboutLead } from '@shared/lib/site'
       </div>
     </header>
 
-    <section class="home-section" aria-labelledby="recent">
-      <div class="home-section__head">
-        <h2 id="recent">Recent</h2>
-      </div>
-      <ul class="about-chat">
-        <li>
-          I am building{' '}
-          <a
-            href="https://firstdistro.com"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            FirstDistro
-            <span class="visually-hidden"> (opens in new tab)</span>
-          </a>
-          , account intelligence that catches silent churn and proves the
-          revenue you kept.
-        </li>
-        <li>
-          I also built{' '}
-          <a
-            href="https://uselay.com"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            UseLay
-            <span class="visually-hidden"> (opens in new tab)</span>
-          </a>
-          , in-app feedback that lets users point at what's broken instead of
-          describing it.
-        </li>
-        <li>
-          I am a Senior Product Designer at{' '}
-          <a
-            href="https://sinch.com"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Sinch
-            <span class="visually-hidden"> (opens in new tab)</span>
-          </a>
-          , working on intelligent inbox and AI messaging at scale for businesses.
-        </li>
-      </ul>
-    </section>
+    <ProjectsSection />
 
     <section class="home-section" aria-labelledby="career">
       <div class="home-section__head">

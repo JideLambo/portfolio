@@ -37,12 +37,12 @@ export const workFrameSizes = {
     },
 } as const satisfies Record<string, WorkFrameSize>
 
+export type WorkFrameKey = keyof typeof workFrameSizes
+
 export const getWorkFrameSize = (src: string): WorkFrameSize | undefined => {
   const key = src.replace(/^\/work\//, '')
-  return workFrameSizes[key as keyof typeof workFrameSizes]
+  if (!(key in workFrameSizes)) {
+    return undefined
+  }
+  return workFrameSizes[key as WorkFrameKey]
 }
-
-/** Cap CSS width at half intrinsic pixels so retina does not upscale. */
-export const getWorkFrameDisplayMaxWidth = (
-  width: number,
-): number | undefined => (width < 1440 ? Math.round(width / 2) : undefined)

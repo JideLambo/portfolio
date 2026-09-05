@@ -7,6 +7,7 @@ import type { APIContext, GetStaticPaths } from 'astro'
 import satori from 'satori'
 import { html } from 'satori-html'
 import { getPostSlug, getPublishedPosts } from '@/lib/post'
+import { getWorkCases } from '@/lib/work'
 
 type OgCard = { title: string; description: string }
 
@@ -56,6 +57,7 @@ const withPaperGrid = (svg: string) =>
 
 export const getStaticPaths = (async () => {
   const posts = await getPublishedPosts()
+  const workCases = getWorkCases()
 
   return [
     {
@@ -67,6 +69,14 @@ export const getStaticPaths = (async () => {
       props: {
         description: aboutLead,
         title: 'About',
+      },
+    },
+    {
+      params: { route: 'work' },
+      props: {
+        description:
+          'Design case studies from products I founded and still ship.',
+        title: 'Work',
       },
     },
     {
@@ -83,6 +93,13 @@ export const getStaticPaths = (async () => {
         title: 'Page not found',
       },
     },
+    ...workCases.map(workCase => ({
+      params: { route: `work/${workCase.slug}` },
+      props: {
+        description: workCase.description,
+        title: workCase.title,
+      },
+    })),
     ...posts.map(post => ({
       params: { route: `writing/${getPostSlug(post)}` },
       props: { description: post.data.description, title: post.data.title },

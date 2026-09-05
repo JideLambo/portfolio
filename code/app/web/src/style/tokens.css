@@ -1,90 +1,86 @@
 /*
  * Design tokens — flat, editorial, mobile-first.
- * Colors are driven by [data-theme] on <html> — system, light, or dark — set before
- * paint in BaseHead, with a prefers-color-scheme fallback for no-JS visitors.
- * Token cross-fade on toggle uses @property (see html transition below).
+ * Dark theme only. Tokens live on :root.
  */
 
 @property --bg {
   syntax: "<color>";
   inherits: true;
-  initial-value: #fbfdff;
+  initial-value: #0d0d0f;
 }
 
 @property --bg-subtle {
   syntax: "<color>";
   inherits: true;
-  initial-value: #f4f7fb;
+  initial-value: #161619;
 }
 
 @property --text {
   syntax: "<color>";
   inherits: true;
-  initial-value: #222a4c;
+  initial-value: #ededee;
 }
 
 @property --text-muted {
   syntax: "<color>";
   inherits: true;
-  initial-value: #5f647c;
+  initial-value: #9a9aa2;
 }
 
 @property --border {
   syntax: "<color>";
   inherits: true;
-  initial-value: #e5e8ed;
+  initial-value: #26262b;
 }
 
 @property --accent {
   syntax: "<color>";
   inherits: true;
-  initial-value: #0066e3;
+  initial-value: #5ba3ff;
 }
 
 @property --accent-strong {
   syntax: "<color>";
   inherits: true;
-  initial-value: #0052b8;
+  initial-value: #7bb6ff;
 }
 
 @property --accent-wash {
   syntax: "<color>";
   inherits: true;
-  initial-value: #e4ecf5;
+  initial-value: rgb(91 163 255 / 12%);
 }
 
 @property --selection {
   syntax: "<color>";
   inherits: true;
-  initial-value: rgb(0 102 227 / 16%);
+  initial-value: rgb(91 163 255 / 22%);
 }
 
 @property --focus {
   syntax: "<color>";
   inherits: true;
-  initial-value: #0066e3;
+  initial-value: #5ba3ff;
 }
 
 :root {
-  /* Site voice: American Typewriter for UI text (mono stays for code/chrome marks). */
-  --font-serif:
-    "American Typewriter", "Courier New", courier, georgia, "Times New Roman",
-    serif;
+  /* Site voice: Helvetica Neue for UI text (mono stays for code/chrome marks). */
+  --font-sans: "Helvetica Neue", helvetica, arial, sans-serif;
   --font-mono:
     ui-monospace, sfmono-regular, "SF Mono", menlo, consolas, "Liberation Mono",
     monospace;
 
-  --bg: #fbfdff;
-  --bg-subtle: #f4f7fb;
-  --text: #222a4c;
-  --text-muted: #5f647c;
-  --border: #e5e8ed;
-  --accent: #0066e3;
-  --accent-strong: #0052b8;
-  --accent-wash: #e4ecf5;
-  --selection: rgb(0 102 227 / 16%);
-  --focus: #0066e3;
-  --grid-dot: rgb(34 42 76 / 6%);
+  --bg: #0d0d0f;
+  --bg-subtle: #161619;
+  --text: #ededee;
+  --text-muted: #9a9aa2;
+  --border: #26262b;
+  --accent: #5ba3ff;
+  --accent-strong: #7bb6ff;
+  --accent-wash: rgb(91 163 255 / 12%);
+  --selection: rgb(91 163 255 / 22%);
+  --focus: #5ba3ff;
+  --grid-dot: rgb(237 237 238 / 5%);
 
   --radius: 0;
   --border-thin: 1px solid var(--border);
@@ -104,7 +100,6 @@
    *   accent  → keywords, function/command names, links (the "verbs")
    *   text    → strings, constants, parameters, identifiers (the payload)
    *   muted   → comments, punctuation
-   * Values reference the theme tokens above, so they adapt to light/dark.
    */
   --astro-code-foreground: var(--text);
   --astro-code-background: var(--bg-subtle);
@@ -118,72 +113,5 @@
   --astro-code-token-string: var(--text);
   --astro-code-token-string-expression: var(--text);
 
-  color-scheme: light;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]),
-  [data-theme="system"] {
-    --bg: #0d0d0f;
-    --bg-subtle: #161619;
-    --text: #ededee;
-    --text-muted: #9a9aa2;
-    --border: #26262b;
-    --accent: #5ba3ff;
-    --accent-strong: #7bb6ff;
-    --accent-wash: rgb(91 163 255 / 12%);
-    --selection: rgb(91 163 255 / 22%);
-    --focus: #5ba3ff;
-    --grid-dot: rgb(237 237 238 / 5%);
-
-    color-scheme: dark;
-  }
-}
-
-[data-theme="light"] {
-  --bg: #fbfdff;
-  --bg-subtle: #f4f7fb;
-  --text: #222a4c;
-  --text-muted: #5f647c;
-  --border: #e5e8ed;
-  --accent: #0066e3;
-  --accent-strong: #0052b8;
-  --accent-wash: #e4ecf5;
-  --selection: rgb(0 102 227 / 16%);
-  --focus: #0066e3;
-  --grid-dot: rgb(34 42 76 / 6%);
-
-  color-scheme: light;
-}
-
-[data-theme="dark"] {
-  --bg: #0d0d0f;
-  --bg-subtle: #161619;
-  --text: #ededee;
-  --text-muted: #9a9aa2;
-  --border: #26262b;
-  --accent: #5ba3ff;
-  --accent-strong: #7bb6ff;
-  --accent-wash: rgb(91 163 255 / 12%);
-  --selection: rgb(91 163 255 / 22%);
-  --focus: #5ba3ff;
-  --grid-dot: rgb(237 237 238 / 5%);
-
   color-scheme: dark;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  html {
-    transition:
-      --bg 220ms ease,
-      --bg-subtle 220ms ease,
-      --text 220ms ease,
-      --text-muted 220ms ease,
-      --border 220ms ease,
-      --accent 220ms ease,
-      --accent-strong 220ms ease,
-      --accent-wash 220ms ease,
-      --selection 220ms ease,
-      --focus 220ms ease;
-  }
 }

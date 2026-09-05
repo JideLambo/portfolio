@@ -1,5 +1,4 @@
 ---
-import ThemeToggle from '@/component/ThemeToggle'
 import { navItems, siteName } from '@shared/lib/site'
 
 const pathname = Astro.url.pathname
@@ -37,7 +36,6 @@ const isActive = (href: string) =>
           ))
         }
       </nav>
-      <ThemeToggle client:load />
     </div>
   </div>
 </header>

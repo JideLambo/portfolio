@@ -1,13 +1,8 @@
 /* Home page: hero, section heads, and the shared post list. */
 
-.hero h1 {
-  max-width: 18ch;
-  letter-spacing: -0.025em;
-}
-
 .hero__lead {
   max-width: 46ch;
-  margin-top: 1rem;
+  margin-top: 0;
 }
 
 .hero__cta {

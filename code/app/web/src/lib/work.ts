@@ -1,13 +1,9 @@
-import {
-  getWorkFrameDisplayMaxWidth,
-  getWorkFrameSize,
-} from '@/lib/work-frame-sizes'
+import { getWorkFrameSize } from '@/lib/work-frame-sizes'
 
 export type WorkFrame = {
   alt: string
   callouts?: string[]
   caption?: string
-  displayMaxWidth?: number
   height: number
   src: string
   width: number
@@ -56,13 +52,51 @@ const frame = (
 
   return {
     alt,
-    displayMaxWidth: getWorkFrameDisplayMaxWidth(size.width),
     height: size.height,
     src,
     width: size.width,
     ...extra,
   }
 }
+
+const withFrameMeta = (
+  base: WorkFrame,
+  extra: Partial<Pick<WorkFrame, 'alt' | 'callouts' | 'caption'>>,
+): WorkFrame => ({
+  ...base,
+  ...extra,
+  alt: extra.alt ?? base.alt,
+})
+
+const fdEmptyAi = frame(
+  `${firstdistroBase}/firstdistro-install-rail-empty-ai.png`,
+  'FirstDistro install rail with Install tab selected.',
+)
+const fdPrompt = frame(
+  `${firstdistroBase}/firstdistro-install-prompt.png`,
+  'FirstDistro Manual tab with install snippet and pre-filled token.',
+)
+const fdVerify = frame(
+  `${firstdistroBase}/firstdistro-install-verify.png`,
+  'FirstDistro install panel with live events waiting state.',
+)
+
+const uselayHighlight = frame(
+  `${uselayBase}/uselay-conversational-follow-up-highlight.png`,
+  'UseLay homepage with comment mode active.',
+)
+const uselayCompose = frame(
+  `${uselayBase}/uselay-conversational-follow-up-compose.png`,
+  'UseLay comment compose modal with a short message.',
+)
+const uselayQuestion = frame(
+  `${uselayBase}/uselay-conversational-follow-up-question.png`,
+  'UseLay follow-up question asking whether the link did nothing or opened the wrong page.',
+)
+const uselayChips = frame(
+  `${uselayBase}/uselay-conversational-follow-up-chips.png`,
+  'UseLay follow-up with Skip and Reply controls.',
+)
 
 const workCases: WorkCase[] = [
   {
@@ -85,16 +119,12 @@ const workCases: WorkCase[] = [
       {
         context:
           'Four real entry paths: founder pastes into Cursor, engineer runs CLI, someone copies a snippet, buyer emails a developer.',
-        frame: frame(
-          `${firstdistroBase}/firstdistro-install-rail-empty-ai.png`,
-          'FirstDistro install rail with Install tab selected.',
-          {
-            callouts: [
-              'Install, Manual, and Email share one panel.',
-              'Install is the default tab on empty state.',
-            ],
-          },
-        ),
+        frame: withFrameMeta(fdEmptyAi, {
+          callouts: [
+            'Install, Manual, and Email share one panel.',
+            'Install is the default tab on empty state.',
+          ],
+        }),
         rejected:
           'Separate onboarding flows per path. A docs page fork for agents.',
         shipped:
@@ -105,16 +135,12 @@ const workCases: WorkCase[] = [
       {
         context:
           'The prompt is what Cursor or Claude actually sees. If the agent invents unsafe patterns, the prompt failed.',
-        frame: frame(
-          `${firstdistroBase}/firstdistro-install-prompt.png`,
-          'FirstDistro Manual tab with install snippet and pre-filled token.',
-          {
-            callouts: [
-              'Token already filled in the prompt.',
-              "Verify steps and hard don'ts in the body.",
-            ],
-          },
-        ),
+        frame: withFrameMeta(fdPrompt, {
+          callouts: [
+            'Token already filled in the prompt.',
+            "Verify steps and hard don'ts in the body.",
+          ],
+        }),
         rejected:
           '[YOUR_TOKEN] replace rituals. Long docs the agent must summarize.',
         shipped:
@@ -125,16 +151,12 @@ const workCases: WorkCase[] = [
       {
         context:
           'Buyers want to know install worked. Fake green states teach the wrong lesson.',
-        frame: frame(
-          `${firstdistroBase}/firstdistro-install-verify.png`,
-          'FirstDistro install panel with live events waiting state.',
-          {
-            callouts: [
-              'Connected only when events prove it.',
-              'Diagnostic ladder when smoke is the only signal.',
-            ],
-          },
-        ),
+        frame: withFrameMeta(fdVerify, {
+          callouts: [
+            'Connected only when events prove it.',
+            'Diagnostic ladder when smoke is the only signal.',
+          ],
+        }),
         rejected:
           'Honor-system Connected button. Painted success before real events.',
         shipped:
@@ -150,32 +172,17 @@ const workCases: WorkCase[] = [
     description:
       'How I turned SDK setup into one pasteable contract for buyers, developers, and coding agents.',
     flow: [
-      frame(
-        `${firstdistroBase}/firstdistro-install-rail-empty-ai.png`,
-        'FirstDistro install rail with Install tab selected.',
-        {
-          caption: 'Empty state. Install is the default story.',
-        },
-      ),
-      frame(
-        `${firstdistroBase}/firstdistro-install-prompt.png`,
-        'FirstDistro Manual tab with install snippet and pre-filled token.',
-        {
-          caption: 'Manual tab shows the same contract with token filled.',
-        },
-      ),
-      frame(
-        `${firstdistroBase}/firstdistro-install-verify.png`,
-        'FirstDistro install panel with live events waiting state.',
-        {
-          caption: 'Verify from real events, not painted success.',
-        },
-      ),
+      withFrameMeta(fdEmptyAi, {
+        caption: 'Empty state. Install is the default story.',
+      }),
+      withFrameMeta(fdPrompt, {
+        caption: 'Manual tab shows the same contract with token filled.',
+      }),
+      withFrameMeta(fdVerify, {
+        caption: 'Verify from real events, not painted success.',
+      }),
     ],
-    hero: frame(
-      `${firstdistroBase}/firstdistro-install-rail-empty-ai.png`,
-      'FirstDistro install rail with Install tab selected.',
-    ),
+    hero: fdEmptyAi,
     oneLiner:
       'One install contract for founders, developers, and coding agents.',
     outcome:
@@ -210,16 +217,12 @@ const workCases: WorkCase[] = [
       {
         context:
           'Not every comment needs a follow-up. Ask on everything and the tool starts to feel like support chat.',
-        frame: frame(
-          `${uselayBase}/uselay-conversational-follow-up-compose.png`,
-          'UseLay comment compose modal with a short message.',
-          {
-            callouts: [
-              'Leave a comment in a few seconds.',
-              'Follow-up comes only after submit.',
-            ],
-          },
-        ),
+        frame: withFrameMeta(uselayCompose, {
+          callouts: [
+            'Leave a comment in a few seconds.',
+            'Follow-up comes only after submit.',
+          ],
+        }),
         rejected: 'Always-on chat drawer. Multi-turn thread after submit.',
         shipped:
           'Ask only after someone submits. Only when the extra answer would change what the team does next.',
@@ -229,16 +232,12 @@ const workCases: WorkCase[] = [
       {
         context:
           'A big empty text box after submit breaks the pace people liked in the first place.',
-        frame: frame(
-          `${uselayBase}/uselay-conversational-follow-up-question.png`,
-          'UseLay follow-up question asking whether the link did nothing or opened the wrong page.',
-          {
-            callouts: [
-              'One question, not a thread.',
-              'Plain wording, not open-ended chat.',
-            ],
-          },
-        ),
+        frame: withFrameMeta(uselayQuestion, {
+          callouts: [
+            'One question, not a thread.',
+            'Plain wording, not open-ended chat.',
+          ],
+        }),
         rejected: '"Tell us more" textarea. Long AI-generated ramble.',
         shipped:
           'One short question. Tap an answer or skip. Pre-written options where we can.',
@@ -248,16 +247,12 @@ const workCases: WorkCase[] = [
       {
         context:
           'One good question can sharpen a report. Three questions turn the widget into Intercom.',
-        frame: frame(
-          `${uselayBase}/uselay-conversational-follow-up-chips.png`,
-          'UseLay follow-up with Skip and Reply controls.',
-          {
-            callouts: [
-              'Skip always wins.',
-              'Answer or skip, then the widget closes.',
-            ],
-          },
-        ),
+        frame: withFrameMeta(uselayChips, {
+          callouts: [
+            'Skip always wins.',
+            'Answer or skip, then the widget closes.',
+          ],
+        }),
         rejected: 'Thread that keeps going. "Anything else?" loops.',
         shipped:
           'Close after they answer or skip. No conversation history in the widget.',
@@ -268,32 +263,21 @@ const workCases: WorkCase[] = [
     description:
       'How I added one optional follow-up question after fast in-app comments, without turning UseLay into a chat product.',
     flow: [
-      frame(
-        `${uselayBase}/uselay-conversational-follow-up-highlight.png`,
-        'UseLay homepage with comment mode active.',
-        {
-          caption: 'Press C, then click what you want to talk about.',
-        },
-      ),
-      frame(
-        `${uselayBase}/uselay-conversational-follow-up-compose.png`,
-        'UseLay comment compose modal.',
-        {
-          caption: 'Leave a short comment and submit.',
-        },
-      ),
-      frame(
-        `${uselayBase}/uselay-conversational-follow-up-question.png`,
-        'UseLay follow-up question after submit.',
-        {
-          caption: 'One clarifying question. Skip or reply, then done.',
-        },
-      ),
+      withFrameMeta(uselayHighlight, {
+        caption: 'Press C, then click what you want to talk about.',
+      }),
+      withFrameMeta(uselayCompose, {
+        alt: 'UseLay comment compose modal.',
+        caption: 'Leave a short comment and submit.',
+      }),
+      withFrameMeta(uselayQuestion, {
+        alt: 'UseLay follow-up question after submit.',
+        caption: 'One clarifying question. Skip or reply, then done.',
+      }),
     ],
-    hero: frame(
-      `${uselayBase}/uselay-conversational-follow-up-question.png`,
-      'UseLay follow-up question after a fast comment.',
-    ),
+    hero: withFrameMeta(uselayQuestion, {
+      alt: 'UseLay follow-up question after a fast comment.',
+    }),
     oneLiner:
       'Fast comments on live work, then at most one follow-up question.',
     outcome:

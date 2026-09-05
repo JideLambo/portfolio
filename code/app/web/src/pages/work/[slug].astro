@@ -29,23 +29,7 @@ if (!workCase) {
       <p class="lead">{workCase.oneLiner}</p>
     </header>
 
-    <figure
-      class="work-case__hero work-frame--focus"
-      style={
-        workCase.hero.displayMaxWidth
-          ? `--work-frame-max: ${workCase.hero.displayMaxWidth}px`
-          : undefined
-      }
-    >
-      <img
-        src={workCase.hero.src}
-        alt={workCase.hero.alt}
-        width={workCase.hero.width}
-        height={workCase.hero.height}
-        loading="eager"
-        decoding="async"
-      />
-    </figure>
+    <WorkFrame class="work-case__hero" frame={workCase.hero} loading="eager" />
 
     {
       workCase.productContext && (
@@ -72,7 +56,7 @@ if (!workCase) {
     </section>
 
     <section class="work-section" aria-labelledby="decisions">
-      <h2 id="decisions">Three decisions</h2>
+      <h2 id="decisions">Decisions</h2>
       {
         workCase.decisions.map(decision => (
           <div class="work-decision">

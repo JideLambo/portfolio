@@ -13,8 +13,8 @@ const cases = getWorkCases()
     <header class="hero">
       <h1>Work</h1>
       <p class="lead work-index__lead">
-        Two recent flows from products I founded. Each covers the problem, what I
-        rejected, and what shipped.
+        Flows from products I founded. Each covers the problem, what I rejected,
+        and what shipped.
       </p>
     </header>
 
@@ -30,11 +30,6 @@ const cases = getWorkCases()
                     alt=""
                     width={workCase.hero.width}
                     height={workCase.hero.height}
-                    style={
-                      workCase.hero.displayMaxWidth
-                        ? `--work-frame-max: ${workCase.hero.displayMaxWidth}px`
-                        : undefined
-                    }
                     loading="lazy"
                     decoding="async"
                   />

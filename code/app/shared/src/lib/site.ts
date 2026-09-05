@@ -12,13 +12,13 @@ export const xDiscussUrl = (pageUrl: string) =>
   })}`
 
 export const siteTagline =
-  'Product design engineer. I ship products and the AI agent workflows around it.'
+  'Product design engineer. I design and build products across software experiences.'
 
 export const aboutLead =
   'My work has spanned banking, cloud, and AI UGC. Right now I work on communications platforms, product feedback tools, and agent workflows for account intelligence and churn risk.'
 
 export const siteDescription =
-  'Jide Lambo. Product design engineer. I ship products and the AI agent workflows around it.'
+  'Jide Lambo. Product design engineer. I design and build products across software experiences.'
 
 export type NavItem = {
   external?: boolean

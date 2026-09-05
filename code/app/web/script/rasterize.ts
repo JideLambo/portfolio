@@ -105,7 +105,7 @@ async function main() {
 
       const html = `
         <!DOCTYPE html>
-        <html lang="en" data-theme="light">
+        <html lang="en">
           <head>
             <meta charset="utf-8">
             <style>

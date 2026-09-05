@@ -1,13 +1,12 @@
 /*
- * Print styles. Screens negotiate contrast with themes; paper does not.
- * Force high-contrast light tokens regardless of [data-theme] (a dark-theme
- * visitor otherwise prints #ededee text on white paper), expand the
- * collapsible callouts, drop the navigation chrome, and unbox inline code.
+ * Print styles. Screens use dark tokens; paper does not.
+ * Force high-contrast light tokens so dark-theme colors do not print as
+ * #ededee text on white paper. Expand collapsible callouts, drop the
+ * navigation chrome, and unbox inline code.
  */
 
 @media print {
-  :root:not([data-theme]),
-  [data-theme] {
+  :root {
     --bg: #fff;
     --bg-subtle: #fff;
     --text: #000;
@@ -30,7 +29,6 @@
   /* Chrome is navigation, and paper has no navigation. */
   .site-header,
   .site-footer,
-  .theme-toggle,
   .back-link {
     display: none;
   }
