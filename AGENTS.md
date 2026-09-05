@@ -87,7 +87,7 @@ Nav: Home · About · Work · Writing.
 - Prefer `type` over `interface`
 - No `console.log` in app code (tests/scripts exempt)
 - Hand-rolled CSS design system (no UI library). Tokens in `src/style/`
-- Theming: `data-theme` on `<html>`, set before paint in `BaseHead.astro`
+- Theming: dark-only tokens on `:root` in `src/style/tokens.css`
 - Writing voice: [`.cursor/rules/writing-voice.mdc`](./.cursor/rules/writing-voice.mdc) (no em dashes, sentence case)
 
 ---

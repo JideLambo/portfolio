@@ -1,4 +1,4 @@
-/* Site chrome: header, nav, theme toggle, footer, page scaffold. */
+/* Site chrome: header, nav, footer, page scaffold. */
 
 /* Header */
 
@@ -94,51 +94,6 @@
   text-decoration: underline;
   text-decoration-color: var(--accent);
   text-underline-offset: 0.3em;
-}
-
-/* Theme toggle */
-
-.theme-toggle {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  padding: 0;
-  border: var(--border-thin);
-  border-radius: var(--radius);
-  background: transparent;
-  color: var(--text);
-  cursor: pointer;
-  transition:
-    border-color 0.15s ease,
-    color 0.15s ease;
-}
-
-.theme-toggle:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
-.theme-toggle svg {
-  width: 1.05rem;
-  height: 1.05rem;
-}
-
-.theme-toggle__sun,
-.theme-toggle__moon,
-.theme-toggle__system {
-  display: none;
-}
-
-[data-theme="light"] .theme-toggle__sun,
-[data-theme="dark"] .theme-toggle__moon,
-[data-theme="system"] .theme-toggle__system {
-  display: block;
-}
-
-:root:not([data-theme]) .theme-toggle__system {
-  display: block;
 }
 
 /* Footer */

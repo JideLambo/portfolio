@@ -2,25 +2,19 @@
 import type { WorkFrame } from '@/lib/work'
 
 type Props = {
+  class?: string
   frame: WorkFrame
+  loading?: 'eager' | 'lazy'
   step?: string
 }
 
-const { frame, step } = Astro.props
-const frameStyle = frame.displayMaxWidth
-  ? `--work-frame-max: ${frame.displayMaxWidth}px`
-  : undefined
+const { class: className, frame, loading = 'lazy', step } = Astro.props
 ---
 
-<figure
-  class="work-frame work-frame--focus"
-  style={frameStyle}
->
+<figure class:list={['work-frame', 'work-frame--focus', className]}>
   {
     step && (
-      <p class="work-frame__step" aria-hidden="true">
-        {step}
-      </p>
+      <p class="work-frame__step">{step}</p>
     )
   }
   <img
@@ -29,7 +23,7 @@ const frameStyle = frame.displayMaxWidth
     alt={frame.alt}
     width={frame.width}
     height={frame.height}
-    loading="lazy"
+    loading={loading}
     decoding="async"
   />
   {

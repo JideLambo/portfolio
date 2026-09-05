@@ -48,7 +48,7 @@
   color: var(--text-muted);
 }
 
-/* Flat, radius-0 button-style link, matching the theme-toggle border treatment. */
+/* Flat, radius-0 button-style link. */
 .button {
   display: inline-flex;
   align-items: center;
