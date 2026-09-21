@@ -35,7 +35,7 @@ describe('site', () => {
       expect(firstDistroUrl).toBe('https://firstdistro.com')
       expect(useLayUrl).toBe('https://uselay.com')
       expect(sinchUrl).toBe('https://sinch.com')
-      expect(siteEmail).toBe('jide@firstdistro.com')
+      expect(siteEmail).toBe('jidelambo@gmail.com')
       expect(getSocialLink('X').href).toBe('https://x.com/JideLambo')
       expect(getSocialLink('GitHub').href).toBe('https://github.com/JideLambo')
     })

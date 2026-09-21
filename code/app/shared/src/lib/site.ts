@@ -26,7 +26,7 @@ export const useLayUrl = 'https://uselay.com'
 
 export const sinchUrl = 'https://sinch.com'
 
-export const siteEmail = 'jide@firstdistro.com'
+export const siteEmail = 'jidelambo@gmail.com'
 
 export type NavItem = {
   external?: boolean
