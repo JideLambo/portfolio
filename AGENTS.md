@@ -110,7 +110,7 @@ Home Last shipped is a stacked deck of three ships. `/shipped` is the list from 
 
 Home hero is the locked letter (left) plus a warm-lit workshop still (right). Mobile stacks letter, then workshop. Last shipped stays below.
 
-- Letter: compact editorial type (not billboard). Copy is locked in `HomeLetter.astro`
+- Letter: compact editorial type (not billboard). Copy is locked in `HomeLetter.astro`. Small screens: ~18px opener / ~14px body; desktop keeps ~22px / 16px
 - Phase 1: static still + HTML hotspot hit targets + glass cards. Invisible hits, small point + label on hover. No floating HUD
 - Phase 2: lazy `createWorkshop` Three.js scene over the still (OrbitControls, pause / reset). WebGL fail or reduced motion keeps the still + HTML hotspots
 - Still: `code/app/web/public/workshop/still.webp` (+ png fallback)

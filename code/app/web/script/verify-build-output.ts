@@ -386,6 +386,17 @@ assert(
   'Home letter opener should be editorial, not billboard',
 )
 assert(
+  cssBundle.includes('font-size:1.125rem') &&
+    cssBundle.includes('line-height:1.28'),
+  'Home letter opener should tighten on small screens',
+)
+assert(
+  (cssBundle.includes('.home-letter p') &&
+    cssBundle.includes('font-size:.875rem')) ||
+    cssBundle.includes('font-size:0.875rem'),
+  'Home letter body should tighten on small screens',
+)
+assert(
   cssBundle.includes('.home-section__head h2') &&
     (cssBundle.includes('font-size:.95rem') ||
       cssBundle.includes('font-size:0.95rem')) &&
