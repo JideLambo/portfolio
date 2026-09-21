@@ -2,7 +2,13 @@ import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-import { siteUrl } from '@shared/lib/site'
+import {
+  firstDistroUrl,
+  sinchUrl,
+  siteEmail,
+  siteUrl,
+  useLayUrl,
+} from '@shared/lib/site'
 
 const dist = new URL('../dist/', import.meta.url)
 const distPath = fileURLToPath(dist)
@@ -61,7 +67,47 @@ assert(llms.includes('https://uselay.com'), 'llms.txt should link UseLay')
 const home = read('index.html')
 assert(home.includes('href="/about"'), 'Home page should link to /about')
 assert(home.includes('href="/writing"'), 'Home page should link to /writing')
+assert(
+  home.includes("I'm Jide. I design and build product."),
+  'Home should open with the letter',
+)
+assert(
+  home.includes('account intelligence for lean CS'),
+  'Home letter should describe FirstDistro',
+)
+assert(
+  home.includes('pins comments to the UI'),
+  'Home letter should describe UseLay',
+)
+assert(
+  home.includes(`href="${firstDistroUrl}"`),
+  'Home letter should link FirstDistro from site.ts',
+)
+assert(
+  home.includes(`href="${useLayUrl}"`),
+  'Home letter should link UseLay from site.ts',
+)
+assert(
+  home.includes(`href="${sinchUrl}"`),
+  'Home letter should link Sinch from site.ts',
+)
+assert(
+  home.includes(`mailto:${siteEmail}`),
+  'Home letter should link email from site.ts',
+)
+assert(home.includes('https://x.com/JideLambo'), 'Home letter should link X')
+assert(
+  home.includes('https://github.com/JideLambo'),
+  'Home letter should link GitHub',
+)
+assert(!home.includes('id="projects"'), 'Home must not render a Projects section')
+assert(!home.includes('/jide.jpg'), 'Home must not include a portrait')
 assert(home.includes('Last shipped'), 'Home page should include Last shipped')
+assert(
+  home.indexOf("I'm Jide. I design and build product.") <
+    home.indexOf('Last shipped'),
+  'Home should be letter, then Last shipped',
+)
 assert(
   home.includes('Morning who needs you'),
   'Home page should include the latest shipped card',
@@ -252,6 +298,21 @@ assert(
 const about = read('about/index.html')
 assert(about.includes('href="/writing"'), 'About page should link to /writing')
 assert(!about.includes('href="/blog"'), 'About page must not link to /blog')
+assert(about.includes('/jide.jpg'), 'About should keep the portrait')
+assert(about.includes('id="career"'), 'About should keep Career')
+assert(about.includes('Wonderstand'), 'About Career should include Wonderstand')
+assert(about.includes('TokiApp'), 'About Career should include TokiApp')
+assert(about.includes('Nordcloud'), 'About Career should include Nordcloud')
+assert(about.includes('BCaster'), 'About Career should include BCaster')
+assert(about.includes('GTBank'), 'About Career should include GTBank')
+assert(
+  !about.includes('id="projects"'),
+  'About must not render a Projects section',
+)
+assert(
+  !about.includes('spanned banking'),
+  'About must not keep the old banking lead',
+)
 
 const notFound = read('404.html')
 assert(!notFound.includes('href="/blog"'), '404 page must not link to /blog')

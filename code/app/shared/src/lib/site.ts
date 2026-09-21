@@ -15,10 +15,18 @@ export const siteTagline =
   'Product design engineer. I design and build products across software experiences.'
 
 export const aboutLead =
-  'My work has spanned banking, cloud, and AI UGC. Right now I work on communications platforms, product feedback tools, and agent workflows for account intelligence and churn risk.'
+  'Career: Wonderstand, TokiApp, Nordcloud, BCaster, GTBank.'
 
 export const siteDescription =
   'Jide Lambo. Product design engineer. I design and build products across software experiences.'
+
+export const firstDistroUrl = 'https://firstdistro.com'
+
+export const useLayUrl = 'https://uselay.com'
+
+export const sinchUrl = 'https://sinch.com'
+
+export const siteEmail = 'jide@firstdistro.com'
 
 export type NavItem = {
   external?: boolean
@@ -42,3 +50,13 @@ export const socialLinks: NavItem[] = [
   },
   { external: true, href: 'https://github.com/JideLambo', label: 'GitHub' },
 ]
+
+export type SocialLabel = 'X' | 'LinkedIn' | 'GitHub'
+
+export const getSocialLink = (label: SocialLabel): NavItem => {
+  const link = socialLinks.find(item => item.label === label)
+  if (!link) {
+    throw new Error(`Missing social link: ${label}`)
+  }
+  return link
+}

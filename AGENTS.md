@@ -56,9 +56,9 @@ Vite overrides in root `package.json` keep `@vitejs/plugin-react` on v6 with Ast
 
 | Route | Purpose |
 | --- | --- |
-| `/` | Home (name, tagline, last shipped, projects, latest writing) |
+| `/` | Home (letter, last shipped, latest writing) |
 | `/shipped` | Last shipped list (from All shipped →, not in nav) |
-| `/about` | Conversation-style bio + career |
+| `/about` | Portrait + career |
 | `/writing` | Essays |
 | `/writing/{slug}` | Post |
 
