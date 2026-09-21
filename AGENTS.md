@@ -87,6 +87,7 @@ Nav: Home · Work · Writing.
 Home Last shipped is a stacked deck of three ships. `/shipped` is the list from **All shipped →**:
 
 - Eyebrow: `Last shipped`, with `All shipped →` (`/shipped`)
+- Home `Latest writing` uses the same quiet title type and All → row
 - Front card is primary. Empty nested card backs peek top/right. Inactive ships are hidden, not a content sliver
 - Three ships: Local AI on your machine (`personal`), iMessage agent for your business (`gre`), Morning who needs you (`firstdistro`)
 - Visual: HTML/CSS light UI fragment on the dark card, slightly cropped. Local is a status card (model, ready, one tool line). GRE is a 2–3 bubble iMessage thread. Morning is one Slack briefing card. No abstract glyphs

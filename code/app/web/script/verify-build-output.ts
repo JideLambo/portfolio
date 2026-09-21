@@ -386,6 +386,17 @@ assert(
   'Home letter opener should be editorial, not billboard',
 )
 assert(
+  cssBundle.includes('.home-section__head h2') &&
+    (cssBundle.includes('font-size:.95rem') ||
+      cssBundle.includes('font-size:0.95rem')) &&
+    cssBundle.includes('font-weight:500'),
+  'Home section titles should match Last shipped type',
+)
+assert(
+  !cssBundle.includes('.home-section__head h2{font-size:var(--step-2)'),
+  'Home section titles must not use the large heading step',
+)
+assert(
   cssBundle.includes('.workshop-stage') &&
     cssBundle.includes('prefers-reduced-motion'),
   'Workshop must sit on Home and honor reduced motion',
