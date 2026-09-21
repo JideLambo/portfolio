@@ -67,25 +67,32 @@ assert(
   'Home page should include the latest shipped card',
 )
 assert(
-  home.includes('Point at what'),
-  'Home page carousel should include the UseLay example ship',
+  home.includes('Nothing sends until you act'),
+  'Home page should include the locked Automations writeup',
 )
 assert(
-  home.includes('Hold, then send times'),
-  'Home page carousel should include the GRE example ship',
+  !home.includes('Point at what'),
+  'Home carousel should not include placeholder example ships',
 )
 assert(
-  home.includes('Silent churn watch'),
-  'Home page carousel should include the FirstDistro example ship',
+  !home.includes('Hold, then send times'),
+  'Home carousel should not include placeholder example ships',
+)
+assert(
+  !home.includes('Silent churn watch'),
+  'Home carousel should not include placeholder example ships',
 )
 assert(
   !home.includes('shipped-card__product'),
   'Home carousel must not render a product pill',
 )
-assert(home.includes('drag →'), 'Last shipped should show a drag affordance')
 assert(
-  home.includes('shipped-carousel__tick'),
-  'Last shipped should render numbered ticks',
+  !home.includes('shipped-carousel__tick'),
+  'Last shipped must not render progress ticks',
+)
+assert(
+  home.includes('Previous ship'),
+  'Last shipped should keep prev/next arrows',
 )
 assert(
   home.includes('aria-roledescription="carousel"'),
@@ -110,9 +117,6 @@ assert(
 )
 assert(!home.includes('href="/blog"'), 'Home page must not link to /blog')
 assertExists('shipped/morning-who-needs-you.svg')
-assertExists('shipped/point-at-whats-broken.svg')
-assertExists('shipped/hold-then-send-times.svg')
-assertExists('shipped/silent-churn-watch.svg')
 assertExists('shipped/index.html')
 assertExists('og/shipped.png')
 

@@ -85,14 +85,12 @@ Nav: Home · About · Work · Writing.
 
 ## Content (last shipped)
 
-Home snap carousel (3–5 latest) and the `/shipped` list from **All shipped →**:
+Home Last shipped is one card (Morning who needs you). Carousel chrome stays for later ships. `/shipped` is the list from **All shipped →**:
 
 - Eyebrow: `Last shipped`, with `All shipped →` (`/shipped`)
-- One container: focused card plus peek of the next (scroll-snap, pointer drag, keyboard ← →)
-- Controls: `drag →` plus numbered dots (active tick white, inactive muted)
-- Each card: square white-on-dark visual panel (bright white line-art on near-black), title, 2–4 sentence body, `View →` in ink. No product or example chips
-- `product` stays in frontmatter for later filtering. Do not render it
-- `example: true` marks placeholder ships for data
+- One card: light Automations UI panel on a dark field, title, 2–4 sentence body, `View →` in ink
+- Controls: redesigned prev/next arrows (both disabled while there is one ship). No progress ticks
+- No product or example chips. `product` stays in frontmatter for later filtering
 - Site tokens only. No Slack purple. No chromatic blue. Links: underline + ink, white hover with a thicker underline. White focus ring and selection wash
 - UI font is Geist Sans (`"Geist Sans", ui-sans-serif, system-ui, sans-serif`)
 - Hide the Home section if empty

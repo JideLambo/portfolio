@@ -55,12 +55,10 @@
 }
 
 .shipped-carousel {
-  --shipped-gap: 0.65rem;
-  --shipped-peek: 5.25rem;
-  --shipped-peek-count: 1;
+  --shipped-gap: 0.75rem;
+  --shipped-peek: 2.75rem;
 
-  overflow: hidden;
-  padding: 0.95rem 0.75rem 1.05rem;
+  padding: 0.85rem 0.7rem 1rem;
   border: var(--border-thin);
   border-radius: 1.05rem;
   background: var(--bg);
@@ -70,11 +68,11 @@
   display: flex;
   position: relative;
   gap: var(--shipped-gap);
-  padding-inline: 0.45rem;
+  padding-inline: 0.55rem;
   overflow: auto hidden;
   user-select: none;
   scroll-snap-type: x mandatory;
-  scroll-padding-inline: 0.45rem;
+  scroll-padding-inline: 0.55rem;
   scroll-behavior: smooth;
   overscroll-behavior-x: contain;
   /* stylelint-disable-next-line plugin/no-unsupported-browser-features -- desktop drag affordance */
@@ -93,21 +91,10 @@
 }
 
 .shipped-carousel__slide {
-  flex: 0 0 var(--shipped-peek);
-  position: relative;
+  flex: 0 0 calc(100% - var(--shipped-peek));
   min-width: 0;
   scroll-snap-align: start;
   scroll-snap-stop: always;
-}
-
-.shipped-carousel__slide[data-active="true"] {
-  flex-basis: calc(
-    100% -
-    var(--shipped-peek) *
-    var(--shipped-peek-count) -
-    var(--shipped-gap) *
-    var(--shipped-peek-count)
-  );
 }
 
 .shipped-card {
@@ -130,7 +117,7 @@
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   pointer-events: none;
 }
 
@@ -189,41 +176,6 @@
   text-underline-offset: 0.22em;
 }
 
-.shipped-carousel__slide:not([data-active]) {
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 0.7rem;
-  padding: 0.85rem 0.45rem 1rem;
-}
-
-.shipped-carousel__peek-hit {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-}
-
-.shipped-carousel__slide:not([data-active]) .shipped-card__visual {
-  flex: 0 0 auto;
-  width: 3.1rem;
-  height: 3.1rem;
-  aspect-ratio: 1;
-  border-radius: 0.2rem;
-}
-
-.shipped-carousel__slide:not([data-active]) .shipped-card__copy {
-  display: none;
-}
-
-.shipped-carousel:has(.shipped-carousel__slide:only-child)
-  .shipped-carousel__slide {
-  flex-basis: 100%;
-}
-
 .last-shipped__all {
   color: var(--text);
   font-size: 0.9rem;
@@ -237,105 +189,77 @@
   text-underline-offset: 0.22em;
 }
 
-.shipped-carousel__chrome {
+.shipped-carousel__keys {
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-top: 1rem;
-  padding-inline: 0.45rem;
+  justify-content: flex-end;
+  gap: 0.55rem;
+  margin-top: 0.95rem;
+  padding-inline: 0.55rem;
 }
 
-.shipped-carousel__drag {
-  margin: 0;
-  color: var(--text-muted);
-  font-size: 0.82rem;
-}
-
-.shipped-carousel__dots {
-  display: flex;
-  gap: 0.85rem;
-}
-
-.shipped-carousel__tick {
+.shipped-carousel__keys button {
   display: grid;
-  justify-items: center;
-  gap: 0.32rem;
-  min-width: 1.35rem;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
   padding: 0;
-  border: 0;
-  background: transparent;
-  color: var(--text-muted);
+  border: var(--border-thin);
+  border-radius: 0.45rem;
+  background: var(--bg-subtle);
+  color: var(--text);
   cursor: pointer;
 }
 
-.shipped-carousel__dot {
-  width: 0.42rem;
-  height: 0.42rem;
-  border-radius: 999px;
-  background: var(--text-muted);
+.shipped-carousel__keys svg {
+  display: block;
+  width: 1.2rem;
+  height: 1.2rem;
 }
 
-.shipped-carousel__n {
-  font-size: 0.72rem;
-  line-height: 1;
+.shipped-carousel__keys button:disabled {
+  cursor: default;
+  opacity: 0.35;
 }
 
-.shipped-carousel__tick[aria-current="true"] {
-  color: #fff;
+.shipped-carousel__keys button:hover:not(:disabled),
+.shipped-carousel__keys button:focus-visible:not(:disabled) {
+  border-color: var(--text);
+  color: var(--accent-strong);
 }
 
-.shipped-carousel__tick[aria-current="true"] .shipped-carousel__dot {
-  background: #fff;
+.shipped-carousel--single .shipped-carousel__slide {
+  flex-basis: 100%;
+}
+
+.shipped-carousel--single .shipped-carousel__track,
+.shipped-carousel--single .shipped-carousel__track:active {
+  overflow: hidden;
+  cursor: default;
 }
 
 @media (width >= 48rem) {
   .shipped-carousel {
-    --shipped-gap: 0.7rem;
-    --shipped-peek: 6.85rem;
-    --shipped-peek-count: 2;
+    --shipped-gap: 0.9rem;
+    --shipped-peek: 5.5rem;
 
-    padding: 1.05rem 0.95rem 1.15rem;
+    padding: 1rem 0.85rem 1.15rem;
   }
 
   .shipped-card {
     flex-direction: row;
-    min-height: 14.25rem;
+    min-height: 13.5rem;
   }
 
   .shipped-card__visual {
-    flex: 0 0 12.75rem;
-    width: 12.75rem;
+    flex: 0 0 13.5rem;
+    width: 13.5rem;
     aspect-ratio: 1;
-    align-self: start;
+    align-self: stretch;
   }
 
   .shipped-card__copy {
     flex: 1 1 auto;
     padding: 1.2rem 1.3rem 1.25rem;
-  }
-
-  .shipped-carousel__slide[data-active="true"] {
-    gap: 1.15rem;
-    min-height: 14.25rem;
-    padding: 0.9rem 1rem 0.9rem 0.9rem;
-  }
-
-  .shipped-carousel__slide[data-active="true"] .shipped-card__visual {
-    border-radius: 0.45rem;
-  }
-
-  .shipped-carousel__slide[data-active="true"] .shipped-card__copy {
-    padding: 0.35rem 0.2rem 0.15rem 0;
-  }
-
-  .shipped-carousel__slide:not([data-active]) {
-    min-height: 14.25rem;
-  }
-
-  .shipped-carousel__slide:not([data-active]) .shipped-card__visual {
-    width: 3.35rem;
-    height: 3.35rem;
   }
 }
 

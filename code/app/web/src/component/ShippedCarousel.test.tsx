@@ -11,7 +11,8 @@ const slides: ShippedSlide[] = [
     slug: 'morning-who-needs-you',
     title: 'Morning who needs you',
     visual: '/shipped/morning-who-needs-you.svg',
-    writeup: 'Each morning, FirstDistro posts a briefing.',
+    writeup:
+      'Each morning in Slack: the accounts that need attention, a suggested move, and a draft held for you. Ready-made for lean CS. Nothing sends until you act.',
   },
   {
     example: true,
@@ -25,13 +26,6 @@ const slides: ShippedSlide[] = [
     slug: 'hold-then-send-times',
     title: 'Hold, then send times',
     writeup: 'GRE holds the request, then sends times.',
-  },
-  {
-    example: true,
-    href: 'https://firstdistro.com',
-    slug: 'silent-churn-watch',
-    title: 'Silent churn watch',
-    writeup: 'Quiet accounts drain while the dashboard still looks fine.',
   },
 ]
 
@@ -49,32 +43,46 @@ describe('ShippedCarousel', () => {
     })
     expect(carousel.getAttribute('aria-roledescription')).toBe('carousel')
     expect(screen.getByText('Morning who needs you')).toBeTruthy()
-    expect(screen.getByText('Ship 1 of 4: Morning who needs you')).toBeTruthy()
-    expect(screen.getByText('drag →')).toBeTruthy()
+    expect(screen.getByText('Ship 1 of 3: Morning who needs you')).toBeTruthy()
     expect(
-      screen.getByRole('button', {
-        name: 'Go to ship 1 of 4: Morning who needs you',
-      }),
-    ).toHaveAttribute('aria-current', 'true')
-    expect(screen.getByText('1')).toBeTruthy()
-    expect(screen.getByText('2')).toBeTruthy()
-    expect(screen.getByText('3')).toBeTruthy()
+      screen.getByRole('button', { name: 'Previous ship' }),
+    ).toHaveProperty('disabled', true)
+    expect(document.querySelector('.shipped-carousel__tick')).toBeNull()
+  })
+
+  it('renders disabled arrows when there is only one ship', () => {
+    render(
+      <>
+        <h2 id="last-shipped">Last shipped</h2>
+        <ShippedCarousel slides={slides.slice(0, 1)} />
+      </>,
+    )
+
+    expect(
+      screen.getByRole('button', { name: 'Previous ship' }),
+    ).toHaveProperty('disabled', true)
+    expect(screen.getByRole('button', { name: 'Next ship' })).toHaveProperty(
+      'disabled',
+      true,
+    )
+    expect(document.querySelector('.shipped-carousel--single')).toBeTruthy()
+    expect(document.querySelector('.shipped-carousel__tick')).toBeNull()
   })
 
   it('does not render a product or example chip', () => {
     render(
       <>
         <h2 id="last-shipped">Last shipped</h2>
-        <ShippedCarousel slides={slides} />
+        <ShippedCarousel slides={slides.slice(0, 1)} />
       </>,
     )
 
     expect(document.querySelector('.shipped-card__product')).toBeNull()
-    expect(screen.queryByText('UseLay')).toBeNull()
+    expect(screen.queryByText('FirstDistro')).toBeNull()
     expect(screen.queryByText('Example')).toBeNull()
   })
 
-  it('advances with ticks and arrow keys', () => {
+  it('advances with next and arrow keys', () => {
     render(
       <>
         <h2 id="last-shipped">Last shipped</h2>
@@ -82,41 +90,21 @@ describe('ShippedCarousel', () => {
       </>,
     )
 
-    fireEvent.click(
-      screen.getByRole('button', {
-        name: "Go to ship 2 of 4: Point at what's broken",
-      }),
-    )
-    expect(screen.getByText("Ship 2 of 4: Point at what's broken")).toBeTruthy()
+    fireEvent.click(screen.getByRole('button', { name: 'Next ship' }))
+    expect(screen.getByText("Ship 2 of 3: Point at what's broken")).toBeTruthy()
 
-    fireEvent.click(
-      screen.getByRole('button', {
-        name: 'Go to ship 4 of 4: Silent churn watch',
-      }),
+    fireEvent.click(screen.getByRole('button', { name: 'Next ship' }))
+    expect(screen.getByText('Ship 3 of 3: Hold, then send times')).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'Next ship' })).toHaveProperty(
+      'disabled',
+      true,
     )
-    expect(screen.getByText('Ship 4 of 4: Silent churn watch')).toBeTruthy()
 
     const carousel = screen.getByRole('region', {
       name: 'Last shipped carousel',
     })
     fireEvent.keyDown(carousel, { key: 'ArrowLeft' })
-    expect(screen.getByText('Ship 3 of 4: Hold, then send times')).toBeTruthy()
-  })
-
-  it('opens a peeked ship when that card is clicked', () => {
-    render(
-      <>
-        <h2 id="last-shipped">Last shipped</h2>
-        <ShippedCarousel slides={slides} />
-      </>,
-    )
-
-    fireEvent.click(
-      screen.getByRole('button', {
-        name: "Show ship 2 of 4: Point at what's broken",
-      }),
-    )
-    expect(screen.getByText("Ship 2 of 4: Point at what's broken")).toBeTruthy()
+    expect(screen.getByText("Ship 2 of 3: Point at what's broken")).toBeTruthy()
   })
 
   it('drags the track with a pointer', () => {
