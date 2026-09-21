@@ -1,10 +1,6 @@
 ---
 import ShippedCarousel from '@/component/ShippedCarousel'
-import {
-  getHomepageShipped,
-  getShippedVisual,
-  type ShippedSlide,
-} from '@/lib/shipped'
+import { getHomepageShipped, type ShippedSlide } from '@/lib/shipped'
 
 const entries = await getHomepageShipped()
 const headingId = 'last-shipped'
@@ -13,7 +9,6 @@ const slides: ShippedSlide[] = entries.map(entry => ({
   href: entry.data.href,
   slug: entry.data.slug,
   title: entry.data.title,
-  visual: getShippedVisual(entry.data),
   writeup: entry.body.trim(),
 }))
 ---

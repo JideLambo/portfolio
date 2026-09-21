@@ -10,7 +10,6 @@ const slides: ShippedSlide[] = [
     href: 'https://firstdistro.com',
     slug: 'morning-who-needs-you',
     title: 'Morning who needs you',
-    visual: '/shipped/morning-who-needs-you.svg',
     writeup:
       'Each morning in Slack: the accounts that need attention, a suggested move, and a draft held for you. Ready-made for lean CS. Nothing sends until you act.',
   },
@@ -18,7 +17,6 @@ const slides: ShippedSlide[] = [
     example: false,
     slug: 'imessage-agent-for-your-business',
     title: 'iMessage agent for your business',
-    visual: '/shipped/imessage-agent-for-your-business.svg',
     writeup:
       "An iMessage agent for the front desk. Same loop, different packs: clinic, salon, Shopify-style shop. We're proving the pack model before we bet on a single industry.",
   },
@@ -52,6 +50,22 @@ describe('ShippedCarousel', () => {
     )
     expect(document.querySelector('.shipped-carousel__tick')).toBeNull()
     expect(screen.queryByText('drag →')).toBeNull()
+  })
+
+  it('renders light HTML UI panels, not glyph images', () => {
+    render(
+      <>
+        <h2 id="last-shipped">Last shipped</h2>
+        <ShippedCarousel slides={slides} />
+      </>,
+    )
+
+    expect(document.querySelector('.shipped-mini--slack')).toBeTruthy()
+    expect(document.querySelector('.shipped-mini--imessage')).toBeTruthy()
+    expect(screen.getByText('Helios Cloud')).toBeTruthy()
+    expect(screen.getByText('Quiet for 18 days')).toBeTruthy()
+    expect(screen.getByText('Any openings Friday?')).toBeTruthy()
+    expect(document.querySelector('img[src*="/shipped/"]')).toBeNull()
   })
 
   it('renders disabled arrows when there is only one ship', () => {

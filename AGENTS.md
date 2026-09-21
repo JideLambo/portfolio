@@ -90,7 +90,7 @@ Home Last shipped is a stacked deck of two ships. `/shipped` is the list from **
 - Eyebrow: `Last shipped`, with `All shipped →` (`/shipped`)
 - Front card is primary; later cards peek as a compact strip. Not a three-up row
 - Two ships: Morning who needs you (`firstdistro`) and iMessage agent for your business (`gre`)
-- Visual: light product UI panel (Automations / message thread) on a dark field. No abstract glyphs
+- Visual: HTML/CSS light UI fragment on the dark card, slightly cropped. Morning is one Slack briefing card. GRE is a 2–3 bubble iMessage thread. No abstract glyphs
 - Title, 2–4 sentence body, `View →` in ink when `href` is set
 - Controls: designed prev/next arrows. Drag/swipe still works. No `drag →` label. No numbered ticks
 - No product or example chips. `product` stays in frontmatter for later filtering

@@ -7,7 +7,6 @@ export type ShippedSlide = {
   href?: string
   slug: string
   title: string
-  visual?: string
   writeup: string
 }
 

@@ -3,7 +3,6 @@ slug: morning-who-needs-you
 title: Morning who needs you
 product: firstdistro
 shippedAt: 2026-09-16
-visual: /shipped/morning-who-needs-you.svg
 href: https://firstdistro.com
 source: https://github.com/Wonderstand-AI/first-distro/pull/557
 ---

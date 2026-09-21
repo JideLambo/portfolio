@@ -1,5 +1,5 @@
 ---
-import { getShippedVisual } from '@/lib/shipped'
+import ShippedVisual from '@/component/ShippedVisual'
 import type { CollectionEntry } from 'astro:content'
 import { render } from 'astro:content'
 
@@ -9,26 +9,9 @@ type Props = {
 
 const { entry } = Astro.props
 const { Content } = await render(entry)
-const visual = getShippedVisual(entry.data)
 ---
 
 <article class="shipped-card">
-  <div class="shipped-card__visual">
-    {
-      visual ? (
-        <img
-          src={visual}
-          alt=""
-          width="320"
-          height="320"
-          loading="lazy"
-          decoding="async"
-        />
-      ) : (
-        <div class="shipped-card__placeholder" aria-hidden="true" />
-      )
-    }
-  </div>
   <div class="shipped-card__copy">
     <h2 class="shipped-card__title">{entry.data.title}</h2>
     <div class="shipped-card__writeup">
@@ -47,5 +30,8 @@ const visual = getShippedVisual(entry.data)
         </p>
       )
     }
+  </div>
+  <div class="shipped-card__visual">
+    <ShippedVisual slug={entry.data.slug} />
   </div>
 </article>

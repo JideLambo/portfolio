@@ -7,6 +7,7 @@ import {
   useState,
 } from 'react'
 
+import ShippedVisual from '@/component/ShippedVisual'
 import type { ShippedSlide } from '@/lib/shipped'
 import {
   clampIndex,
@@ -128,24 +129,6 @@ const ShippedCarousel = ({ slides }: ShippedCarouselProps) => {
               data-passed={slideIndex < index ? 'true' : undefined}
               key={slide.slug}
             >
-              <div className="shipped-card__visual">
-                {slide.visual ? (
-                  <img
-                    alt=""
-                    decoding="async"
-                    draggable={false}
-                    height="320"
-                    loading="lazy"
-                    src={slide.visual}
-                    width="320"
-                  />
-                ) : (
-                  <div
-                    aria-hidden="true"
-                    className="shipped-card__placeholder"
-                  />
-                )}
-              </div>
               <div className="shipped-card__copy">
                 <h3 className="shipped-card__title">{slide.title}</h3>
                 <div className="shipped-card__writeup">
@@ -169,6 +152,9 @@ const ShippedCarousel = ({ slides }: ShippedCarouselProps) => {
                     </a>
                   </p>
                 ) : null}
+              </div>
+              <div className="shipped-card__visual">
+                <ShippedVisual slug={slide.slug} />
               </div>
             </article>
           ))}

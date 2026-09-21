@@ -32,8 +32,9 @@ const slug = z
 /**
  * Last shipped: Home shows a stacked deck of the latest ships; `/shipped`
  * is the list from All shipped →. Front card is primary; later cards peek
- * as a compact strip. Cards use a light product UI panel on a dark field,
- * title, 2–4 sentence body, and `View →` when `href` is set. No visible
+ * as a compact strip. Cards use an HTML/CSS light UI fragment (Slack
+ * briefing card or iMessage thread) on a dark field, title, 2–4 sentence
+ * body, and `View →` when `href` is set. No visible product or example
  * product or example chips; `product` stays in frontmatter for later
  * filtering. Site tokens only (no Slack purple, no chromatic blue).
  * `example: true` marks placeholder ships. Detection allowlist: Linear

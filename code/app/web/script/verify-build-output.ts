@@ -129,8 +129,30 @@ assert(
   'Home page must not link to /projects',
 )
 assert(!home.includes('href="/blog"'), 'Home page must not link to /blog')
-assertExists('shipped/morning-who-needs-you.svg')
-assertExists('shipped/imessage-agent-for-your-business.svg')
+assert(
+  home.includes('shipped-mini--slack'),
+  'Morning ship should render a Slack briefing panel',
+)
+assert(
+  home.includes('Helios Cloud'),
+  'Slack briefing should name a single account',
+)
+assert(
+  home.includes('shipped-mini--imessage'),
+  'GRE ship should render an iMessage thread panel',
+)
+assert(
+  home.includes('Any openings Friday?'),
+  'iMessage panel should include a customer bubble',
+)
+assert(
+  !home.includes('morning-who-needs-you.svg'),
+  'Last shipped must not use abstract SVG glyphs',
+)
+assert(
+  !home.includes('imessage-agent-for-your-business.svg'),
+  'Last shipped must not use abstract SVG glyphs',
+)
 assertExists('shipped/index.html')
 assertExists('og/shipped.png')
 
@@ -146,6 +168,14 @@ assert(
 assert(
   shipped.includes('iMessage agent for your business'),
   '/shipped should list the GRE iMessage ship',
+)
+assert(
+  shipped.includes('shipped-mini--slack'),
+  '/shipped should render the Slack briefing panel',
+)
+assert(
+  shipped.includes('shipped-mini--imessage'),
+  '/shipped should render the iMessage thread panel',
 )
 
 const cssBundle = listFiles(distPath, '.css')
