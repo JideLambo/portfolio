@@ -1,6 +1,5 @@
 ---
 import ShippedCarousel from '@/component/ShippedCarousel'
-import { getProductLabel } from '@/lib/product'
 import {
   getHomepageShipped,
   getShippedVisual,
@@ -12,7 +11,6 @@ const headingId = 'last-shipped'
 const slides: ShippedSlide[] = entries.map(entry => ({
   example: entry.data.example,
   href: entry.data.href,
-  productLabel: getProductLabel(entry.data.product),
   slug: entry.data.slug,
   title: entry.data.title,
   visual: getShippedVisual(entry.data),

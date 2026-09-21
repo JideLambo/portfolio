@@ -8,7 +8,6 @@ const slides: ShippedSlide[] = [
   {
     example: false,
     href: 'https://firstdistro.com',
-    productLabel: 'FirstDistro',
     slug: 'morning-who-needs-you',
     title: 'Morning who needs you',
     visual: '/shipped/morning-who-needs-you.svg',
@@ -17,14 +16,12 @@ const slides: ShippedSlide[] = [
   {
     example: true,
     href: 'https://uselay.com',
-    productLabel: 'UseLay',
     slug: 'point-at-whats-broken',
     title: "Point at what's broken",
     writeup: 'Someone marks the UI instead of writing a ticket.',
   },
   {
     example: true,
-    productLabel: 'GRE',
     slug: 'hold-then-send-times',
     title: 'Hold, then send times',
     writeup: 'GRE holds the request, then sends times.',
@@ -32,7 +29,6 @@ const slides: ShippedSlide[] = [
   {
     example: true,
     href: 'https://firstdistro.com',
-    productLabel: 'FirstDistro',
     slug: 'silent-churn-watch',
     title: 'Silent churn watch',
     writeup: 'Quiet accounts drain while the dashboard still looks fine.',
@@ -65,7 +61,7 @@ describe('ShippedCarousel', () => {
     expect(screen.getByText('3')).toBeTruthy()
   })
 
-  it('renders the product pill on the focused card', () => {
+  it('does not render a product or example chip', () => {
     render(
       <>
         <h2 id="last-shipped">Last shipped</h2>
@@ -73,11 +69,9 @@ describe('ShippedCarousel', () => {
       </>,
     )
 
-    expect(
-      [...document.querySelectorAll('.shipped-card__product')].some(
-        node => node.textContent === 'FirstDistro',
-      ),
-    ).toBe(true)
+    expect(document.querySelector('.shipped-card__product')).toBeNull()
+    expect(screen.queryByText('UseLay')).toBeNull()
+    expect(screen.queryByText('Example')).toBeNull()
   })
 
   it('advances with ticks and arrow keys', () => {

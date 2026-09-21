@@ -79,8 +79,8 @@ assert(
   'Home page carousel should include the FirstDistro example ship',
 )
 assert(
-  home.includes('shipped-card__product'),
-  'Home carousel should render the product pill',
+  !home.includes('shipped-card__product'),
+  'Home carousel must not render a product pill',
 )
 assert(home.includes('drag →'), 'Last shipped should show a drag affordance')
 assert(
@@ -118,8 +118,8 @@ assertExists('og/shipped.png')
 
 const shipped = read('shipped/index.html')
 assert(
-  shipped.includes('shipped-card__product'),
-  '/shipped should render the product pill',
+  !shipped.includes('shipped-card__product'),
+  '/shipped must not render a product pill',
 )
 assert(
   shipped.includes('Morning who needs you'),
