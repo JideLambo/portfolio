@@ -112,7 +112,7 @@ describe('WorkshopStage', () => {
     expect(screen.getByText('Laptop')).toBeTruthy()
     const cardStyle = getComputedStyle(dialog)
     expect(Number.parseFloat(cardStyle.paddingTop)).toBeGreaterThan(12)
-    expect(cardStyle.backgroundColor).not.toBe('rgba(0, 0, 0, 0)')
+    expect(cardStyle.backgroundColor).toBe('rgb(244, 244, 245)')
     expect(screen.getByText('Open model, tools, gates')).toBeTruthy()
     expect(
       screen.getByText(
@@ -181,5 +181,18 @@ describe('WorkshopStage', () => {
     expect(screen.queryByRole('dialog')).toBeNull()
     fireEvent.click(lamp)
     expect(lamp.getAttribute('aria-pressed')).toBe('true')
+  })
+
+  it('dims the still when the lamp is off', () => {
+    render(<WorkshopStage />)
+
+    const stage = screen.getByRole('region', { name: 'Workshop' })
+    const still = screen.getByRole('img', { name: /workshop desk/i })
+    expect(stage.getAttribute('data-lamp')).toBe('on')
+    fireEvent.click(
+      screen.getByRole('button', { name: 'Toggle workshop lamp' }),
+    )
+    expect(stage.getAttribute('data-lamp')).toBe('off')
+    expect(getComputedStyle(still).filter).toContain('brightness')
   })
 })
