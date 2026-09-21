@@ -57,7 +57,7 @@ describe('ShippedCarousel', () => {
     expect(document.querySelector('.shipped-carousel__rail')).toBeNull()
   })
 
-  it('hides arrows when there is only one ship', () => {
+  it('renders disabled arrows when there is only one ship', () => {
     render(
       <>
         <h2 id="last-shipped">Last shipped</h2>
@@ -65,8 +65,14 @@ describe('ShippedCarousel', () => {
       </>,
     )
 
-    expect(screen.queryByRole('button', { name: 'Previous ship' })).toBeNull()
-    expect(screen.queryByRole('button', { name: 'Next ship' })).toBeNull()
+    expect(
+      screen.getByRole('button', { name: 'Previous ship' }),
+    ).toHaveProperty('disabled', true)
+    expect(screen.getByRole('button', { name: 'Next ship' })).toHaveProperty(
+      'disabled',
+      true,
+    )
+    expect(document.querySelector('.shipped-carousel__tick')).toBeNull()
   })
 
   it('advances with next and arrow keys', () => {

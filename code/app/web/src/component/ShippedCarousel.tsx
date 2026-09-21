@@ -245,48 +245,46 @@ const ShippedCarousel = ({ slides }: ShippedCarouselProps) => {
           </article>
         ))}
       </div>
-      {count > 1 ? (
-        <div className="shipped-carousel__keys">
-          <button
-            aria-label="Previous ship"
-            disabled={index === 0}
-            onClick={() => {
-              goTo(index - 1)
-            }}
-            type="button"
-          >
-            <svg aria-hidden="true" viewBox="0 0 24 24">
-              <path
-                d="M14.5 5.5 8 12l6.5 6.5"
-                fill="none"
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2.4"
-              />
-            </svg>
-          </button>
-          <button
-            aria-label="Next ship"
-            disabled={index === count - 1}
-            onClick={() => {
-              goTo(index + 1)
-            }}
-            type="button"
-          >
-            <svg aria-hidden="true" viewBox="0 0 24 24">
-              <path
-                d="M9.5 5.5 16 12l-6.5 6.5"
-                fill="none"
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2.4"
-              />
-            </svg>
-          </button>
-        </div>
-      ) : null}
+      <div className="shipped-carousel__keys">
+        <button
+          aria-label="Previous ship"
+          disabled={index === 0}
+          onClick={() => {
+            goTo(index - 1)
+          }}
+          type="button"
+        >
+          <svg aria-hidden="true" viewBox="0 0 24 24">
+            <path
+              d="M14.5 5.5 8 12l6.5 6.5"
+              fill="none"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2.4"
+            />
+          </svg>
+        </button>
+        <button
+          aria-label="Next ship"
+          disabled={index === count - 1}
+          onClick={() => {
+            goTo(index + 1)
+          }}
+          type="button"
+        >
+          <svg aria-hidden="true" viewBox="0 0 24 24">
+            <path
+              d="M9.5 5.5 16 12l-6.5 6.5"
+              fill="none"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2.4"
+            />
+          </svg>
+        </button>
+      </div>
     </section>
   )
 }

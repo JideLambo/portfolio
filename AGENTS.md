@@ -89,7 +89,7 @@ Home snap carousel (0–5 latest) and the `/shipped` list from **All shipped →
 
 - Section heading: `Last shipped`, with `All shipped →` (`/shipped`)
 - One container, focused card plus peek of the next when there is more than one ship: CSS scroll-snap, keyboard ← →, pointer drag
-- Prev/next arrows only when there is more than one ship. No progress ticks
+- Prev/next arrows with a large hit target. No progress ticks
 - Each card: light UI fragment on a dark visual panel, title, 2–4 sentence body, `View →`
 - No visible product or example pills on Home or `/shipped`
 - Site tokens only. No Slack purple. No chromatic blue. Links are underline + ink, white on hover. White focus ring and selection wash
