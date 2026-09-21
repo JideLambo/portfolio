@@ -1,0 +1,62 @@
+---
+import { getProductLabel } from '@/lib/product'
+import { getShippedVisual } from '@/lib/shipped'
+import type { CollectionEntry } from 'astro:content'
+import { render } from 'astro:content'
+
+type Props = {
+  entry: CollectionEntry<'shipped'>
+  showIndexLink?: boolean
+}
+
+const { entry, showIndexLink = true } = Astro.props
+const { Content } = await render(entry)
+const visual = getShippedVisual(entry.data)
+const productLabel = getProductLabel(entry.data.product)
+---
+
+<article class="last-shipped__card">
+  <div class="last-shipped__media">
+    {
+      visual ? (
+        <img
+          src={visual}
+          alt=""
+          width="320"
+          height="320"
+          loading="lazy"
+          decoding="async"
+        />
+      ) : (
+        <div class="last-shipped__placeholder" aria-hidden="true" />
+      )
+    }
+  </div>
+  <div class="last-shipped__copy">
+    <div class="last-shipped__heading">
+      <h3 class="last-shipped__title">{entry.data.title}</h3>
+      <p class="last-shipped__product">{productLabel}</p>
+    </div>
+    <div class="last-shipped__writeup">
+      <Content />
+    </div>
+    <p class="last-shipped__actions">
+      {
+        entry.data.href && (
+          <a
+            href={entry.data.href}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            View →<span class="visually-hidden"> (opens in new tab)</span>
+          </a>
+        )
+      }
+      {
+        showIndexLink && (
+          <a href="/shipped">All shipped →</a>
+        )
+      }
+    </p>
+  </div>
+</article>

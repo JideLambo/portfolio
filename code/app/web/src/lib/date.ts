@@ -5,10 +5,6 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', {
   year: 'numeric',
 })
 
-const relativeFormatter = new Intl.RelativeTimeFormat('en', {
-  numeric: 'auto',
-})
-
 const msPerDay = 86_400_000
 
 const utcDay = (date: Date) =>
@@ -18,21 +14,25 @@ export const formatDate = (date: Date): string => dateFormatter.format(date)
 
 export const toISODate = (date: Date): string => date.toISOString().slice(0, 10)
 
-/** Calendar-day relative time in UTC, for Slack-like message headers. */
+/** Compact relative time for Last shipped eyebrows, e.g. `2d ago`. */
 export const formatRelativeTime = (date: Date, now = new Date()): string => {
-  const days = Math.round((utcDay(date) - utcDay(now)) / msPerDay)
+  const days = Math.round((utcDay(now) - utcDay(date)) / msPerDay)
 
-  if (Math.abs(days) < 14) {
-    return relativeFormatter.format(days, 'day')
+  if (days <= 0) {
+    return 'today'
   }
 
-  if (Math.abs(days) < 60) {
-    return relativeFormatter.format(Math.round(days / 7), 'week')
+  if (days < 14) {
+    return `${days}d ago`
   }
 
-  if (Math.abs(days) < 365) {
-    return relativeFormatter.format(Math.round(days / 30), 'month')
+  if (days < 60) {
+    return `${Math.round(days / 7)}w ago`
   }
 
-  return relativeFormatter.format(Math.round(days / 365), 'year')
+  if (days < 365) {
+    return `${Math.round(days / 30)}mo ago`
+  }
+
+  return `${Math.round(days / 365)}y ago`
 }

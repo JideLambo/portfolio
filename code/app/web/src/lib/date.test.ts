@@ -19,31 +19,31 @@ describe('date', () => {
   })
 
   describe('formatRelativeTime', () => {
-    it('uses today and yesterday for the last two calendar days', () => {
+    it('uses compact units for the last shipped eyebrow', () => {
       expect(
         formatRelativeTime(new Date('2026-09-21T00:00:00.000Z'), now),
       ).toBe('today')
       expect(
         formatRelativeTime(new Date('2026-09-20T18:00:00.000Z'), now),
-      ).toBe('yesterday')
-    })
-
-    it('uses days for dates inside two weeks', () => {
+      ).toBe('1d ago')
+      expect(
+        formatRelativeTime(new Date('2026-09-19T00:00:00.000Z'), now),
+      ).toBe('2d ago')
       expect(
         formatRelativeTime(new Date('2026-09-16T00:00:00.000Z'), now),
-      ).toBe('5 days ago')
+      ).toBe('5d ago')
     })
 
     it('steps up to weeks, months, and years', () => {
       expect(
         formatRelativeTime(new Date('2026-08-24T00:00:00.000Z'), now),
-      ).toBe('4 weeks ago')
+      ).toBe('4w ago')
       expect(
         formatRelativeTime(new Date('2026-06-21T00:00:00.000Z'), now),
-      ).toBe('3 months ago')
+      ).toBe('3mo ago')
       expect(
         formatRelativeTime(new Date('2024-09-21T00:00:00.000Z'), now),
-      ).toBe('2 years ago')
+      ).toBe('2y ago')
     })
   })
 })

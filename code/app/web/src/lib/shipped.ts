@@ -26,7 +26,7 @@ export const getShippedEntries = async () => {
   return sorted
 }
 
-/** Latest card for the homepage. Home is the only v1 surface. */
+/** Latest card for the homepage. The `/shipped` list is the All shipped target. */
 export const getLatestShipped = async () => {
   const entries = await getShippedEntries()
   return entries[0]

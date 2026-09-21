@@ -71,23 +71,22 @@ assert(
   'Last shipped card should link to FirstDistro',
 )
 assert(
-  home.includes('>View'),
+  home.includes('View →'),
   'Last shipped card should use a View text action',
 )
+assert(
+  home.includes('All shipped →'),
+  'Last shipped card should use an All shipped text action',
+)
+assert(home.includes('href="/shipped"'), 'Home page should link to /shipped')
 assert(
   !home.includes('href="/projects"'),
   'Home page must not link to /projects',
 )
 assert(!home.includes('href="/blog"'), 'Home page must not link to /blog')
-assert(
-  !home.includes('href="/shipped"'),
-  'Home page must not link to a /shipped archive',
-)
 assertExists('shipped/morning-who-needs-you.svg')
-assert(
-  !existsSync(file('shipped/index.html')),
-  'Build must not include a /shipped archive page',
-)
+assertExists('shipped/index.html')
+assertExists('og/shipped.png')
 
 const about = read('about/index.html')
 assert(about.includes('href="/writing"'), 'About page should link to /writing')
@@ -156,6 +155,10 @@ assert(
   'Sitemap should include /writing URLs',
 )
 assert(sitemap.includes(`${siteUrl}/work`), 'Sitemap should include /work URLs')
+assert(
+  sitemap.includes(`${siteUrl}/shipped`),
+  'Sitemap should include /shipped URLs',
+)
 assert(
   !sitemap.includes(`${siteUrl}/blog`),
   'Sitemap must not include /blog URLs',

@@ -30,10 +30,13 @@ const slug = z
   )
 
 /**
- * Last shipped (Home only, v1). No `/shipped` archive.
- * Later detection allowlist: Linear Done on FIR, LAY, GRE; GitHub merges on
- * first-distro, feedback-layer, portfolio; Grok bots Builder, Product at Sinch,
- * Local Models, iMessage/SMS Agent Build, figma bro; rare: Sales Man.
+ * Last shipped card pattern: eyebrow `Last shipped · 2d ago`, hairline
+ * rounded card, square dashed thumb, title + outline product pill, body,
+ * `View →` / `All shipped →`. Site tokens only (no Slack purple).
+ * Home shows the latest card; `/shipped` is the list. Detection allowlist:
+ * Linear Done on FIR, LAY, GRE; GitHub merges on first-distro,
+ * feedback-layer, portfolio; Grok bots Builder, Product at Sinch, Local
+ * Models, iMessage/SMS Agent Build, figma bro; rare: Sales Man.
  * Body is the short writeup (2–4 sentences).
  */
 const shipped = defineCollection({

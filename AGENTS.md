@@ -57,6 +57,7 @@ Vite overrides in root `package.json` keep `@vitejs/plugin-react` on v6 with Ast
 | Route | Purpose |
 | --- | --- |
 | `/` | Home (name, tagline, last shipped, projects, latest writing) |
+| `/shipped` | Last shipped list (from All shipped →, not in nav) |
 | `/about` | Conversation-style bio + career |
 | `/writing` | Essays |
 | `/writing/{slug}` | Post |
@@ -84,11 +85,19 @@ Nav: Home · About · Work · Writing.
 
 ## Content (last shipped)
 
+Standard card pattern (Home latest, and the `/shipped` list from **All shipped →**):
+
+- Eyebrow: `Last shipped · 2d ago` (compact relative time)
+- Soft hairline rounded card, site dark tokens only. No Slack purple
+- Square dashed thumb for miniature art
+- Title + muted outline product pill, then short body
+- Text-links: `View →` (href) and `All shipped →` (`/shipped`)
+- Desktop: visual left, copy right. Mobile: stack. Hide the Home section if empty
+
 - Cards: `code/app/web/src/content/shipped/*.md`
 - Schema: `code/app/web/src/content.config.ts` (`shipped` collection)
 - Required frontmatter: `slug`, `title`, `product` (`firstdistro` \| `uselay` \| `gre` \| `sinch` \| `personal`), `shippedAt`. Optional: `visual`, `visualDark`, `href`, `source`
 - Body is the short writeup (2–4 sentences)
-- **Home only**, one latest card under the hero. No `/shipped` archive in v1
 - Use `getLatestShipped()` on Home; `getShippedEntries()` throws on duplicate slugs
 
 ---
