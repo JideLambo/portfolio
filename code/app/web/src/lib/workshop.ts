@@ -40,9 +40,9 @@ export const workshopStill = {
 
 export const workshopLaptopHudBounds: WorkshopBounds = {
   height: 0.228,
-  left: 0.372,
+  left: 0.368,
   top: 0.2,
-  width: 0.145,
+  width: 0.155,
 }
 
 export const workshopHotspots: WorkshopHotspot[] = [
