@@ -5,7 +5,6 @@ import {
   getWorkshopHotspotLabel,
   isWorkshopCardHotspot,
   workshopHotspots,
-  workshopLaptopHudBounds,
   workshopStill,
 } from '@/lib/workshop'
 
@@ -91,17 +90,11 @@ describe('workshop', () => {
     expect(workshopStill.height).toBe(276)
   })
 
-  it('keeps the laptop HUD on the screen, inside the still', () => {
+  it('keeps hotspot hit targets tight to the desk objects', () => {
     const laptop = workshopHotspots[0]!.bounds
-    const hud = workshopLaptopHudBounds
-    expect(hud.left).toBeGreaterThan(laptop.left)
-    expect(hud.top).toBeGreaterThan(laptop.top)
-    expect(hud.left + hud.width).toBeLessThan(laptop.left + laptop.width)
-    expect(hud.top + hud.height).toBeLessThan(laptop.top + laptop.height)
-    expect(hud.left).toBeGreaterThanOrEqual(0.36)
-    expect(hud.left + hud.width).toBeLessThanOrEqual(0.53)
-    expect(hud.top).toBeGreaterThanOrEqual(0.18)
-    expect(hud.top + hud.height).toBeGreaterThan(0.4)
-    expect(hud.top + hud.height).toBeLessThanOrEqual(0.45)
+    const phone = workshopHotspots[1]!.bounds
+    expect(laptop.width).toBeLessThan(0.28)
+    expect(phone.width).toBeLessThan(0.12)
+    expect(phone.left).toBeGreaterThan(laptop.left + laptop.width)
   })
 })

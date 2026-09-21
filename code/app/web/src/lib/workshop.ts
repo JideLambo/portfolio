@@ -38,17 +38,10 @@ export const workshopStill = {
   width: 491,
 }
 
-export const workshopLaptopHudBounds: WorkshopBounds = {
-  height: 0.228,
-  left: 0.368,
-  top: 0.2,
-  width: 0.155,
-}
-
 export const workshopHotspots: WorkshopHotspot[] = [
   {
     body: "I've been running a small open model on my own machine with Ollama. Wired tools and gates on top so it's not just chat.",
-    bounds: { height: 0.348, left: 0.326, top: 0.188, width: 0.3 },
+    bounds: { height: 0.36, left: 0.35, top: 0.17, width: 0.23 },
     id: 'local-ai',
     kind: 'card',
     line: 'Open model, tools, gates',
@@ -57,7 +50,7 @@ export const workshopHotspots: WorkshopHotspot[] = [
   },
   {
     body: "I'm building iMessage agents for vertical businesses. Front-desk packs that answer like a person at the desk, then you take over when it matters.",
-    bounds: { height: 0.16, left: 0.64, top: 0.46, width: 0.125 },
+    bounds: { height: 0.15, left: 0.655, top: 0.455, width: 0.09 },
     id: 'imessage',
     kind: 'card',
     line: 'Front-desk packs',
@@ -66,7 +59,7 @@ export const workshopHotspots: WorkshopHotspot[] = [
   },
   {
     body: 'Catch silent churn, draft the next move. Nothing sends until you act.',
-    bounds: { height: 0.2, left: 0.77, top: 0.475, width: 0.175 },
+    bounds: { height: 0.14, left: 0.8, top: 0.5, width: 0.13 },
     href: firstDistroUrl,
     hrefLabel: 'FirstDistro',
     id: 'firstdistro',
@@ -77,7 +70,7 @@ export const workshopHotspots: WorkshopHotspot[] = [
   },
   {
     body: 'In-app feedback that pins comments to exact UI elements. Review on staging, support on live.',
-    bounds: { height: 0.4, left: 0.035, top: 0.03, width: 0.255 },
+    bounds: { height: 0.36, left: 0.04, top: 0.05, width: 0.22 },
     href: useLayUrl,
     hrefLabel: 'UseLay',
     id: 'uselay',
@@ -87,7 +80,7 @@ export const workshopHotspots: WorkshopHotspot[] = [
     title: 'UseLay',
   },
   {
-    bounds: { height: 0.25, left: 0.615, top: 0, width: 0.185 },
+    bounds: { height: 0.26, left: 0.575, top: 0.02, width: 0.155 },
     id: 'lamp',
     kind: 'lamp',
     objectLabel: 'Lamp',

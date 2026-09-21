@@ -133,12 +133,16 @@ assert(
   'Workshop should include the pinboard hotspot',
 )
 assert(
-  home.includes('workshop-hud'),
-  'Workshop laptop should show a local-status HUD',
+  home.includes('workshop-hotspot__mark'),
+  'Workshop hotspots should use a small mark, not a glass hit box',
 )
 assert(
-  home.includes('workshop-hud__ready'),
-  'Workshop laptop HUD should keep Ready',
+  !home.includes('workshop-hud'),
+  'Workshop must not render a floating laptop HUD',
+)
+assert(
+  home.includes('workshop-stage__canvas'),
+  'Workshop should include a lazy WebGL canvas over the still',
 )
 assert(
   !home.includes('Cursor cloud') && !home.includes('Grok Bot'),
@@ -147,12 +151,6 @@ assert(
 assert(
   home.includes('/workshop/still.webp') || home.includes('/workshop/still.png'),
   'Workshop should load the art-direction still',
-)
-assert(
-  !home.includes('three.js') &&
-    !home.includes('Three.js') &&
-    !home.includes('OrbitControls'),
-  'Phase 1 Home must not include a WebGL workshop',
 )
 assert(
   home.indexOf("I'm Jide, a product design engineer.") <

@@ -109,12 +109,13 @@ Home Last shipped is a stacked deck of three ships. `/shipped` is the list from 
 
 Home hero is the locked letter (left) plus a warm-lit workshop still (right). Mobile stacks letter, then workshop. Last shipped stays below.
 
-- Phase 1 (this): static still + HTML hotspot hit targets + glass cards. No Three.js / WebGL / OrbitControls
+- Phase 1: static still + HTML hotspot hit targets + glass cards. Invisible hits, small point + label on hover. No floating HUD
+- Phase 2: lazy `createWorkshop` Three.js scene over the still (OrbitControls, pause / reset). WebGL fail or reduced motion keeps the still + HTML hotspots
 - Still: `code/app/web/public/workshop/still.webp` (+ png fallback)
 - Data: `code/app/web/src/lib/workshop.ts`. Ids: `local-ai`, `imessage`, `firstdistro`, `uselay`, `lamp`
-- Lamp toggles a warm CSS overlay (`aria-pressed`). No card. Set dressing is not clickable
+- Lamp toggles a warm light (`aria-pressed`). No card. Set dressing is not clickable
 - Cards: light glass dialog, Escape / × / empty dismiss. FirstDistro and UseLay links from `@shared/lib/site`
-- Laptop HUD: Ready plus build-time GitHub open PRs and commits this week (`src/lib/workshop-github.ts`). Allowlist: `JideLambo/portfolio`, `Wonderstand-AI/first-distro`, `Wonderstand-AI/feedback-layer`. Optional `GITHUB_TOKEN` / `GH_TOKEN` for private repos. Park Cursor/Grok agent counts
+- GitHub counts: build-time fetch (`src/lib/workshop-github.ts`) shown on the 3D laptop screen and in the Local AI card. Allowlist: `JideLambo/portfolio`, `Wonderstand-AI/first-distro`, `Wonderstand-AI/feedback-layer`. Park Cursor/Grok agent counts
 
 ---
 
@@ -173,6 +174,6 @@ See `.cursor/commands/bump-dependencies.md` for npm + GHA tracks.
 | Browser tests | `code/app/web/vitest.config.js` |
 | Blog prose + callouts | `code/app/web/src/style/prose.css` |
 | Last shipped | `code/app/web/src/content/shipped/`, `src/lib/shipped.ts`, `src/lib/product.ts` |
-| Workshop | `src/lib/workshop.ts`, `src/lib/workshop-github.ts`, `src/component/WorkshopStage.tsx`, `public/workshop/` |
+| Workshop | `src/lib/workshop.ts`, `src/lib/workshop-github.ts`, `src/lib/createWorkshop.ts`, `src/component/WorkshopStage.tsx`, `public/workshop/` |
 | Lint | `biome.json`, knip |
 | CI | `.github/workflows/web-*.yml` |

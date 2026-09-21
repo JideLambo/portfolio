@@ -47,29 +47,47 @@ describe('WorkshopStage', () => {
     expect(screen.queryByRole('dialog')).toBeNull()
   })
 
-  it('always shows Ready on the laptop and adds GitHub counts when present', () => {
+  it('keeps GitHub counts in the Local AI card, not a floating HUD', async () => {
     const { rerender } = render(<WorkshopStage />)
 
-    const hud = document.querySelector('.workshop-hud') as HTMLElement
-    expect(hud).toBeTruthy()
-    expect(hud.getAttribute('aria-hidden')).toBe('true')
-    expect(hud.querySelector('.workshop-hud__ready')?.textContent).toContain(
-      'Ready',
-    )
+    expect(document.querySelector('.workshop-hud')).toBeNull()
     expect(screen.queryByText(/open PR/)).toBeNull()
-    expect(screen.queryByText(/this week/)).toBeNull()
     expect(screen.queryByText(/Cursor/i)).toBeNull()
     expect(screen.queryByText(/Grok/i)).toBeNull()
 
     rerender(<WorkshopStage githubLine={'2 open PRs\n8 this week'} />)
     expect(
-      [...hud.querySelectorAll('.workshop-hud__line')].map(
-        node => node.textContent,
-      ),
-    ).toEqual(['2 open PRs', '8 this week'])
-    expect(
       screen.getByText(/Local model ready\. 2 open PRs, 8 this week/),
     ).toBeTruthy()
+
+    await openCard('Local AI on your machine, Laptop')
+    expect(
+      document.querySelector('.workshop-card__signal')?.textContent,
+    ).toContain('Ready')
+    expect(screen.getByText(/2 open PRs · 8 this week/)).toBeTruthy()
+  })
+
+  it('uses invisible hotspot hits with a small mark, not a glass box', () => {
+    render(<WorkshopStage />)
+
+    const phone = screen.getByRole('button', {
+      name: 'iMessage agent for your business, Phone',
+    })
+    expect(phone.querySelector('.workshop-hotspot__mark')).toBeTruthy()
+    const style = getComputedStyle(phone)
+    expect(
+      style.backgroundColor === 'rgba(0, 0, 0, 0)' ||
+        style.backgroundColor === 'transparent',
+    ).toBe(true)
+    fireEvent.mouseEnter(phone)
+    const hover = getComputedStyle(phone)
+    expect(
+      hover.backgroundColor === 'rgba(0, 0, 0, 0)' ||
+        hover.backgroundColor === 'transparent',
+    ).toBe(true)
+    expect(hover.borderStyle === 'none' || hover.borderWidth === '0px').toBe(
+      true,
+    )
   })
 
   it('opens a glass card with locked copy and dismisses it', async () => {
@@ -80,6 +98,7 @@ describe('WorkshopStage', () => {
       name: 'Local AI on your machine',
     })
     expect(dialog.className).toBe('workshop-card')
+    expect(screen.getByText('Laptop')).toBeTruthy()
     expect(screen.getByText('Open model, tools, gates')).toBeTruthy()
     expect(
       screen.getByText(

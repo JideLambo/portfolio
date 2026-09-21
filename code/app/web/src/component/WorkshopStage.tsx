@@ -6,7 +6,6 @@ import {
   useRef,
   useState,
 } from 'react'
-
 import {
   getWorkshopHotspotLabel,
   isWorkshopCardHotspot,
@@ -14,9 +13,12 @@ import {
   type WorkshopCardHotspot,
   type WorkshopHotspot,
   workshopHotspots,
-  workshopLaptopHudBounds,
   workshopStill,
 } from '@/lib/workshop'
+import {
+  canUseWorkshopWebgl,
+  type WorkshopSceneApi,
+} from '@/lib/workshop-webgl'
 
 type WorkshopStageProps = {
   githubLine?: string
@@ -34,8 +36,18 @@ const WorkshopStage = ({ githubLine }: WorkshopStageProps) => {
   const bodyId = useId()
   const hintId = useId()
   const githubSpoken = githubLine?.replaceAll('\n', ', ')
+  const githubCardLine = githubLine?.replaceAll('\n', ' · ')
   const dialogRef = useRef<HTMLDialogElement>(null)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const sceneRef = useRef<WorkshopSceneApi | null>(null)
+  const [mode, setMode] = useState<'still' | 'webgl'>('still')
   const [lampOn, setLampOn] = useState(false)
+  const [motionOn, setMotionOn] = useState(true)
+  const lampRef = useRef(lampOn)
+  const motionRef = useRef(motionOn)
+  lampRef.current = lampOn
+  motionRef.current = motionOn
+  const [hoverId, setHoverId] = useState<WorkshopHotspot['id'] | null>(null)
   const [selectedId, setSelectedId] = useState<
     WorkshopCardHotspot['id'] | null
   >(null)
@@ -43,6 +55,7 @@ const WorkshopStage = ({ githubLine }: WorkshopStageProps) => {
     (hotspot): hotspot is WorkshopCardHotspot =>
       isWorkshopCardHotspot(hotspot) && hotspot.id === selectedId,
   )
+  const hoverHotspot = workshopHotspots.find(hotspot => hotspot.id === hoverId)
 
   useEffect(() => {
     const node = dialogRef.current
@@ -68,7 +81,11 @@ const WorkshopStage = ({ githubLine }: WorkshopStageProps) => {
       if (!(target instanceof Element)) {
         return
       }
-      if (target.closest('.workshop-hotspot, .workshop-card')) {
+      if (
+        target.closest(
+          '.workshop-hotspot, .workshop-card, .workshop-stage__canvas, .workshop-stage__controls',
+        )
+      ) {
         return
       }
       setSelectedId(null)
@@ -79,8 +96,55 @@ const WorkshopStage = ({ githubLine }: WorkshopStageProps) => {
     }
   }, [selectedId])
 
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas || !canUseWorkshopWebgl()) {
+      return
+    }
+    let cancelled = false
+    const start = async () => {
+      try {
+        const { createWorkshop } = await import('@/lib/createWorkshop')
+        if (cancelled || sceneRef.current) {
+          return
+        }
+        sceneRef.current = createWorkshop({
+          canvas,
+          githubLine,
+          lampOn: lampRef.current,
+          motion: motionRef.current,
+          onHover: setHoverId,
+          onLamp: () => {
+            setLampOn(on => !on)
+          },
+          onSelect: setSelectedId,
+        })
+        sceneRef.current.toggleLamp(lampRef.current)
+        sceneRef.current.motion(motionRef.current)
+        setMode('webgl')
+      } catch {
+        setMode('still')
+      }
+    }
+    void start()
+    return () => {
+      cancelled = true
+      sceneRef.current?.dispose()
+      sceneRef.current = null
+    }
+  }, [githubLine])
+
+  useEffect(() => {
+    sceneRef.current?.toggleLamp(lampOn)
+  }, [lampOn])
+
+  useEffect(() => {
+    sceneRef.current?.motion(motionOn)
+  }, [motionOn])
+
   const dismiss = () => {
     setSelectedId(null)
+    sceneRef.current?.dismiss()
   }
 
   const onHotspotClick = (
@@ -120,6 +184,7 @@ const WorkshopStage = ({ githubLine }: WorkshopStageProps) => {
       aria-label="Workshop"
       className="workshop-stage"
       data-lamp={lampOn ? 'on' : 'off'}
+      data-mode={mode}
     >
       <p className="visually-hidden" id={hintId}>
         {githubSpoken
@@ -139,26 +204,12 @@ const WorkshopStage = ({ githubLine }: WorkshopStageProps) => {
             width={workshopStill.width}
           />
         </picture>
+        <canvas
+          className="workshop-stage__canvas"
+          ref={canvasRef}
+          tabIndex={-1}
+        />
         <div aria-hidden="true" className="workshop-stage__glow" />
-        <div
-          aria-hidden="true"
-          className="workshop-hud"
-          style={boundsStyle(workshopLaptopHudBounds)}
-        >
-          <div className="workshop-hud__panel">
-            <p className="workshop-hud__ready">
-              <span className="workshop-hud__dot" />
-              Ready
-            </p>
-            {githubLine
-              ? githubLine.split('\n').map(line => (
-                  <p className="workshop-hud__line" key={line}>
-                    {line}
-                  </p>
-                ))
-              : null}
-          </div>
-        </div>
         <div className="workshop-stage__hotspots">
           {workshopHotspots.map(hotspot => (
             <button
@@ -171,19 +222,67 @@ const WorkshopStage = ({ githubLine }: WorkshopStageProps) => {
               className="workshop-hotspot"
               data-workshop-id={hotspot.id}
               key={hotspot.id}
+              onBlur={() => {
+                setHoverId(current => (current === hotspot.id ? null : current))
+              }}
               onClick={event => {
                 onHotspotClick(event, hotspot)
+              }}
+              onFocus={() => {
+                setHoverId(hotspot.id)
+              }}
+              onMouseEnter={() => {
+                if (mode === 'still') {
+                  setHoverId(hotspot.id)
+                }
+              }}
+              onMouseLeave={() => {
+                if (mode === 'still') {
+                  setHoverId(current =>
+                    current === hotspot.id ? null : current,
+                  )
+                }
               }}
               style={boundsStyle(hotspot.bounds)}
               type="button"
             >
+              <span aria-hidden="true" className="workshop-hotspot__mark" />
               <span aria-hidden="true" className="workshop-hotspot__label">
                 {hotspot.kind === 'card' ? hotspot.title : hotspot.objectLabel}
               </span>
             </button>
           ))}
         </div>
+        {hoverHotspot && mode === 'webgl' ? (
+          <p aria-hidden="true" className="workshop-stage__hover">
+            {hoverHotspot.kind === 'card'
+              ? hoverHotspot.title
+              : hoverHotspot.objectLabel}
+          </p>
+        ) : null}
       </div>
+      {mode === 'webgl' ? (
+        <div className="workshop-stage__controls">
+          <button
+            className="workshop-stage__control"
+            onClick={() => {
+              setMotionOn(on => !on)
+            }}
+            type="button"
+          >
+            {motionOn ? 'Pause motion' : 'Resume motion'}
+          </button>
+          <button
+            className="workshop-stage__control"
+            onClick={() => {
+              sceneRef.current?.reset()
+            }}
+            type="button"
+          >
+            Reset view
+          </button>
+        </div>
+      ) : null}
       {selectedCard ? (
         <dialog
           aria-describedby={bodyId}
@@ -194,6 +293,7 @@ const WorkshopStage = ({ githubLine }: WorkshopStageProps) => {
           onKeyDown={onDialogKeyDown}
           ref={dialogRef}
         >
+          <p className="workshop-card__place">{selectedCard.objectLabel}</p>
           <div className="workshop-card__head">
             <h2 className="workshop-card__title" id={titleId}>
               {selectedCard.title}
@@ -211,6 +311,13 @@ const WorkshopStage = ({ githubLine }: WorkshopStageProps) => {
           <p className="workshop-card__body" id={bodyId}>
             {selectedCard.body}
           </p>
+          {selectedCard.id === 'local-ai' ? (
+            <p className="workshop-card__signal">
+              <span className="workshop-card__dot" />
+              Ready
+              {githubCardLine ? ` · ${githubCardLine}` : ''}
+            </p>
+          ) : null}
           {selectedCard.href && selectedCard.hrefLabel ? (
             <p className="workshop-card__actions">
               <a
