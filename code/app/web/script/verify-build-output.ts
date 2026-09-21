@@ -61,11 +61,29 @@ assert(llms.includes('https://uselay.com'), 'llms.txt should link UseLay')
 const home = read('index.html')
 assert(home.includes('href="/about"'), 'Home page should link to /about')
 assert(home.includes('href="/writing"'), 'Home page should link to /writing')
+assert(home.includes('Last shipped'), 'Home page should include Last shipped')
+assert(
+  home.includes('Morning who needs you'),
+  'Home page should include the latest shipped card',
+)
+assert(
+  home.includes('https://firstdistro.com'),
+  'Last shipped card should link to FirstDistro',
+)
 assert(
   !home.includes('href="/projects"'),
   'Home page must not link to /projects',
 )
 assert(!home.includes('href="/blog"'), 'Home page must not link to /blog')
+assert(
+  !home.includes('href="/shipped"'),
+  'Home page must not link to a /shipped archive',
+)
+assertExists('shipped/morning-who-needs-you.svg')
+assert(
+  !existsSync(file('shipped/index.html')),
+  'Build must not include a /shipped archive page',
+)
 
 const about = read('about/index.html')
 assert(about.includes('href="/writing"'), 'About page should link to /writing')

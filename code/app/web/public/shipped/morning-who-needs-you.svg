@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" role="img" aria-labelledby="shipped-visual-title">
+  <title id="shipped-visual-title">Morning briefing, stylized as a small card</title>
+  <rect width="320" height="220" fill="#0d0d0f"/>
+  <rect x="36" y="36" width="252" height="156" fill="#161619" stroke="#26262b"/>
+  <rect x="24" y="24" width="252" height="156" fill="#161619" stroke="#26262b"/>
+  <circle cx="44" cy="48" r="8" fill="#5ba3ff"/>
+  <rect x="60" y="42" width="88" height="6" fill="#ededee"/>
+  <rect x="60" y="54" width="52" height="4" fill="#9a9aa2"/>
+  <rect x="36" y="72" width="228" height="1" fill="#26262b"/>
+  <rect x="44" y="86" width="8" height="8" fill="#5ba3ff" opacity="0.45"/>
+  <rect x="60" y="86" width="120" height="5" fill="#ededee"/>
+  <rect x="60" y="96" width="72" height="4" fill="#9a9aa2"/>
+  <rect x="44" y="116" width="8" height="8" fill="#5ba3ff" opacity="0.45"/>
+  <rect x="60" y="116" width="108" height="5" fill="#ededee"/>
+  <rect x="60" y="126" width="64" height="4" fill="#9a9aa2"/>
+  <rect x="44" y="146" width="8" height="8" fill="#5ba3ff" opacity="0.45"/>
+  <rect x="60" y="146" width="96" height="5" fill="#ededee"/>
+  <rect x="60" y="156" width="56" height="4" fill="#9a9aa2"/>
+</svg>

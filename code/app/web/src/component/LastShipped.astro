@@ -1,0 +1,65 @@
+---
+import { formatDate, toISODate } from '@/lib/date'
+import { getProductLabel } from '@/lib/product'
+import { getLatestShipped, getShippedVisual } from '@/lib/shipped'
+import { render } from 'astro:content'
+
+const entry = await getLatestShipped()
+const rendered = entry ? await render(entry) : undefined
+const Content = rendered?.Content
+const visual = entry ? getShippedVisual(entry.data) : undefined
+const productLabel = entry ? getProductLabel(entry.data.product) : undefined
+const headingId = 'last-shipped'
+---
+
+{
+  entry && Content && productLabel && (
+    <section class="home-section last-shipped" aria-labelledby={headingId}>
+      <div class="home-section__head">
+        <h2 id={headingId}>Last shipped</h2>
+        <time class="post-date" datetime={toISODate(entry.data.shippedAt)}>
+          {formatDate(entry.data.shippedAt)}
+        </time>
+      </div>
+      <article class="last-shipped__card">
+        <div class="last-shipped__media">
+          {visual ? (
+            <img
+              src={visual}
+              alt=""
+              width="320"
+              height="220"
+              loading="lazy"
+              decoding="async"
+            />
+          ) : (
+            <div class="last-shipped__placeholder" aria-hidden="true">
+              <span class="last-shipped__placeholder-sheet" />
+              <span class="last-shipped__placeholder-sheet last-shipped__placeholder-sheet--front" />
+            </div>
+          )}
+        </div>
+        <div class="last-shipped__copy">
+          <p class="last-shipped__product">{productLabel}</p>
+          <h3 class="last-shipped__title">{entry.data.title}</h3>
+          <div class="last-shipped__writeup">
+            <Content />
+          </div>
+          {entry.data.href && (
+            <p class="last-shipped__cta">
+              <a
+                class="text-link external-link"
+                href={entry.data.href}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {productLabel}
+                <span class="visually-hidden"> (opens in new tab)</span>
+              </a>
+            </p>
+          )}
+        </div>
+      </article>
+    </section>
+  )
+}

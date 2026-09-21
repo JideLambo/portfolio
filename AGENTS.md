@@ -56,7 +56,7 @@ Vite overrides in root `package.json` keep `@vitejs/plugin-react` on v6 with Ast
 
 | Route | Purpose |
 | --- | --- |
-| `/` | Home (name, tagline, latest writing) |
+| `/` | Home (name, tagline, last shipped, projects, latest writing) |
 | `/about` | Conversation-style bio + career |
 | `/writing` | Essays |
 | `/writing/{slug}` | Post |
@@ -79,6 +79,17 @@ Nav: Home · About · Work · Writing.
 - Tags: values from `Tag` in `code/app/web/src/lib/tag.ts`. Add new tags only there
 - Use `getPostSlug()` for hrefs; `getPublishedPosts()` throws on duplicate slugs
 - Callouts: `<details class="callout">` in prose (see existing posts / `prose.css`)
+
+---
+
+## Content (last shipped)
+
+- Cards: `code/app/web/src/content/shipped/*.md`
+- Schema: `code/app/web/src/content.config.ts` (`shipped` collection)
+- Required frontmatter: `slug`, `title`, `product` (`firstdistro` \| `uselay` \| `gre` \| `sinch` \| `personal`), `shippedAt`. Optional: `visual`, `visualDark`, `href`, `source`
+- Body is the short writeup (2–4 sentences)
+- **Home only**, one latest card under the hero. No `/shipped` archive in v1
+- Use `getLatestShipped()` on Home; `getShippedEntries()` throws on duplicate slugs
 
 ---
 
@@ -135,5 +146,6 @@ See `.cursor/commands/bump-dependencies.md` for npm + GHA tracks.
 | Agent map | `code/app/web/public/llms.txt` |
 | Browser tests | `code/app/web/vitest.config.js` |
 | Blog prose + callouts | `code/app/web/src/style/prose.css` |
+| Last shipped | `code/app/web/src/content/shipped/`, `src/lib/shipped.ts`, `src/lib/product.ts` |
 | Lint | `biome.json`, knip |
 | CI | `.github/workflows/web-*.yml` |
