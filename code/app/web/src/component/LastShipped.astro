@@ -1,28 +1,33 @@
 ---
-import ShippedCard from '@/component/ShippedCard.astro'
-import { formatDate, formatRelativeTime, toISODate } from '@/lib/date'
-import { getLatestShipped } from '@/lib/shipped'
+import ShippedCarousel from '@/component/ShippedCarousel'
+import { getProductLabel } from '@/lib/product'
+import {
+  getHomepageShipped,
+  getShippedVisual,
+  type ShippedSlide,
+} from '@/lib/shipped'
 
-const entry = await getLatestShipped()
+const entries = await getHomepageShipped()
 const headingId = 'last-shipped'
+const slides: ShippedSlide[] = entries.map(entry => ({
+  example: entry.data.example,
+  href: entry.data.href,
+  productLabel: getProductLabel(entry.data.product),
+  slug: entry.data.slug,
+  title: entry.data.title,
+  visual: getShippedVisual(entry.data),
+  writeup: entry.body.trim(),
+}))
 ---
 
 {
-  entry && (
+  slides.length > 0 && (
     <section class="home-section last-shipped" aria-labelledby={headingId}>
-      <div class="last-shipped__eyebrow">
+      <div class="home-section__head">
         <h2 id={headingId}>Last shipped</h2>
-        <span class="last-shipped__sep" aria-hidden="true">
-          ·
-        </span>
-        <time
-          datetime={toISODate(entry.data.shippedAt)}
-          title={formatDate(entry.data.shippedAt)}
-        >
-          {formatRelativeTime(entry.data.shippedAt)}
-        </time>
+        <a href="/shipped">All shipped →</a>
       </div>
-      <ShippedCard entry={entry} />
+      <ShippedCarousel client:load labelledBy={headingId} slides={slides} />
     </section>
   )
 }

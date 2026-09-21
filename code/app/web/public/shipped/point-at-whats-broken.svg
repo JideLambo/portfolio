@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" role="img" aria-labelledby="shipped-visual-title">
+  <title id="shipped-visual-title">Geometric marks on a dark field</title>
+  <rect width="320" height="200" fill="#050506"/>
+  <g fill="#fff">
+    <rect x="24" y="24" width="88" height="88"/>
+    <circle cx="196" cy="68" r="44"/>
+    <rect x="208" y="24" width="88" height="88"/>
+    <polygon points="24,124 112,124 68,188"/>
+    <rect x="112" y="112" width="96" height="64"/>
+    <circle cx="252" cy="156" r="32"/>
+    <rect x="248" y="112" width="48" height="32"/>
+  </g>
+  <g fill="#050506">
+    <rect x="40" y="40" width="56" height="56"/>
+    <circle cx="196" cy="68" r="20"/>
+    <rect x="224" y="40" width="56" height="56"/>
+    <rect x="128" y="128" width="64" height="32"/>
+    <circle cx="252" cy="156" r="14"/>
+  </g>
+  <g fill="none" stroke="#fff" stroke-width="2">
+    <rect x="160" y="24" width="36" height="36"/>
+    <circle cx="68" cy="156" r="18"/>
+  </g>
+</svg>

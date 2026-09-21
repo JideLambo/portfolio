@@ -4,7 +4,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { Product } from '@/lib/product'
 import {
-  getLatestShipped,
+  getHomepageShipped,
   getShippedEntries,
   getShippedSlug,
   getShippedVisual,
@@ -109,32 +109,33 @@ describe('shipped', () => {
     })
   })
 
-  describe('getLatestShipped', () => {
-    it('returns the newest card', async () => {
-      const entries = [
-        shippedEntry({
-          product: Product.Sinch,
-          shippedAt: new Date('2026-01-01T00:00:00.000Z'),
-          slug: 'older-ship',
-        }),
+  describe('getHomepageShipped', () => {
+    it('returns up to five ships, newest first', async () => {
+      const entries = [1, 2, 3, 4, 5, 6].map(n =>
         shippedEntry({
           product: Product.Firstdistro,
-          shippedAt: new Date('2026-09-16T00:00:00.000Z'),
-          slug: 'morning-who-needs-you',
+          shippedAt: new Date(`2026-09-0${n}T00:00:00.000Z`),
+          slug: `ship-${n}`,
         }),
-      ]
+      )
 
       vi.mocked(getCollection).mockResolvedValue(entries)
 
-      const latest = await getLatestShipped()
+      const homepage = await getHomepageShipped()
 
-      expect(latest && getShippedSlug(latest)).toBe('morning-who-needs-you')
+      expect(homepage.map(getShippedSlug)).toEqual([
+        'ship-6',
+        'ship-5',
+        'ship-4',
+        'ship-3',
+        'ship-2',
+      ])
     })
 
-    it('returns undefined when the collection is empty', async () => {
+    it('returns an empty list when nothing has shipped', async () => {
       vi.mocked(getCollection).mockResolvedValue([])
 
-      expect(await getLatestShipped()).toBeUndefined()
+      expect(await getHomepageShipped()).toEqual([])
     })
   })
 })

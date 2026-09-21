@@ -67,6 +67,23 @@ assert(
   'Home page should include the latest shipped card',
 )
 assert(
+  home.includes('Point at what'),
+  'Home page carousel should include the UseLay example ship',
+)
+assert(
+  home.includes('Hold, then send times'),
+  'Home page carousel should include the GRE example ship',
+)
+assert(
+  home.includes('Silent churn watch'),
+  'Home page carousel should include the FirstDistro example ship',
+)
+assert(home.includes('Example'), 'Example ships should be marked as Example')
+assert(
+  home.includes('aria-roledescription="carousel"'),
+  'Last shipped should render a snap carousel',
+)
+assert(
   home.includes('https://firstdistro.com'),
   'Last shipped card should link to FirstDistro',
 )
@@ -76,7 +93,7 @@ assert(
 )
 assert(
   home.includes('All shipped →'),
-  'Last shipped card should use an All shipped text action',
+  'Last shipped section should use an All shipped text action',
 )
 assert(home.includes('href="/shipped"'), 'Home page should link to /shipped')
 assert(
@@ -85,6 +102,9 @@ assert(
 )
 assert(!home.includes('href="/blog"'), 'Home page must not link to /blog')
 assertExists('shipped/morning-who-needs-you.svg')
+assertExists('shipped/point-at-whats-broken.svg')
+assertExists('shipped/hold-then-send-times.svg')
+assertExists('shipped/silent-churn-watch.svg')
 assertExists('shipped/index.html')
 assertExists('og/shipped.png')
 

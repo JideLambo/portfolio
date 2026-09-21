@@ -1,5 +1,17 @@
 import { type CollectionEntry, getCollection } from 'astro:content'
 
+import { HOMEPAGE_SHIPPED_LIMIT } from '@/lib/shipped-carousel'
+
+export type ShippedSlide = {
+  example: boolean
+  href?: string
+  productLabel: string
+  slug: string
+  title: string
+  visual?: string
+  writeup: string
+}
+
 export const getShippedSlug = (entry: CollectionEntry<'shipped'>) =>
   entry.data.slug
 
@@ -26,8 +38,8 @@ export const getShippedEntries = async () => {
   return sorted
 }
 
-/** Latest card for the homepage. The `/shipped` list is the All shipped target. */
-export const getLatestShipped = async () => {
+/** Latest 3–5 cards for the homepage snap carousel. */
+export const getHomepageShipped = async () => {
   const entries = await getShippedEntries()
-  return entries[0]
+  return entries.slice(0, HOMEPAGE_SHIPPED_LIMIT)
 }

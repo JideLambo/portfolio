@@ -18,7 +18,7 @@ const entries = await getShippedEntries()
     <div class="home-section last-shipped last-shipped--list">
       {
         entries.map(entry => (
-          <ShippedCard entry={entry} showIndexLink={false} />
+          <ShippedCard entry={entry} />
         ))
       }
     </div>

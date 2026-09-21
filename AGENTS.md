@@ -85,20 +85,20 @@ Nav: Home · About · Work · Writing.
 
 ## Content (last shipped)
 
-Standard card pattern (Home latest, and the `/shipped` list from **All shipped →**):
+Home snap carousel (3–5 latest) and the `/shipped` list from **All shipped →**:
 
-- Eyebrow: `Last shipped · 2d ago` (compact relative time)
-- Soft hairline rounded card, site dark tokens only. No Slack purple
-- Square dashed thumb for miniature art
-- Title + muted outline product pill, then short body
-- Text-links: `View →` (href) and `All shipped →` (`/shipped`)
-- Desktop: visual left, copy right. Mobile: stack. Hide the Home section if empty
+- Section heading: `Last shipped`, with `All shipped →` (`/shipped`)
+- One horizontal snap carousel: peeks of prev/next, CSS scroll-snap, keyboard ← →, tick progress, pointer drag/swipe
+- Each card: white-on-dark visual panel (bright white line-art on near-black), title, muted outline product pill, 2–4 sentence body, `View →`
+- `example: true` marks placeholder ships (Example pill)
+- Site tokens only. No Slack purple. Accent blue on text links
+- Hide the Home section if empty
 
 - Cards: `code/app/web/src/content/shipped/*.md`
 - Schema: `code/app/web/src/content.config.ts` (`shipped` collection)
-- Required frontmatter: `slug`, `title`, `product` (`firstdistro` \| `uselay` \| `gre` \| `sinch` \| `personal`), `shippedAt`. Optional: `visual`, `visualDark`, `href`, `source`
+- Required frontmatter: `slug`, `title`, `product` (`firstdistro` \| `uselay` \| `gre` \| `sinch` \| `personal`), `shippedAt`. Optional: `visual`, `visualDark`, `href`, `source`, `example`
 - Body is the short writeup (2–4 sentences)
-- Use `getLatestShipped()` on Home; `getShippedEntries()` throws on duplicate slugs
+- Use `getHomepageShipped()` on Home (cap 5); `getShippedEntries()` throws on duplicate slugs
 
 ---
 

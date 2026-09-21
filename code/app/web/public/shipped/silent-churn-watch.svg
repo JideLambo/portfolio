@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" role="img" aria-labelledby="shipped-visual-title">
+  <title id="shipped-visual-title">A watch ring over quiet account nodes</title>
+  <rect width="320" height="200" fill="#050506"/>
+  <g fill="none" stroke="#fff" stroke-width="1.25" stroke-linecap="round">
+    <circle cx="160" cy="100" r="72"/>
+    <circle cx="160" cy="100" r="48"/>
+    <circle cx="160" cy="100" r="24"/>
+    <path d="M160 100 L204 64"/>
+    <path d="M160 28 L160 52"/>
+    <path d="M160 148 L160 172"/>
+    <path d="M88 100 L112 100"/>
+    <path d="M208 100 L232 100"/>
+    <path d="M64 64 L102 82"/>
+    <path d="M256 64 L218 82"/>
+    <path d="M64 136 L102 118"/>
+    <path d="M256 136 L218 118"/>
+  </g>
+  <g fill="#fff">
+    <circle cx="160" cy="100" r="4"/>
+    <circle cx="204" cy="64" r="3.2"/>
+    <circle cx="102" cy="82" r="2.8"/>
+    <circle cx="218" cy="82" r="2.8"/>
+    <circle cx="102" cy="118" r="2.8"/>
+    <circle cx="218" cy="118" r="2.8"/>
+    <circle cx="160" cy="52" r="2.4"/>
+    <circle cx="160" cy="148" r="2.4"/>
+  </g>
+</svg>
