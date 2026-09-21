@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest'
 
 import ShippedCarousel from '@/component/ShippedCarousel'
 import type { ShippedSlide } from '@/lib/shipped'
+import '@/style/home.css'
 
 const slides: ShippedSlide[] = [
   {
@@ -23,7 +24,7 @@ const slides: ShippedSlide[] = [
 ]
 
 describe('ShippedCarousel', () => {
-  it('stacks the front ship with a compact peek of the next', () => {
+  it('shows one front ship with empty stacked backs, not a content sliver', () => {
     render(
       <>
         <h2 id="last-shipped">Last shipped</h2>
@@ -41,6 +42,15 @@ describe('ShippedCarousel', () => {
     expect(
       document.querySelector('.shipped-carousel__slide[data-active="true"]'),
     ).toBeTruthy()
+    const inactive = document.querySelector(
+      '.shipped-carousel__slide:not([data-active="true"])',
+    ) as HTMLElement
+    expect(inactive).toBeTruthy()
+    expect(getComputedStyle(inactive).display).toBe('none')
+    expect(
+      document.querySelectorAll('.shipped-carousel__slide[data-active="true"]')
+        .length,
+    ).toBe(1)
     expect(
       screen.getByRole('button', { name: 'Previous ship' }),
     ).toHaveProperty('disabled', true)

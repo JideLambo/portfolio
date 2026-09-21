@@ -126,7 +126,6 @@ const ShippedCarousel = ({ slides }: ShippedCarouselProps) => {
               aria-roledescription="slide"
               className="shipped-carousel__slide shipped-card"
               data-active={slideIndex === index ? 'true' : undefined}
-              data-passed={slideIndex < index ? 'true' : undefined}
               key={slide.slug}
             >
               <div className="shipped-card__copy">

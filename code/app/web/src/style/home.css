@@ -55,8 +55,6 @@
 }
 
 .shipped-carousel {
-  --shipped-gap: 0.65rem;
-  --shipped-peek: 5rem;
   --shipped-stack: 0.55rem;
 
   padding: calc(var(--shipped-stack) * 2 + 0.4rem)
@@ -95,7 +93,6 @@
   display: flex;
   position: relative;
   z-index: 1;
-  gap: var(--shipped-gap);
   align-items: stretch;
   min-height: 16.5rem;
   overflow: hidden;
@@ -111,19 +108,6 @@
   cursor: grabbing;
 }
 
-.shipped-carousel__slide {
-  flex: 0 0 var(--shipped-peek);
-  min-width: 0;
-}
-
-.shipped-carousel__slide[data-active="true"] {
-  flex: 1 1 auto;
-}
-
-.shipped-carousel__slide[data-passed="true"] {
-  display: none;
-}
-
 .shipped-card {
   display: flex;
   flex-direction: column;
@@ -132,6 +116,16 @@
   border: var(--border-thin);
   border-radius: 0.85rem;
   background: var(--bg-subtle);
+}
+
+.shipped-carousel__slide:not([data-active="true"]) {
+  display: none;
+}
+
+.shipped-carousel__slide[data-active="true"] {
+  display: flex;
+  flex: 1 1 auto;
+  width: 100%;
 }
 
 .shipped-card__visual {
@@ -345,7 +339,7 @@
   content: none;
 }
 
-.shipped-carousel--single .shipped-carousel__slide {
+.shipped-carousel--single .shipped-carousel__slide[data-active="true"] {
   flex-basis: 100%;
 }
 
@@ -358,8 +352,6 @@
 
 @media (width >= 48rem) {
   .shipped-carousel {
-    --shipped-gap: 0.75rem;
-    --shipped-peek: 7.25rem;
     --shipped-stack: 0.65rem;
 
     padding: calc(var(--shipped-stack) * 2 + 0.5rem)
@@ -387,41 +379,6 @@
     flex: 1 1 auto;
     padding: 1.2rem 1.3rem 1.25rem;
   }
-}
-
-.shipped-carousel__slide:not([data-active]) {
-  flex-direction: column;
-  min-height: 0;
-}
-
-.shipped-carousel__slide:not([data-active]) .shipped-card__visual {
-  order: -1;
-  flex: 1 1 auto;
-  width: 100%;
-  height: auto;
-  aspect-ratio: auto;
-}
-
-.shipped-carousel__slide:not([data-active]) .shipped-mini {
-  inset: 8% -40% -18% 8%;
-}
-
-.shipped-carousel__slide:not([data-active]) .shipped-card__copy {
-  flex: 0 0 auto;
-  padding: 0.55rem 0.4rem 0.7rem;
-}
-
-.shipped-carousel__slide:not([data-active]) .shipped-card__title {
-  font-size: 0.78rem;
-  font-weight: 550;
-  line-height: 1.25;
-  letter-spacing: 0;
-  text-align: center;
-}
-
-.shipped-carousel__slide:not([data-active]) .shipped-card__writeup,
-.shipped-carousel__slide:not([data-active]) .shipped-card__actions {
-  display: none;
 }
 
 /* Post list (home + blog index; .post-date is reused by article meta) */
