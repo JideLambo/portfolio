@@ -56,7 +56,7 @@ Vite overrides in root `package.json` keep `@vitejs/plugin-react` on v6 with Ast
 
 | Route | Purpose |
 | --- | --- |
-| `/` | Home (letter, last shipped, latest writing) |
+| `/` | Home (letter + workshop still, last shipped, latest writing) |
 | `/shipped` | Last shipped list (from All shipped →, not in nav) |
 | `/writing` | Essays |
 | `/writing/{slug}` | Post |
@@ -87,9 +87,10 @@ Nav: Home · Work · Writing.
 Home Last shipped is a stacked deck of three ships. `/shipped` is the list from **All shipped →**:
 
 - Eyebrow: `Last shipped`, with `All shipped →` (`/shipped`)
+- Home `Latest writing` uses the same quiet title type and All → row
 - Front card is primary. Empty nested card backs peek top/right. Inactive ships are hidden, not a content sliver
 - Three ships: Local AI on your machine (`personal`), iMessage agent for your business (`gre`), Morning who needs you (`firstdistro`)
-- Visual: HTML/CSS light UI fragment on the dark card, slightly cropped. Local is a status card (model, ready, one tool line). GRE is a 2–3 bubble iMessage thread. Morning is one Slack briefing card. No abstract glyphs
+- Visual: HTML/CSS light UI fragment on the dark card, slightly cropped. On small screens the crop is short so title and body stay primary; from 48rem the visual is a 12.5rem side panel. Local is a status card (model, ready, one tool line). GRE is a 2–3 bubble iMessage thread. Morning is one Slack briefing card. No abstract glyphs
 - Title, quiet relative timestamp from `shippedAt` (`just now` / `N days ago` / weeks / months / years), 2–4 sentence body, `View →` in ink when `href` is set
 - Controls: designed prev/next arrows. Drag/swipe still works. No `drag →` label. No numbered ticks
 - No product or example chips. `product` stays in frontmatter for later filtering
@@ -102,6 +103,21 @@ Home Last shipped is a stacked deck of three ships. `/shipped` is the list from 
 - Required frontmatter: `slug`, `title`, `product` (`firstdistro` \| `uselay` \| `gre` \| `sinch` \| `personal`), `shippedAt` (drives the relative timestamp). Optional: `visual`, `visualDark`, `href`, `source`, `example`
 - Body is the short writeup (2–4 sentences)
 - Use `getHomepageShipped()` on Home (cap 5); `getShippedEntries()` throws on duplicate slugs
+
+---
+
+## Content (workshop)
+
+Home hero is the locked letter (left) plus a warm-lit workshop still (right). Mobile stacks letter, then workshop. Last shipped stays below.
+
+- Letter: compact editorial type (not billboard). Copy is locked in `HomeLetter.astro`. Small screens: ~18px opener / ~14px body; desktop keeps ~22px / 16px
+- Phase 1: static still + HTML hotspot hit targets + glass cards. Invisible hits, small point + label on hover. No floating HUD
+- Phase 2: lazy `createWorkshop` Three.js scene over the still (OrbitControls, pause / reset). WebGL fail or reduced motion keeps the still + HTML hotspots
+- Still: `code/app/web/public/workshop/still.webp` (+ png fallback)
+- Data: `code/app/web/src/lib/workshop.ts`. Ids: `local-ai`, `imessage`, `firstdistro`, `uselay`, `lamp`
+- Lamp starts on (matches the lit still). Toggle off dims the still / 3D lights. No card. Set dressing is not clickable
+- Cards: light glass dialog, Escape / × / empty dismiss. FirstDistro and UseLay links from `@shared/lib/site`
+- No visible GitHub or Ready counts on the laptop, HUD, or Local AI card. Pause and reset are icon-only controls in one compact pill
 
 ---
 
@@ -160,5 +176,6 @@ See `.cursor/commands/bump-dependencies.md` for npm + GHA tracks.
 | Browser tests | `code/app/web/vitest.config.js` |
 | Blog prose + callouts | `code/app/web/src/style/prose.css` |
 | Last shipped | `code/app/web/src/content/shipped/`, `src/lib/shipped.ts`, `src/lib/product.ts` |
+| Workshop | `src/lib/workshop.ts`, `src/lib/createWorkshop.ts`, `src/component/WorkshopStage.tsx`, `public/workshop/` |
 | Lint | `biome.json`, knip |
 | CI | `.github/workflows/web-*.yml` |

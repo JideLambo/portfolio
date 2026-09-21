@@ -98,6 +98,50 @@ describe('ShippedCarousel', () => {
     expect(document.querySelector('img[src*="/shipped/"]')).toBeNull()
   })
 
+  it('caps the visual so copy stays primary on small screens', () => {
+    render(
+      <>
+        <h2 id="last-shipped">Last shipped</h2>
+        <ShippedCarousel slides={slides} />
+      </>,
+    )
+
+    const visual = document.querySelector('.shipped-card__visual')
+    expect(visual).toBeTruthy()
+    const mobileRule = [...document.styleSheets].some(sheet => {
+      try {
+        return [...sheet.cssRules].some(
+          rule =>
+            rule instanceof CSSStyleRule &&
+            rule.selectorText === '.shipped-card__visual' &&
+            (rule.style.height === '8.25rem' ||
+              rule.style.flexBasis === '8.25rem'),
+        )
+      } catch {
+        return false
+      }
+    })
+    expect(mobileRule).toBe(true)
+    const desktopRule = [...document.styleSheets].some(sheet => {
+      try {
+        return [...sheet.cssRules].some(rule => {
+          if (!(rule instanceof CSSMediaRule)) {
+            return false
+          }
+          return [...rule.cssRules].some(
+            inner =>
+              inner instanceof CSSStyleRule &&
+              inner.selectorText === '.shipped-card__visual' &&
+              inner.style.flexBasis === '12.5rem',
+          )
+        })
+      } catch {
+        return false
+      }
+    })
+    expect(desktopRule).toBe(true)
+  })
+
   it('renders a light local-status card for the local AI ship', () => {
     render(
       <>

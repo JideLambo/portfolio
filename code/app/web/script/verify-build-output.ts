@@ -53,6 +53,8 @@ assertExists('rss.xml')
 assertExists('sitemap-index.xml')
 assertExists('llms.txt')
 assertExists('robots.txt')
+assertExists('workshop/still.webp')
+assertExists('workshop/still.png')
 
 const llms = read('llms.txt')
 assert(llms.includes('Jide Lambo'), 'llms.txt should identify Jide Lambo')
@@ -71,12 +73,24 @@ assert(
   'Home should open with the letter',
 )
 assert(
-  home.includes('account intelligence for lean CS'),
+  home.includes('account intelligence for customer success'),
   'Home letter should describe FirstDistro',
 )
 assert(
   home.includes('pins comments to the UI'),
   'Home letter should describe UseLay',
+)
+assert(
+  home.includes('Off hours: iMessage desk, local models'),
+  'Home letter should keep the compact off-hours line',
+)
+assert(
+  !home.includes('account intelligence for lean CS'),
+  'Home letter must not keep the old FirstDistro clause',
+)
+assert(
+  !home.includes('shipping small agent experiments'),
+  'Home letter must not keep the old off-hours clause',
 )
 assert(
   home.includes(`href="${firstDistroUrl}"`),
@@ -110,6 +124,68 @@ assert(
   'Home must not keep the old About heading',
 )
 assert(home.includes('Last shipped'), 'Home page should include Last shipped')
+assert(
+  home.includes('workshop-stage'),
+  'Home should include the workshop stage',
+)
+assert(
+  home.includes('data-workshop-id="local-ai"'),
+  'Workshop should include the laptop hotspot',
+)
+assert(
+  home.includes('data-workshop-id="imessage"'),
+  'Workshop should include the phone hotspot',
+)
+assert(
+  home.includes('data-workshop-id="firstdistro"'),
+  'Workshop should include the mini-PC hotspot',
+)
+assert(
+  home.includes('data-workshop-id="uselay"'),
+  'Workshop should include the pinboard hotspot',
+)
+assert(
+  home.includes('workshop-hotspot__mark'),
+  'Workshop hotspots should use a small mark, not a glass hit box',
+)
+assert(
+  home.includes('data-label-x="start"') && home.includes('data-label-x="end"'),
+  'Workshop hover labels should clamp to the pinboard and mini-PC edges',
+)
+assert(
+  home.includes('data-lamp="on"'),
+  'Workshop lamp should start on, matching the lit still',
+)
+assert(
+  !home.includes('workshop-hud'),
+  'Workshop must not render a floating laptop HUD',
+)
+assert(
+  !home.includes('workshop-card__signal'),
+  'Workshop must not render a Ready or GitHub-count strip on cards',
+)
+assert(!home.includes('open PRs'), 'Workshop must not show open PR counts')
+assert(
+  home.includes('workshop-stage__canvas'),
+  'Workshop should include a lazy WebGL canvas over the still',
+)
+assert(
+  !home.includes('Cursor cloud') && !home.includes('Grok Bot'),
+  'Workshop must not show parked Cursor or Grok agent counts',
+)
+assert(
+  home.includes('/workshop/still.webp') || home.includes('/workshop/still.png'),
+  'Workshop should load the art-direction still',
+)
+assert(
+  home.indexOf("I'm Jide, a product design engineer.") <
+    home.indexOf('workshop-stage'),
+  'Home should be letter, then workshop',
+)
+assert(
+  home.indexOf('workshop-stage') < home.indexOf('Last shipped'),
+  'Home should be workshop, then Last shipped',
+)
 assert(
   home.indexOf("I'm Jide, a product design engineer.") <
     home.indexOf('Last shipped'),
@@ -298,12 +374,52 @@ assert(
 )
 assert(cssBundle.includes('Geist Sans'), 'Built CSS must wire Geist Sans')
 assert(
+  cssBundle.includes('height:8.25rem') || cssBundle.includes('height: 8.25rem'),
+  'Last shipped visuals should stay compact on small screens',
+)
+assert(
+  cssBundle.includes('flex:0 0 12.5rem') ||
+    cssBundle.includes('flex: 0 0 12.5rem'),
+  'Last shipped desktop visual should stay a 12.5rem side panel',
+)
+assert(
   !cssBundle.includes('Helvetica Neue'),
   'Built CSS must not keep Helvetica Neue as the UI font',
 )
 assert(
-  cssBundle.includes('.home-letter') && cssBundle.includes('max-width:38rem'),
-  'Home letter must keep a left-aligned reading measure',
+  cssBundle.includes('.home-letter') && cssBundle.includes('max-width:22rem'),
+  'Home letter must keep a compact left-aligned reading measure',
+)
+assert(
+  cssBundle.includes('font-size:1.375rem'),
+  'Home letter opener should be editorial, not billboard',
+)
+assert(
+  cssBundle.includes('font-size:1.125rem') &&
+    cssBundle.includes('line-height:1.28'),
+  'Home letter opener should tighten on small screens',
+)
+assert(
+  (cssBundle.includes('.home-letter p') &&
+    cssBundle.includes('font-size:.875rem')) ||
+    cssBundle.includes('font-size:0.875rem'),
+  'Home letter body should tighten on small screens',
+)
+assert(
+  cssBundle.includes('.home-section__head h2') &&
+    (cssBundle.includes('font-size:.95rem') ||
+      cssBundle.includes('font-size:0.95rem')) &&
+    cssBundle.includes('font-weight:500'),
+  'Home section titles should match Last shipped type',
+)
+assert(
+  !cssBundle.includes('.home-section__head h2{font-size:var(--step-2)'),
+  'Home section titles must not use the large heading step',
+)
+assert(
+  cssBundle.includes('.workshop-stage') &&
+    cssBundle.includes('prefers-reduced-motion'),
+  'Workshop must sit on Home and honor reduced motion',
 )
 assert(
   !cssBundle.includes('home-intro__photo'),
