@@ -91,7 +91,7 @@ Home Last shipped is a stacked deck of two ships. `/shipped` is the list from **
 - Front card is primary. Empty nested card backs peek top/right. Inactive ships are hidden, not a content sliver
 - Two ships: Morning who needs you (`firstdistro`) and iMessage agent for your business (`gre`)
 - Visual: HTML/CSS light UI fragment on the dark card, slightly cropped. Morning is one Slack briefing card. GRE is a 2–3 bubble iMessage thread. No abstract glyphs
-- Title, 2–4 sentence body, `View →` in ink when `href` is set
+- Title, quiet relative timestamp from `shippedAt` (`just now` / `N days ago` / weeks / months / years), 2–4 sentence body, `View →` in ink when `href` is set
 - Controls: designed prev/next arrows. Drag/swipe still works. No `drag →` label. No numbered ticks
 - No product or example chips. `product` stays in frontmatter for later filtering
 - Site tokens only. Full white type on dark. Light Slack/iMessage panels keep their own chrome. No Slack purple. No chromatic blue. Links: underline + ink, white hover with a thicker underline. White focus ring and selection wash
@@ -100,7 +100,7 @@ Home Last shipped is a stacked deck of two ships. `/shipped` is the list from **
 
 - Cards: `code/app/web/src/content/shipped/*.md`
 - Schema: `code/app/web/src/content.config.ts` (`shipped` collection)
-- Required frontmatter: `slug`, `title`, `product` (`firstdistro` \| `uselay` \| `gre` \| `sinch` \| `personal`), `shippedAt`. Optional: `visual`, `visualDark`, `href`, `source`, `example`
+- Required frontmatter: `slug`, `title`, `product` (`firstdistro` \| `uselay` \| `gre` \| `sinch` \| `personal`), `shippedAt` (drives the relative timestamp). Optional: `visual`, `visualDark`, `href`, `source`, `example`
 - Body is the short writeup (2–4 sentences)
 - Use `getHomepageShipped()` on Home (cap 5); `getShippedEntries()` throws on duplicate slugs
 

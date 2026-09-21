@@ -130,6 +130,9 @@ const ShippedCarousel = ({ slides }: ShippedCarouselProps) => {
             >
               <div className="shipped-card__copy">
                 <h3 className="shipped-card__title">{slide.title}</h3>
+                <time className="shipped-card__when" dateTime={slide.shippedAt}>
+                  {slide.when}
+                </time>
                 <div className="shipped-card__writeup">
                   {splitWriteup(slide.writeup).map(paragraph => (
                     <p key={paragraph}>{paragraph}</p>

@@ -1,5 +1,6 @@
 ---
 import ShippedVisual from '@/component/ShippedVisual'
+import { formatRelativeShipped, toISODate } from '@/lib/date'
 import type { CollectionEntry } from 'astro:content'
 import { render } from 'astro:content'
 
@@ -9,11 +10,16 @@ type Props = {
 
 const { entry } = Astro.props
 const { Content } = await render(entry)
+const shippedAt = toISODate(entry.data.shippedAt)
+const when = formatRelativeShipped(entry.data.shippedAt)
 ---
 
 <article class="shipped-card">
   <div class="shipped-card__copy">
     <h2 class="shipped-card__title">{entry.data.title}</h2>
+    <time class="shipped-card__when" datetime={shippedAt}>
+      {when}
+    </time>
     <div class="shipped-card__writeup">
       <Content />
     </div>

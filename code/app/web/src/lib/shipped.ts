@@ -5,8 +5,10 @@ import { HOMEPAGE_SHIPPED_LIMIT } from '@/lib/shipped-carousel'
 export type ShippedSlide = {
   example: boolean
   href?: string
+  shippedAt: string
   slug: string
   title: string
+  when: string
   writeup: string
 }
 

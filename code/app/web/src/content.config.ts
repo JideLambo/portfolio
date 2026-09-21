@@ -34,7 +34,8 @@ const slug = z
  * is the list from All shipped →. Front card is primary; empty nested
  * card backs peek top/right. Inactive ships stay hidden. Cards use an
  * HTML/CSS light UI fragment (Slack briefing card or iMessage thread)
- * on a dark field, title, 2–4 sentence body, and `View →` when `href`
+ * on a dark field, title, a quiet relative timestamp from `shippedAt`,
+ * 2–4 sentence body, and `View →` when `href`
  * is set. No visible product or example chips; `product` stays in
  * frontmatter for later filtering. Site tokens only (no Slack purple,
  * no chromatic blue). `example: true` marks placeholder ships.

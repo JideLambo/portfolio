@@ -1,5 +1,6 @@
 ---
 import ShippedCarousel from '@/component/ShippedCarousel'
+import { formatRelativeShipped, toISODate } from '@/lib/date'
 import { getHomepageShipped, type ShippedSlide } from '@/lib/shipped'
 
 const entries = await getHomepageShipped()
@@ -7,8 +8,10 @@ const headingId = 'last-shipped'
 const slides: ShippedSlide[] = entries.map(entry => ({
   example: entry.data.example,
   href: entry.data.href,
+  shippedAt: toISODate(entry.data.shippedAt),
   slug: entry.data.slug,
   title: entry.data.title,
+  when: formatRelativeShipped(entry.data.shippedAt),
   writeup: entry.body.trim(),
 }))
 ---

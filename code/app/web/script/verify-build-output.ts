@@ -130,8 +130,14 @@ assert(
 )
 assert(!home.includes('href="/blog"'), 'Home page must not link to /blog')
 assert(
-  home.includes('shipped-mini--slack'),
-  'Morning ship should render a Slack briefing panel',
+  home.includes('shipped-card__when'),
+  'Last shipped cards should show a relative timestamp',
+)
+assert(
+  /just now|\d+ days? ago|\d+ weeks? ago|\d+ months? ago|\d+ years? ago/.test(
+    home,
+  ),
+  'Last shipped timestamp must be relative, not a calendar date',
 )
 assert(
   home.includes('Helios Cloud'),
@@ -170,8 +176,8 @@ assert(
   '/shipped should list the GRE iMessage ship',
 )
 assert(
-  shipped.includes('shipped-mini--slack'),
-  '/shipped should render the Slack briefing panel',
+  shipped.includes('shipped-card__when'),
+  '/shipped cards should show a relative timestamp',
 )
 assert(
   shipped.includes('shipped-mini--imessage'),

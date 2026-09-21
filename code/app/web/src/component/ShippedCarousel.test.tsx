@@ -9,15 +9,19 @@ const slides: ShippedSlide[] = [
   {
     example: false,
     href: 'https://firstdistro.com',
+    shippedAt: '2026-09-16',
     slug: 'morning-who-needs-you',
     title: 'Morning who needs you',
+    when: '5 days ago',
     writeup:
       'Each morning in Slack: the accounts that need attention, a suggested move, and a draft held for you. Ready-made for lean CS. Nothing sends until you act.',
   },
   {
     example: false,
+    shippedAt: '2026-09-20',
     slug: 'imessage-agent-for-your-business',
     title: 'iMessage agent for your business',
+    when: '1 day ago',
     writeup:
       "An iMessage agent for the front desk. Same loop, different packs: clinic, salon, Shopify-style shop. We're proving the pack model before we bet on a single industry.",
   },
@@ -60,6 +64,22 @@ describe('ShippedCarousel', () => {
     )
     expect(document.querySelector('.shipped-carousel__tick')).toBeNull()
     expect(screen.queryByText('drag →')).toBeNull()
+  })
+
+  it('shows a quiet relative timestamp under the title', () => {
+    render(
+      <>
+        <h2 id="last-shipped">Last shipped</h2>
+        <ShippedCarousel slides={slides} />
+      </>,
+    )
+
+    const when = screen.getByText('5 days ago')
+    expect(when.tagName).toBe('TIME')
+    expect(when.getAttribute('datetime')).toBe('2026-09-16')
+    expect(when.className).toBe('shipped-card__when')
+    expect(screen.queryByText('Sep 16')).toBeNull()
+    expect(screen.queryByText('2026-09-16')).toBeNull()
   })
 
   it('renders light HTML UI panels, not glyph images', () => {
