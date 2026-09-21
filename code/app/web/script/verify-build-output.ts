@@ -67,7 +67,7 @@ const home = read('index.html')
 assert(!home.includes('href="/about"'), 'Home must not link to /about')
 assert(home.includes('href="/writing"'), 'Home page should link to /writing')
 assert(
-  home.includes("I'm Jide. I design and build product."),
+  home.includes("I'm Jide and I'm a product design engineer."),
   'Home should open with the letter',
 )
 assert(
@@ -103,7 +103,7 @@ assert(
   !home.includes('id="projects"'),
   'Home must not render a Projects section',
 )
-assert(home.includes('/jide.jpg'), 'Home should include the portrait')
+assert(!home.includes('/jide.jpg'), 'Home must not include a portrait')
 assert(!home.includes('id="career"'), 'Home must not render Career')
 assert(
   !home.includes("Hi, I'm Jide"),
@@ -111,7 +111,7 @@ assert(
 )
 assert(home.includes('Last shipped'), 'Home page should include Last shipped')
 assert(
-  home.indexOf("I'm Jide. I design and build product.") <
+  home.indexOf("I'm Jide and I'm a product design engineer.") <
     home.indexOf('Last shipped'),
   'Home should be letter, then Last shipped',
 )
@@ -300,6 +300,14 @@ assert(cssBundle.includes('Geist Sans'), 'Built CSS must wire Geist Sans')
 assert(
   !cssBundle.includes('Helvetica Neue'),
   'Built CSS must not keep Helvetica Neue as the UI font',
+)
+assert(
+  cssBundle.includes('.home-letter') && cssBundle.includes('max-width:38rem'),
+  'Home letter must keep a left-aligned reading measure',
+)
+assert(
+  !cssBundle.includes('home-intro__photo'),
+  'Built CSS must not keep the Home portrait layout',
 )
 
 const aboutMissing = !existsSync(file('about/index.html'))
