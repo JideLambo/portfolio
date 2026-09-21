@@ -373,13 +373,12 @@ assert(
   'Built CSS must not keep Helvetica Neue as the UI font',
 )
 assert(
-  cssBundle.includes('.home-letter') && cssBundle.includes('max-width:26rem'),
+  cssBundle.includes('.home-letter') && cssBundle.includes('max-width:22rem'),
   'Home letter must keep a compact left-aligned reading measure',
 )
 assert(
-  cssBundle.includes('font-size:1.5rem') &&
-    cssBundle.includes('font-size:1.0625rem'),
-  'Home letter type should be editorial, not billboard',
+  cssBundle.includes('font-size:1.375rem'),
+  'Home letter opener should be editorial, not billboard',
 )
 assert(
   cssBundle.includes('.workshop-stage') &&
