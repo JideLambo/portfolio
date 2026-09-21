@@ -25,9 +25,11 @@ const slides: ShippedSlide[] = entries.map(entry => ({
     <section class="home-section last-shipped" aria-labelledby={headingId}>
       <div class="home-section__head">
         <h2 id={headingId}>Last shipped</h2>
-        <a href="/shipped">All shipped →</a>
+        <a class="last-shipped__all" href="/shipped">
+          All shipped →
+        </a>
       </div>
-      <ShippedCarousel client:load labelledBy={headingId} slides={slides} />
+      <ShippedCarousel client:load slides={slides} />
     </section>
   )
 }

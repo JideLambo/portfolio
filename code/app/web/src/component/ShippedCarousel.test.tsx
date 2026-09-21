@@ -19,7 +19,7 @@ const slides: ShippedSlide[] = [
     href: 'https://uselay.com',
     productLabel: 'UseLay',
     slug: 'point-at-whats-broken',
-    title: 'Point at what\'s broken',
+    title: "Point at what's broken",
     writeup: 'Someone marks the UI instead of writing a ticket.',
   },
   {
@@ -44,32 +44,31 @@ describe('ShippedCarousel', () => {
     render(
       <>
         <h2 id="last-shipped">Last shipped</h2>
-        <ShippedCarousel labelledBy="last-shipped" slides={slides} />
+        <ShippedCarousel slides={slides} />
       </>,
     )
 
-    const carousel = screen.getByRole('region', { name: 'Last shipped' })
+    const carousel = screen.getByRole('region', {
+      name: 'Last shipped carousel',
+    })
     expect(carousel.getAttribute('aria-roledescription')).toBe('carousel')
     expect(screen.getByText('Morning who needs you')).toBeTruthy()
     expect(screen.getByText('Ship 1 of 4: Morning who needs you')).toBeTruthy()
-    expect(screen.getByRole('button', { name: 'Previous ship' })).toHaveProperty(
-      'disabled',
-      true,
-    )
+    expect(
+      screen.getByRole('button', { name: 'Previous ship' }),
+    ).toHaveProperty('disabled', true)
   })
 
   it('advances with next, ticks, and arrow keys', () => {
     render(
       <>
         <h2 id="last-shipped">Last shipped</h2>
-        <ShippedCarousel labelledBy="last-shipped" slides={slides} />
+        <ShippedCarousel slides={slides} />
       </>,
     )
 
     fireEvent.click(screen.getByRole('button', { name: 'Next ship' }))
-    expect(
-      screen.getByText('Ship 2 of 4: Point at what\'s broken'),
-    ).toBeTruthy()
+    expect(screen.getByText("Ship 2 of 4: Point at what's broken")).toBeTruthy()
 
     fireEvent.click(
       screen.getByRole('button', {
@@ -82,28 +81,63 @@ describe('ShippedCarousel', () => {
       true,
     )
 
-    const track = document.querySelector('.shipped-carousel__track')
-    expect(track).toBeTruthy()
-    fireEvent.keyDown(track as HTMLElement, { key: 'ArrowLeft' })
+    const carousel = screen.getByRole('region', {
+      name: 'Last shipped carousel',
+    })
+    fireEvent.keyDown(carousel, { key: 'ArrowLeft' })
     expect(screen.getByText('Ship 3 of 4: Hold, then send times')).toBeTruthy()
+  })
+
+  it('drags the track with a pointer', () => {
+    render(
+      <>
+        <h2 id="last-shipped">Last shipped</h2>
+        <ShippedCarousel slides={slides} />
+      </>,
+    )
+
+    const track = document.querySelector(
+      '.shipped-carousel__track',
+    ) as HTMLDivElement
+    let scrollLeft = 0
+    Object.defineProperty(track, 'scrollLeft', {
+      configurable: true,
+      get: () => scrollLeft,
+      set: value => {
+        scrollLeft = value
+      },
+    })
+
+    fireEvent.pointerDown(track, {
+      clientX: 240,
+      pointerId: 1,
+      pointerType: 'mouse',
+    })
+    fireEvent.pointerMove(track, {
+      clientX: 80,
+      pointerId: 1,
+      pointerType: 'mouse',
+    })
+
+    expect(scrollLeft).toBeGreaterThan(0)
   })
 
   it('marks example slides in the accessible name', () => {
     render(
       <>
         <h2 id="last-shipped">Last shipped</h2>
-        <ShippedCarousel labelledBy="last-shipped" slides={slides} />
+        <ShippedCarousel slides={slides} />
       </>,
     )
 
-    expect(
-      screen.getByRole('group', {
-        hidden: true,
-        name: '2 of 4: Point at what\'s broken (example)',
-      }),
-    ).toBeTruthy()
-    expect(screen.getAllByText('Example', { hidden: true }).length).toBeGreaterThan(
-      0,
+    const exampleSlide = document.querySelector(
+      '[aria-label="2 of 4: Point at what\'s broken (example)"]',
     )
+    expect(exampleSlide).toBeTruthy()
+    expect(
+      [...document.querySelectorAll('.shipped-card__product')].some(
+        node => node.textContent === 'Example',
+      ),
+    ).toBe(true)
   })
 })

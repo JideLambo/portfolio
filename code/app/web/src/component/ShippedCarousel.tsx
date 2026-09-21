@@ -4,7 +4,6 @@ import {
   type PointerEvent,
   useCallback,
   useEffect,
-  useId,
   useRef,
   useState,
 } from 'react'
@@ -18,7 +17,6 @@ import {
 } from '@/lib/shipped-carousel'
 
 type ShippedCarouselProps = {
-  labelledBy: string
   slides: ShippedSlide[]
 }
 
@@ -37,7 +35,8 @@ const offsetsOf = (track: HTMLElement) => {
   )
 }
 
-const ShippedCarousel = ({ labelledBy, slides }: ShippedCarouselProps) => {
+const ShippedCarousel = ({ slides }: ShippedCarouselProps) => {
+  const rootRef = useRef<HTMLElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
   const didDragRef = useRef(false)
   const dragRef = useRef<{
@@ -47,23 +46,25 @@ const ShippedCarousel = ({ labelledBy, slides }: ShippedCarouselProps) => {
     scroll: number
   } | null>(null)
   const [index, setIndex] = useState(0)
-  const statusId = useId()
   const current = slides[index]
   const count = slides.length
 
-  const goTo = useCallback((nextIndex: number) => {
-    const track = trackRef.current
-    const clamped = clampIndex(nextIndex, slides.length)
-    setIndex(clamped)
-    const slide = track?.children[clamped] as HTMLElement | undefined
-    if (!track || !slide) {
-      return
-    }
-    track.scrollTo({
-      behavior: scrollBehavior(),
-      left: slideScrollLeft(slide.offsetLeft, peekOf(track)),
-    })
-  }, [slides.length])
+  const goTo = useCallback(
+    (nextIndex: number) => {
+      const track = trackRef.current
+      const clamped = clampIndex(nextIndex, slides.length)
+      setIndex(clamped)
+      const slide = track?.children[clamped] as HTMLElement | undefined
+      if (!track || !slide) {
+        return
+      }
+      track.scrollTo({
+        behavior: scrollBehavior(),
+        left: slideScrollLeft(slide.offsetLeft, peekOf(track)),
+      })
+    },
+    [slides.length],
+  )
 
   const syncFromScroll = useCallback(() => {
     const track = trackRef.current
@@ -84,8 +85,28 @@ const ShippedCarousel = ({ labelledBy, slides }: ShippedCarouselProps) => {
     }
   }, [syncFromScroll])
 
+  useEffect(() => {
+    const onKey = (event: globalThis.KeyboardEvent) => {
+      const root = rootRef.current
+      const active = document.activeElement
+      if (
+        !root ||
+        (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') ||
+        !(root === active || root.contains(active))
+      ) {
+        return
+      }
+      event.preventDefault()
+      goTo(index + (event.key === 'ArrowRight' ? 1 : -1))
+    }
+    window.addEventListener('keydown', onKey)
+    return () => {
+      window.removeEventListener('keydown', onKey)
+    }
+  }, [goTo, index])
+
   const onPointerDown = (event: PointerEvent<HTMLDivElement>) => {
-    if (event.pointerType !== 'mouse' && event.pointerType !== 'pen') {
+    if (event.pointerType === 'touch') {
       return
     }
     const track = trackRef.current
@@ -136,7 +157,7 @@ const ShippedCarousel = ({ labelledBy, slides }: ShippedCarouselProps) => {
     event.stopPropagation()
   }
 
-  const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+  const onKeyDown = (event: KeyboardEvent<HTMLElement>) => {
     if (event.key === 'ArrowLeft') {
       event.preventDefault()
       goTo(index - 1)
@@ -153,41 +174,32 @@ const ShippedCarousel = ({ labelledBy, slides }: ShippedCarouselProps) => {
   }
 
   return (
-    <div
-      aria-labelledby={labelledBy}
+    <section
+      aria-label="Last shipped carousel"
       aria-roledescription="carousel"
       className="shipped-carousel"
-      role="region"
+      onKeyDown={onKeyDown}
+      ref={rootRef}
     >
-      <div className="visually-hidden" id={statusId}>
-        Last shipped carousel
-      </div>
       <div aria-atomic="true" aria-live="polite" className="visually-hidden">
-        {current
-          ? `Ship ${index + 1} of ${count}: ${current.title}`
-          : null}
+        {current ? `Ship ${index + 1} of ${count}: ${current.title}` : null}
       </div>
       <div
-        aria-describedby={statusId}
         className="shipped-carousel__track"
         onClickCapture={onClickCapture}
-        onKeyDown={onKeyDown}
         onPointerCancel={endDrag}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={endDrag}
         ref={trackRef}
-        tabIndex={0}
       >
         {slides.map((slide, slideIndex) => (
           <article
-            aria-hidden={slideIndex !== index}
+            aria-hidden={slideIndex === index ? undefined : true}
             aria-label={`${slideIndex + 1} of ${count}: ${slide.title}${slide.example ? ' (example)' : ''}`}
             aria-roledescription="slide"
             className="shipped-carousel__slide shipped-card"
-            role="group"
             data-active={slideIndex === index ? 'true' : undefined}
-            inert={slideIndex !== index}
             key={slide.slug}
           >
             <div className="shipped-card__visual">
@@ -227,10 +239,7 @@ const ShippedCarousel = ({ labelledBy, slides }: ShippedCarouselProps) => {
                     target="_blank"
                   >
                     View →
-                    <span className="visually-hidden">
-                      {' '}
-                      (opens in new tab)
-                    </span>
+                    <span className="visually-hidden"> (opens in new tab)</span>
                   </a>
                 </p>
               ) : null}
@@ -288,7 +297,7 @@ const ShippedCarousel = ({ labelledBy, slides }: ShippedCarouselProps) => {
           </div>
         </div>
       ) : null}
-    </div>
+    </section>
   )
 }
 

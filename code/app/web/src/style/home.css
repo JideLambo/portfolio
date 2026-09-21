@@ -36,18 +36,6 @@
   color: var(--text-muted);
 }
 
-.last-shipped .home-section__head a {
-  color: var(--accent);
-  font-size: 0.9rem;
-  text-decoration: none;
-}
-
-.last-shipped .home-section__head a:hover,
-.last-shipped .home-section__head a:focus-visible {
-  text-decoration: underline;
-  text-decoration-color: var(--accent);
-}
-
 .last-shipped--list {
   display: grid;
   gap: 1.15rem;
@@ -68,24 +56,18 @@
   position: relative;
   gap: var(--shipped-gap);
   padding-inline: var(--shipped-peek);
-  overflow-x: auto;
-  overflow-y: hidden;
+  overflow: auto hidden;
   user-select: none;
   scroll-snap-type: x mandatory;
   scroll-padding-inline: var(--shipped-peek);
   scroll-behavior: smooth;
   overscroll-behavior-x: contain;
-  touch-action: pan-x;
-  cursor: grab;
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features -- ticks replace the scrollbar */
   scrollbar-width: none;
 }
 
 .shipped-carousel__track::-webkit-scrollbar {
   display: none;
-}
-
-.shipped-carousel__track:active {
-  cursor: grabbing;
 }
 
 .shipped-carousel__slide {
@@ -194,6 +176,18 @@
   text-decoration-color: var(--accent);
 }
 
+.last-shipped__all {
+  color: var(--accent);
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.last-shipped__all:hover,
+.last-shipped__all:focus-visible {
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+}
+
 .shipped-carousel__meter {
   display: grid;
   justify-items: center;
@@ -250,11 +244,13 @@
 }
 
 .shipped-carousel__keys button {
+  min-width: 2rem;
+  min-height: 2rem;
   padding: 0.15rem 0.2rem;
   border: 0;
   background: transparent;
-  color: var(--text-muted);
-  font-size: 1rem;
+  color: var(--text);
+  font-size: 1.2rem;
   line-height: 1;
   cursor: pointer;
 }
@@ -279,7 +275,8 @@
 
   .shipped-carousel__slide {
     flex-basis: calc(
-      (100% - (2 * var(--shipped-gap)) - (2 * var(--shipped-peek))) / 3
+      (100% - (2 * var(--shipped-gap)) - (2 * var(--shipped-peek))) /
+      3
     );
   }
 }
