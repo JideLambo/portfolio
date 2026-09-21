@@ -1,7 +1,7 @@
 import {
-  aboutLead,
   firstDistroUrl,
   getSocialLink,
+  navItems,
   sinchUrl,
   siteEmail,
   socialLinks,
@@ -30,6 +30,16 @@ describe('site', () => {
     })
   })
 
+  describe('nav', () => {
+    it('does not include About after the Home letter lock', () => {
+      expect(navItems.map(item => item.href)).toEqual([
+        '/',
+        '/work',
+        '/writing',
+      ])
+    })
+  })
+
   describe('home letter destinations', () => {
     it('wires product, email, and social hrefs from site.ts', () => {
       expect(firstDistroUrl).toBe('https://firstdistro.com')
@@ -38,13 +48,6 @@ describe('site', () => {
       expect(siteEmail).toBe('jidelambo@gmail.com')
       expect(getSocialLink('X').href).toBe('https://x.com/JideLambo')
       expect(getSocialLink('GitHub').href).toBe('https://github.com/JideLambo')
-    })
-
-    it('keeps About lead from repeating the Home letter or old banking line', () => {
-      expect(aboutLead).not.toMatch(/spanned banking/i)
-      expect(aboutLead).not.toMatch(/I'm Jide/)
-      expect(aboutLead).toMatch(/Wonderstand/)
-      expect(aboutLead).toMatch(/GTBank/)
     })
   })
 })

@@ -14,9 +14,6 @@ export const xDiscussUrl = (pageUrl: string) =>
 export const siteTagline =
   'Product design engineer. I design and build products across software experiences.'
 
-export const aboutLead =
-  'Career: Wonderstand, TokiApp, Nordcloud, BCaster, GTBank.'
-
 export const siteDescription =
   'Jide Lambo. Product design engineer. I design and build products across software experiences.'
 
@@ -36,7 +33,6 @@ export type NavItem = {
 
 export const navItems: NavItem[] = [
   { href: '/', label: 'Home' },
-  { href: '/about', label: 'About' },
   { href: '/work', label: 'Work' },
   { href: '/writing', label: 'Writing' },
 ]

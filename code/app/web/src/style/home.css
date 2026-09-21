@@ -1,5 +1,22 @@
 /* Home page: letter, section heads, and the shared post list. */
 
+.home-intro {
+  display: grid;
+  justify-content: start;
+  align-items: start;
+  gap: 1.15rem 1.75rem;
+}
+
+.home-intro__photo {
+  display: block;
+  width: 6.75rem;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border: var(--border-thin);
+  background: var(--bg-subtle);
+}
+
 .home-letter {
   display: grid;
   max-width: 38rem;
@@ -14,6 +31,23 @@
   font-weight: 400;
   line-height: 1.8;
   letter-spacing: 0;
+}
+
+@media (width >= 40rem) {
+  .home-intro {
+    grid-template-columns: minmax(0, 38rem) 8.5rem;
+  }
+
+  .home-letter {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .home-intro__photo {
+    grid-column: 2;
+    grid-row: 1;
+    width: 8.5rem;
+  }
 }
 
 .home-section {

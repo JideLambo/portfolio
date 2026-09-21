@@ -2,15 +2,15 @@
 
 > Product design engineer. I design and build products across software experiences. Site: https://jidelambo.com
 
-Personal site for Jide Lambo. Nav: Home, About, Work, Writing. Hosted on Vercel. Home is a letter, then a Last shipped stacked deck. All shipped: https://jidelambo.com/shipped
+Personal site for Jide Lambo. Nav: Home, Work, Writing. Hosted on Vercel. Home is a letter with a quiet portrait, then a Last shipped stacked deck. All shipped: https://jidelambo.com/shipped
 
-## About
+## Bio
 
-- Portrait and career: https://jidelambo.com/about
 - Full-time: Senior Product Designer at Sinch (inbox and AI for messaging at scale)
 - Building: FirstDistro, UseLay
 - Earlier products (shut down): Wonderstand, TokiApp
 - Earlier roles: Nordcloud (IBM / BMW Public Cloud Platform), BCaster (founding design engineer), GTBank (GTWorld app)
+- `/about` redirects to `/`. Career facts are parked in the repo, not on the site.
 
 ## Products
 

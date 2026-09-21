@@ -41,7 +41,6 @@ const listFiles = (directory: string, suffix: string): string[] => {
 }
 
 assertExists('index.html')
-assertExists('about/index.html')
 assertExists('work/index.html')
 assertExists('work/firstdistro-install-rail/index.html')
 assertExists('work/uselay-conversational-follow-up/index.html')
@@ -65,7 +64,7 @@ assert(
 assert(llms.includes('https://uselay.com'), 'llms.txt should link UseLay')
 
 const home = read('index.html')
-assert(home.includes('href="/about"'), 'Home page should link to /about')
+assert(!home.includes('href="/about"'), 'Home must not link to /about')
 assert(home.includes('href="/writing"'), 'Home page should link to /writing')
 assert(
   home.includes("I'm Jide. I design and build product."),
@@ -104,7 +103,12 @@ assert(
   !home.includes('id="projects"'),
   'Home must not render a Projects section',
 )
-assert(!home.includes('/jide.jpg'), 'Home must not include a portrait')
+assert(home.includes('/jide.jpg'), 'Home should include the portrait')
+assert(!home.includes('id="career"'), 'Home must not render Career')
+assert(
+  !home.includes("Hi, I'm Jide"),
+  'Home must not keep the old About heading',
+)
 assert(home.includes('Last shipped'), 'Home page should include Last shipped')
 assert(
   home.indexOf("I'm Jide. I design and build product.") <
@@ -298,27 +302,12 @@ assert(
   'Built CSS must not keep Helvetica Neue as the UI font',
 )
 
-const about = read('about/index.html')
-assert(about.includes('href="/writing"'), 'About page should link to /writing')
-assert(!about.includes('href="/blog"'), 'About page must not link to /blog')
-assert(about.includes('/jide.jpg'), 'About should keep the portrait')
-assert(about.includes('id="career"'), 'About should keep Career')
-assert(about.includes('Wonderstand'), 'About Career should include Wonderstand')
-assert(about.includes('TokiApp'), 'About Career should include TokiApp')
-assert(about.includes('Nordcloud'), 'About Career should include Nordcloud')
-assert(about.includes('BCaster'), 'About Career should include BCaster')
-assert(about.includes('GTBank'), 'About Career should include GTBank')
-assert(
-  !about.includes('id="projects"'),
-  'About must not render a Projects section',
-)
-assert(
-  !about.includes('spanned banking'),
-  'About must not keep the old banking lead',
-)
+const aboutMissing = !existsSync(file('about/index.html'))
+assert(aboutMissing, 'About page must not be built')
 
 const notFound = read('404.html')
 assert(!notFound.includes('href="/blog"'), '404 page must not link to /blog')
+assert(!notFound.includes('href="/about"'), '404 page must not link to /about')
 
 const rss = read('rss.xml')
 assert(!rss.includes('/blog/'), 'RSS must not contain /blog URLs')
@@ -359,9 +348,10 @@ assert(
   hasRedirect('/blog/:path*', '/writing/:path*'),
   'vercel.json should redirect /blog/* to /writing/*',
 )
+assert(hasRedirect('/about', '/'), 'vercel.json should redirect /about to /')
 assert(
-  hasRedirect('/projects', '/about'),
-  'vercel.json should redirect /projects to /about',
+  hasRedirect('/projects', '/'),
+  'vercel.json should redirect /projects to /',
 )
 assert(
   hasRedirect('/reading', '/'),
@@ -387,6 +377,10 @@ assert(
 assert(
   !sitemap.includes(`${siteUrl}/blog`),
   'Sitemap must not include /blog URLs',
+)
+assert(
+  !sitemap.includes(`${siteUrl}/about`),
+  'Sitemap must not include /about URLs',
 )
 
 process.stdout.write('Build output verified\n')
