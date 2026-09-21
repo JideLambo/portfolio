@@ -90,7 +90,7 @@ Home Last shipped is a stacked deck of three ships. `/shipped` is the list from 
 - Home `Latest writing` uses the same quiet title type and All → row
 - Front card is primary. Empty nested card backs peek top/right. Inactive ships are hidden, not a content sliver
 - Three ships: Local AI on your machine (`personal`), iMessage agent for your business (`gre`), Morning who needs you (`firstdistro`)
-- Visual: HTML/CSS light UI fragment on the dark card, slightly cropped. Local is a status card (model, ready, one tool line). GRE is a 2–3 bubble iMessage thread. Morning is one Slack briefing card. No abstract glyphs
+- Visual: HTML/CSS light UI fragment on the dark card, slightly cropped. On small screens the crop is short so title and body stay primary; from 48rem the visual is a 12.5rem side panel. Local is a status card (model, ready, one tool line). GRE is a 2–3 bubble iMessage thread. Morning is one Slack briefing card. No abstract glyphs
 - Title, quiet relative timestamp from `shippedAt` (`just now` / `N days ago` / weeks / months / years), 2–4 sentence body, `View →` in ink when `href` is set
 - Controls: designed prev/next arrows. Drag/swipe still works. No `drag →` label. No numbered ticks
 - No product or example chips. `product` stays in frontmatter for later filtering

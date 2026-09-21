@@ -374,6 +374,15 @@ assert(
 )
 assert(cssBundle.includes('Geist Sans'), 'Built CSS must wire Geist Sans')
 assert(
+  cssBundle.includes('height:8.25rem') || cssBundle.includes('height: 8.25rem'),
+  'Last shipped visuals should stay compact on small screens',
+)
+assert(
+  cssBundle.includes('flex:0 0 12.5rem') ||
+    cssBundle.includes('flex: 0 0 12.5rem'),
+  'Last shipped desktop visual should stay a 12.5rem side panel',
+)
+assert(
   !cssBundle.includes('Helvetica Neue'),
   'Built CSS must not keep Helvetica Neue as the UI font',
 )
