@@ -190,6 +190,16 @@ assert(
   !cssBundle.includes('#7bb6ff'),
   'Built CSS must not include chromatic #7bb6ff',
 )
+assert(!cssBundle.includes('#9a9aa2'), 'Built CSS must not use muted gray type')
+assert(
+  cssBundle.includes('--text:#fff') || cssBundle.includes('--text: #fff'),
+  'Built CSS must set body text to full white',
+)
+assert(
+  cssBundle.includes('--text-muted:#fff') ||
+    cssBundle.includes('--text-muted: #fff'),
+  'Built CSS must set muted text to full white',
+)
 assert(cssBundle.includes('Geist Sans'), 'Built CSS must wire Geist Sans')
 assert(
   !cssBundle.includes('Helvetica Neue'),

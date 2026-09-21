@@ -94,7 +94,7 @@ Home Last shipped is a stacked deck of two ships. `/shipped` is the list from **
 - Title, 2–4 sentence body, `View →` in ink when `href` is set
 - Controls: designed prev/next arrows. Drag/swipe still works. No `drag →` label. No numbered ticks
 - No product or example chips. `product` stays in frontmatter for later filtering
-- Site tokens only. No Slack purple. No chromatic blue. Links: underline + ink, white hover with a thicker underline. White focus ring and selection wash
+- Site tokens only. Full white type on dark. Light Slack/iMessage panels keep their own chrome. No Slack purple. No chromatic blue. Links: underline + ink, white hover with a thicker underline. White focus ring and selection wash
 - UI font is Geist Sans (`"Geist Sans", ui-sans-serif, system-ui, sans-serif`)
 - Hide the Home section if empty
 
@@ -111,7 +111,7 @@ Home Last shipped is a stacked deck of two ships. `/shipped` is the list from **
 - Prefer `type` over `interface`
 - No `console.log` in app code (tests/scripts exempt)
 - Hand-rolled CSS design system (no UI library). Tokens in `src/style/`
-- Theming: dark-only tokens on `:root` in `src/style/tokens.css`. No chromatic blue (`#5ba3ff`). Links: underline + ink, white hover. White focus ring and selection wash
+- Theming: dark-only tokens on `:root` in `src/style/tokens.css`. Body copy is full white (`--text` and `--text-muted` are `#fff`). No washed-out gray type on dark. Light UI illustrations keep their own chrome colors. No chromatic blue (`#5ba3ff`). Links: underline + ink, white hover. White focus ring and selection wash
 - UI font: Geist Sans via `@fontsource-variable/geist` (`"Geist Sans", ui-sans-serif, system-ui, sans-serif`). No Geist Mono unless already used
 - Writing voice: [`.cursor/rules/writing-voice.mdc`](./.cursor/rules/writing-voice.mdc) (no em dashes, sentence case)
 

@@ -18,13 +18,13 @@
 @property --text {
   syntax: "<color>";
   inherits: true;
-  initial-value: #ededee;
+  initial-value: #fff;
 }
 
 @property --text-muted {
   syntax: "<color>";
   inherits: true;
-  initial-value: #9a9aa2;
+  initial-value: #fff;
 }
 
 @property --border {
@@ -36,7 +36,7 @@
 @property --accent {
   syntax: "<color>";
   inherits: true;
-  initial-value: #ededee;
+  initial-value: #fff;
 }
 
 @property --accent-strong {
@@ -72,10 +72,10 @@
 
   --bg: #0d0d0f;
   --bg-subtle: #161619;
-  --text: #ededee;
-  --text-muted: #9a9aa2;
+  --text: #fff;
+  --text-muted: #fff;
   --border: #26262b;
-  --accent: #ededee;
+  --accent: #fff;
   --accent-strong: #fff;
   --accent-wash: rgb(255 255 255 / 8%);
   --selection: rgb(255 255 255 / 18%);

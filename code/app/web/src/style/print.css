@@ -1,7 +1,7 @@
 /*
  * Print styles. Screens use dark tokens; paper does not.
  * Force high-contrast light tokens so dark-theme colors do not print as
- * #ededee text on white paper. Expand collapsible callouts, drop the
+ * white text on white paper. Expand collapsible callouts, drop the
  * navigation chrome, and unbox inline code.
  */
 

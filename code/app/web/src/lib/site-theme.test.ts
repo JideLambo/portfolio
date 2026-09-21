@@ -18,6 +18,8 @@ describe('site theme', () => {
   it('keeps accent, focus, and selection on ink and white', () => {
     const root = getComputedStyle(document.documentElement)
     expect(root.getPropertyValue('--accent').trim()).not.toMatch(/5ba3ff/i)
+    expect(root.getPropertyValue('--text').trim()).toMatch(/255|fff/i)
+    expect(root.getPropertyValue('--text-muted').trim()).toMatch(/255|fff/i)
     expect(root.getPropertyValue('--focus').trim()).toMatch(/255|fff/i)
     expect(root.getPropertyValue('--selection').trim()).toMatch(/255/)
   })
