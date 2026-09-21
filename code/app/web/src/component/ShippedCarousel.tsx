@@ -4,6 +4,7 @@ import {
   type PointerEvent,
   useCallback,
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
 } from 'react'
@@ -39,6 +40,7 @@ const ShippedCarousel = ({ slides }: ShippedCarouselProps) => {
   const rootRef = useRef<HTMLElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
   const didDragRef = useRef(false)
+  const ignoreScrollRef = useRef(false)
   const dragRef = useRef<{
     id: number
     moved: boolean
@@ -51,39 +53,49 @@ const ShippedCarousel = ({ slides }: ShippedCarouselProps) => {
 
   const goTo = useCallback(
     (nextIndex: number) => {
-      const track = trackRef.current
-      const clamped = clampIndex(nextIndex, slides.length)
-      setIndex(clamped)
-      const slide = track?.children[clamped] as HTMLElement | undefined
-      if (!track || !slide) {
-        return
-      }
-      track.scrollTo({
-        behavior: scrollBehavior(),
-        left: slideScrollLeft(slide.offsetLeft, peekOf(track)),
-      })
+      setIndex(clampIndex(nextIndex, slides.length))
     },
     [slides.length],
   )
 
-  const syncFromScroll = useCallback(() => {
+  useLayoutEffect(() => {
     const track = trackRef.current
-    if (!track || dragRef.current) {
+    const slide = track?.children[index] as HTMLElement | undefined
+    if (!track || !slide) {
       return
     }
-    setIndex(nearestIndex(track.scrollLeft, offsetsOf(track)))
-  }, [])
+    ignoreScrollRef.current = true
+    const release = () => {
+      ignoreScrollRef.current = false
+    }
+    track.addEventListener('scrollend', release, { once: true })
+    track.scrollTo({
+      behavior: scrollBehavior(),
+      left: slideScrollLeft(slide.offsetLeft, peekOf(track)),
+    })
+    const fallback = window.setTimeout(release, 450)
+    return () => {
+      track.removeEventListener('scrollend', release)
+      window.clearTimeout(fallback)
+    }
+  }, [index])
 
   useEffect(() => {
     const track = trackRef.current
     if (!track) {
       return
     }
-    track.addEventListener('scroll', syncFromScroll, { passive: true })
-    return () => {
-      track.removeEventListener('scroll', syncFromScroll)
+    const onScrollEnd = () => {
+      if (ignoreScrollRef.current || dragRef.current) {
+        return
+      }
+      setIndex(nearestIndex(track.scrollLeft, offsetsOf(track)))
     }
-  }, [syncFromScroll])
+    track.addEventListener('scrollend', onScrollEnd)
+    return () => {
+      track.removeEventListener('scrollend', onScrollEnd)
+    }
+  }, [])
 
   useEffect(() => {
     const onKey = (event: globalThis.KeyboardEvent) => {
