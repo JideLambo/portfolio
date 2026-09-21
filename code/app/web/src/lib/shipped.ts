@@ -37,7 +37,7 @@ export const getShippedEntries = async () => {
   return sorted
 }
 
-/** Latest 3–5 cards for the homepage snap carousel. */
+/** Latest ships for the homepage stacked deck. */
 export const getHomepageShipped = async () => {
   const entries = await getShippedEntries()
   return entries.slice(0, HOMEPAGE_SHIPPED_LIMIT)

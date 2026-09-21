@@ -3,8 +3,8 @@ import { describe, expect, it } from 'vitest'
 import {
   clampIndex,
   HOMEPAGE_SHIPPED_LIMIT,
-  nearestIndex,
-  slideScrollLeft,
+  indexAfterSwipe,
+  SWIPE_THRESHOLD,
   splitWriteup,
 } from '@/lib/shipped-carousel'
 
@@ -20,19 +20,20 @@ describe('shipped carousel math', () => {
     expect(clampIndex(0, 0)).toBe(0)
   })
 
-  it('picks the nearest snap offset', () => {
-    const offsets = [0, 240, 480, 720]
-
-    expect(nearestIndex(0, offsets)).toBe(0)
-    expect(nearestIndex(100, offsets)).toBe(0)
-    expect(nearestIndex(250, offsets)).toBe(1)
-    expect(nearestIndex(700, offsets)).toBe(3)
-    expect(nearestIndex(0, [])).toBe(0)
+  it('advances after a left swipe past the threshold', () => {
+    expect(indexAfterSwipe(0, -SWIPE_THRESHOLD, 2)).toBe(1)
+    expect(indexAfterSwipe(0, -(SWIPE_THRESHOLD + 20), 2)).toBe(1)
+    expect(indexAfterSwipe(1, -SWIPE_THRESHOLD, 2)).toBe(1)
   })
 
-  it('accounts for peek padding when scrolling to a slide', () => {
-    expect(slideScrollLeft(16, 16)).toBe(0)
-    expect(slideScrollLeft(260, 16)).toBe(244)
+  it('goes back after a right swipe past the threshold', () => {
+    expect(indexAfterSwipe(1, SWIPE_THRESHOLD, 2)).toBe(0)
+    expect(indexAfterSwipe(0, SWIPE_THRESHOLD, 2)).toBe(0)
+  })
+
+  it('stays put when the swipe is short', () => {
+    expect(indexAfterSwipe(0, -(SWIPE_THRESHOLD - 1), 2)).toBe(0)
+    expect(indexAfterSwipe(1, SWIPE_THRESHOLD - 1, 2)).toBe(1)
   })
 
   it('splits a writeup on blank lines', () => {

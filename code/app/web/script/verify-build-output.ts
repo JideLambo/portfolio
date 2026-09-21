@@ -71,6 +71,14 @@ assert(
   'Home page should include the locked Automations writeup',
 )
 assert(
+  home.includes('iMessage agent for your business'),
+  'Home page should include the GRE iMessage ship',
+)
+assert(
+  home.includes('proving the pack model'),
+  'Home page should include the locked GRE writeup',
+)
+assert(
   !home.includes('Point at what'),
   'Home carousel should not include placeholder example ships',
 )
@@ -90,13 +98,18 @@ assert(
   !home.includes('shipped-carousel__tick'),
   'Last shipped must not render progress ticks',
 )
+assert(!home.includes('drag →'), 'Last shipped must not render a drag label')
 assert(
   home.includes('Previous ship'),
   'Last shipped should keep prev/next arrows',
 )
 assert(
   home.includes('aria-roledescription="carousel"'),
-  'Last shipped should render a snap carousel',
+  'Last shipped should render a stacked carousel',
+)
+assert(
+  home.includes('shipped-carousel__deck'),
+  'Last shipped should render a stacked deck',
 )
 assert(
   home.includes('https://firstdistro.com'),
@@ -117,6 +130,7 @@ assert(
 )
 assert(!home.includes('href="/blog"'), 'Home page must not link to /blog')
 assertExists('shipped/morning-who-needs-you.svg')
+assertExists('shipped/imessage-agent-for-your-business.svg')
 assertExists('shipped/index.html')
 assertExists('og/shipped.png')
 
@@ -128,6 +142,10 @@ assert(
 assert(
   shipped.includes('Morning who needs you'),
   '/shipped should list the latest ship',
+)
+assert(
+  shipped.includes('iMessage agent for your business'),
+  '/shipped should list the GRE iMessage ship',
 )
 
 const cssBundle = listFiles(distPath, '.css')

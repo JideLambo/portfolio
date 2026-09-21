@@ -85,11 +85,14 @@ Nav: Home · About · Work · Writing.
 
 ## Content (last shipped)
 
-Home Last shipped is one card (Morning who needs you). Carousel chrome stays for later ships. `/shipped` is the list from **All shipped →**:
+Home Last shipped is a stacked deck of two ships. `/shipped` is the list from **All shipped →**:
 
 - Eyebrow: `Last shipped`, with `All shipped →` (`/shipped`)
-- One card: light Automations UI panel on a dark field, title, 2–4 sentence body, `View →` in ink
-- Controls: redesigned prev/next arrows (both disabled while there is one ship). No progress ticks
+- Front card is primary; later cards peek as a compact strip. Not a three-up row
+- Two ships: Morning who needs you (`firstdistro`) and iMessage agent for your business (`gre`)
+- Visual: light product UI panel (Automations / message thread) on a dark field. No abstract glyphs
+- Title, 2–4 sentence body, `View →` in ink when `href` is set
+- Controls: designed prev/next arrows. Drag/swipe still works. No `drag →` label. No numbered ticks
 - No product or example chips. `product` stays in frontmatter for later filtering
 - Site tokens only. No Slack purple. No chromatic blue. Links: underline + ink, white hover with a thicker underline. White focus ring and selection wash
 - UI font is Geist Sans (`"Geist Sans", ui-sans-serif, system-ui, sans-serif`)

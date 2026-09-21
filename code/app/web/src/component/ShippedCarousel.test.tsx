@@ -15,22 +15,17 @@ const slides: ShippedSlide[] = [
       'Each morning in Slack: the accounts that need attention, a suggested move, and a draft held for you. Ready-made for lean CS. Nothing sends until you act.',
   },
   {
-    example: true,
-    href: 'https://uselay.com',
-    slug: 'point-at-whats-broken',
-    title: "Point at what's broken",
-    writeup: 'Someone marks the UI instead of writing a ticket.',
-  },
-  {
-    example: true,
-    slug: 'hold-then-send-times',
-    title: 'Hold, then send times',
-    writeup: 'GRE holds the request, then sends times.',
+    example: false,
+    slug: 'imessage-agent-for-your-business',
+    title: 'iMessage agent for your business',
+    visual: '/shipped/imessage-agent-for-your-business.svg',
+    writeup:
+      "An iMessage agent for the front desk. Same loop, different packs: clinic, salon, Shopify-style shop. We're proving the pack model before we bet on a single industry.",
   },
 ]
 
 describe('ShippedCarousel', () => {
-  it('exposes carousel semantics and the first ship', () => {
+  it('stacks the front ship with a compact peek of the next', () => {
     render(
       <>
         <h2 id="last-shipped">Last shipped</h2>
@@ -43,11 +38,20 @@ describe('ShippedCarousel', () => {
     })
     expect(carousel.getAttribute('aria-roledescription')).toBe('carousel')
     expect(screen.getByText('Morning who needs you')).toBeTruthy()
-    expect(screen.getByText('Ship 1 of 3: Morning who needs you')).toBeTruthy()
+    expect(screen.getByText('Ship 1 of 2: Morning who needs you')).toBeTruthy()
+    expect(document.querySelector('.shipped-carousel__deck')).toBeTruthy()
+    expect(
+      document.querySelector('.shipped-carousel__slide[data-active="true"]'),
+    ).toBeTruthy()
     expect(
       screen.getByRole('button', { name: 'Previous ship' }),
     ).toHaveProperty('disabled', true)
+    expect(screen.getByRole('button', { name: 'Next ship' })).toHaveProperty(
+      'disabled',
+      false,
+    )
     expect(document.querySelector('.shipped-carousel__tick')).toBeNull()
+    expect(screen.queryByText('drag →')).toBeNull()
   })
 
   it('renders disabled arrows when there is only one ship', () => {
@@ -73,12 +77,13 @@ describe('ShippedCarousel', () => {
     render(
       <>
         <h2 id="last-shipped">Last shipped</h2>
-        <ShippedCarousel slides={slides.slice(0, 1)} />
+        <ShippedCarousel slides={slides} />
       </>,
     )
 
     expect(document.querySelector('.shipped-card__product')).toBeNull()
     expect(screen.queryByText('FirstDistro')).toBeNull()
+    expect(screen.queryByText('GRE')).toBeNull()
     expect(screen.queryByText('Example')).toBeNull()
   })
 
@@ -91,10 +96,9 @@ describe('ShippedCarousel', () => {
     )
 
     fireEvent.click(screen.getByRole('button', { name: 'Next ship' }))
-    expect(screen.getByText("Ship 2 of 3: Point at what's broken")).toBeTruthy()
-
-    fireEvent.click(screen.getByRole('button', { name: 'Next ship' }))
-    expect(screen.getByText('Ship 3 of 3: Hold, then send times')).toBeTruthy()
+    expect(
+      screen.getByText('Ship 2 of 2: iMessage agent for your business'),
+    ).toBeTruthy()
     expect(screen.getByRole('button', { name: 'Next ship' })).toHaveProperty(
       'disabled',
       true,
@@ -104,10 +108,10 @@ describe('ShippedCarousel', () => {
       name: 'Last shipped carousel',
     })
     fireEvent.keyDown(carousel, { key: 'ArrowLeft' })
-    expect(screen.getByText("Ship 2 of 3: Point at what's broken")).toBeTruthy()
+    expect(screen.getByText('Ship 1 of 2: Morning who needs you')).toBeTruthy()
   })
 
-  it('drags the track with a pointer', () => {
+  it('swipes the stacked deck with a pointer', () => {
     render(
       <>
         <h2 id="last-shipped">Last shipped</h2>
@@ -118,14 +122,6 @@ describe('ShippedCarousel', () => {
     const track = document.querySelector(
       '.shipped-carousel__track',
     ) as HTMLDivElement
-    let scrollLeft = 0
-    Object.defineProperty(track, 'scrollLeft', {
-      configurable: true,
-      get: () => scrollLeft,
-      set: value => {
-        scrollLeft = value
-      },
-    })
 
     fireEvent.pointerDown(track, {
       clientX: 240,
@@ -137,7 +133,14 @@ describe('ShippedCarousel', () => {
       pointerId: 1,
       pointerType: 'mouse',
     })
+    fireEvent.pointerUp(track, {
+      clientX: 80,
+      pointerId: 1,
+      pointerType: 'mouse',
+    })
 
-    expect(scrollLeft).toBeGreaterThan(0)
+    expect(
+      screen.getByText('Ship 2 of 2: iMessage agent for your business'),
+    ).toBeTruthy()
   })
 })

@@ -2,7 +2,7 @@
 
 > Product design engineer. I design and build products across software experiences. Site: https://jidelambo.com
 
-Personal site for Jide Lambo. Nav: Home, About, Work, Writing. Hosted on Vercel. Home includes a Last shipped snap carousel under the hero. All shipped: https://jidelambo.com/shipped
+Personal site for Jide Lambo. Nav: Home, About, Work, Writing. Hosted on Vercel. Home includes a Last shipped stacked deck under the hero (Morning who needs you, iMessage agent for your business). All shipped: https://jidelambo.com/shipped
 
 ## About
 
