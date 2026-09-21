@@ -60,8 +60,16 @@ describe('workshop', () => {
 
     const lamp = workshopHotspots.find(hotspot => hotspot.id === 'lamp')
     expect(lamp?.kind).toBe('lamp')
+    expect(lamp?.labelX).toBe('center')
+    expect(lamp?.labelY).toBe('below')
     expect(isWorkshopCardHotspot(lamp!)).toBe(false)
     expect(getWorkshopHotspotLabel(lamp!)).toBe('Toggle workshop lamp')
+    expect(workshopHotspots.find(item => item.id === 'uselay')?.labelX).toBe(
+      'start',
+    )
+    expect(
+      workshopHotspots.find(item => item.id === 'firstdistro')?.labelX,
+    ).toBe('end')
   })
 
   it('does not make set dressing clickable', () => {

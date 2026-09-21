@@ -155,9 +155,12 @@ const buildDesk = (githubLine?: string) => {
 
   const board = box(0.92, 0.88, 0.05, cork)
   board.position.set(-1.52, 0.62, -0.58)
+  const frame = box(1.02, 0.98, 0.04, charcoal)
+  frame.position.set(-1.52, 0.62, -0.6)
   tag(board, 'uselay')
-  root.add(board)
-  hotspots.push(board)
+  tag(frame, 'uselay')
+  root.add(frame, board)
+  hotspots.push(board, frame)
   const pins: Array<[number, number, number]> = [
     [-1.72, 0.82, -0.54],
     [-1.48, 0.9, -0.54],
@@ -177,14 +180,16 @@ const buildDesk = (githubLine?: string) => {
   laptop.position.set(-0.18, 0.07, 0.02)
   const base = box(0.78, 0.04, 0.52, metal)
   base.position.y = 0.02
+  const keys = box(0.68, 0.008, 0.4, charcoal)
+  keys.position.set(0, 0.044, 0.02)
   const lid = box(0.78, 0.48, 0.03, metal)
   lid.position.set(0, 0.28, -0.24)
   lid.rotation.x = -0.18
   const screen = new Mesh(
     new PlaneGeometry(0.68, 0.4),
     new MeshStandardMaterial({
-      emissive: new Color(0x0a120a),
-      emissiveIntensity: 0.45,
+      emissive: new Color(0x101810),
+      emissiveIntensity: 0.7,
       map: createScreenTexture(githubLine),
       metalness: 0.05,
       roughness: 0.28,
@@ -192,7 +197,7 @@ const buildDesk = (githubLine?: string) => {
   )
   screen.position.set(0, 0.29, -0.222)
   screen.rotation.x = -0.18
-  laptop.add(base, lid, screen)
+  laptop.add(base, keys, lid, screen)
   tag(laptop, 'local-ai')
   root.add(laptop)
   laptop.traverse(child => {
@@ -201,21 +206,39 @@ const buildDesk = (githubLine?: string) => {
     }
   })
 
-  const phone = box(0.16, 0.02, 0.3, charcoal)
-  phone.position.set(0.52, 0.06, 0.28)
-  phone.rotation.y = 0.18
+  const phone = new Group()
+  phone.position.set(0.52, 0.058, 0.28)
+  phone.rotation.y = 0.22
+  const phoneBody = box(0.18, 0.018, 0.34, 0xd0d0d4, { roughness: 0.28 })
+  const phoneGlass = box(0.15, 0.006, 0.3, 0x1c1c20, {
+    emissive: new Color(0x2a2a32),
+    emissiveIntensity: 0.18,
+    roughness: 0.22,
+  })
+  phoneGlass.position.y = 0.012
+  if (phoneGlass.material instanceof MeshStandardMaterial) {
+    phoneGlass.material.userData.lockEmissive = true
+  }
+  phone.add(phoneBody, phoneGlass)
   tag(phone, 'imessage')
   root.add(phone)
-  hotspots.push(phone)
+  phone.traverse(child => {
+    if (child instanceof Mesh) {
+      hotspots.push(child)
+    }
+  })
 
-  const mini = box(0.42, 0.16, 0.32, sage)
-  mini.position.set(1.22, 0.12, 0.22)
-  const glow = box(0.18, 0.03, 0.04, 0xf0c070, {
+  const mini = box(0.46, 0.18, 0.34, sage)
+  mini.position.set(1.22, 0.13, 0.22)
+  const glow = box(0.2, 0.03, 0.04, 0xf0c070, {
     emissive: new Color(0xf0c070),
-    emissiveIntensity: 0.8,
+    emissiveIntensity: 0.95,
     roughness: 0.4,
   })
-  glow.position.set(1.08, 0.12, 0.38)
+  glow.position.set(1.08, 0.13, 0.4)
+  if (glow.material instanceof MeshStandardMaterial) {
+    glow.material.userData.lockEmissive = true
+  }
   tag(mini, 'firstdistro')
   tag(glow, 'firstdistro')
   root.add(mini, glow)
@@ -231,7 +254,10 @@ const buildDesk = (githubLine?: string) => {
   const head = box(0.28, 0.08, 0.18, metal)
   head.position.set(0.22, 0.78, 0.02)
   head.rotation.z = 0.45
-  lamp.add(lampBase, arm, head)
+  const shade = cyl(0.02, 0.14, 0.12, 0x2f2f32, { roughness: 0.45 })
+  shade.position.set(0.18, 0.72, 0.02)
+  shade.rotation.z = 0.9
+  lamp.add(lampBase, arm, head, shade)
   tag(lamp, 'lamp')
   root.add(lamp)
   lamp.traverse(child => {
@@ -240,11 +266,11 @@ const buildDesk = (githubLine?: string) => {
     }
   })
 
-  const shade = cyl(0.05, 0.12, 0.18, plant)
-  shade.position.set(-1.18, 0.28, 0.42)
+  const plantShade = cyl(0.05, 0.12, 0.18, plant)
+  plantShade.position.set(-1.18, 0.28, 0.42)
   const pot = cyl(0.09, 0.1, 0.12, sageDark)
   pot.position.set(-1.18, 0.12, 0.42)
-  root.add(shade, pot)
+  root.add(plantShade, pot)
 
   const mug = cyl(0.08, 0.09, 0.14, charcoal)
   mug.position.set(-0.92, 0.13, 0.22)
@@ -293,6 +319,18 @@ export const createWorkshop = (
 
   const { hotspots, root } = buildDesk(githubLine)
   scene.add(root)
+  const floor = new Mesh(
+    new PlaneGeometry(14, 14),
+    new MeshStandardMaterial({
+      color: 0x0d0d0f,
+      metalness: 0,
+      roughness: 1,
+    }),
+  )
+  floor.rotation.x = -Math.PI / 2
+  floor.position.y = -0.95
+  floor.receiveShadow = true
+  scene.add(floor)
 
   const hemi = new HemisphereLight(0xfff1dc, 0x1a1a1c, 0.55)
   scene.add(hemi)
@@ -301,12 +339,7 @@ export const createWorkshop = (
   key.castShadow = true
   key.shadow.mapSize.set(1024, 1024)
   scene.add(key)
-  const lampLight = new PointLight(
-    0xffc078,
-    options.lampOn ? 1.6 : 0.55,
-    5,
-    1.6,
-  )
+  const lampLight = new PointLight(0xffc078, 1.7, 5, 1.6)
   lampLight.position.set(0.82, 0.92, -0.28)
   scene.add(lampLight)
   const fill = new AmbientLight(0xffffff, 0.18)
@@ -338,7 +371,10 @@ export const createWorkshop = (
   const raycaster = new Raycaster()
   const pointer = new Vector2()
   let hovered: WorkshopHoverId = null
-  let lampOn = Boolean(options.lampOn)
+  let lampOn = options.lampOn !== false
+  lampLight.intensity = lampOn ? 1.7 : 0.08
+  key.intensity = lampOn ? 1.15 : 0.28
+  hemi.intensity = lampOn ? 0.55 : 0.18
   let frame = 0
   let disposed = false
 
@@ -364,7 +400,11 @@ export const createWorkshop = (
     hovered = id
     for (const mesh of hotspots) {
       const material = mesh.material
-      if (material instanceof MeshStandardMaterial) {
+      if (
+        material instanceof MeshStandardMaterial &&
+        !material.map &&
+        !material.userData.lockEmissive
+      ) {
         material.emissive = new Color(
           mesh.userData.workshopId === id ? 0x3a3a32 : 0x000000,
         )
@@ -472,7 +512,9 @@ export const createWorkshop = (
     },
     toggleLamp: on => {
       lampOn = on ?? !lampOn
-      lampLight.intensity = lampOn ? 1.6 : 0.55
+      lampLight.intensity = lampOn ? 1.7 : 0.08
+      key.intensity = lampOn ? 1.15 : 0.28
+      hemi.intensity = lampOn ? 0.55 : 0.18
     },
   }
 

@@ -73,12 +73,24 @@ assert(
   'Home should open with the letter',
 )
 assert(
-  home.includes('account intelligence for lean CS'),
+  home.includes('account intelligence for customer success'),
   'Home letter should describe FirstDistro',
 )
 assert(
   home.includes('pins comments to the UI'),
   'Home letter should describe UseLay',
+)
+assert(
+  home.includes('Off hours: iMessage desk, local models'),
+  'Home letter should keep the compact off-hours line',
+)
+assert(
+  !home.includes('account intelligence for lean CS'),
+  'Home letter must not keep the old FirstDistro clause',
+)
+assert(
+  !home.includes('shipping small agent experiments'),
+  'Home letter must not keep the old off-hours clause',
 )
 assert(
   home.includes(`href="${firstDistroUrl}"`),
@@ -135,6 +147,14 @@ assert(
 assert(
   home.includes('workshop-hotspot__mark'),
   'Workshop hotspots should use a small mark, not a glass hit box',
+)
+assert(
+  home.includes('data-label-x="start"') && home.includes('data-label-x="end"'),
+  'Workshop hover labels should clamp to the pinboard and mini-PC edges',
+)
+assert(
+  home.includes('data-lamp="on"'),
+  'Workshop lamp should start on, matching the lit still',
 )
 assert(
   !home.includes('workshop-hud'),
@@ -353,8 +373,13 @@ assert(
   'Built CSS must not keep Helvetica Neue as the UI font',
 )
 assert(
-  cssBundle.includes('.home-letter') && cssBundle.includes('max-width:38rem'),
-  'Home letter must keep a left-aligned reading measure',
+  cssBundle.includes('.home-letter') && cssBundle.includes('max-width:26rem'),
+  'Home letter must keep a compact left-aligned reading measure',
+)
+assert(
+  cssBundle.includes('font-size:1.5rem') &&
+    cssBundle.includes('font-size:1.0625rem'),
+  'Home letter type should be editorial, not billboard',
 )
 assert(
   cssBundle.includes('.workshop-stage') &&

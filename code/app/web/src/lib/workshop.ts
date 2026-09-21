@@ -9,6 +9,9 @@ export type WorkshopBounds = {
 
 export type WorkshopCardId = 'firstdistro' | 'imessage' | 'local-ai' | 'uselay'
 
+export type WorkshopLabelX = 'center' | 'end' | 'start'
+export type WorkshopLabelY = 'above' | 'below'
+
 export type WorkshopCardHotspot = {
   body: string
   bounds: WorkshopBounds
@@ -16,6 +19,8 @@ export type WorkshopCardHotspot = {
   hrefLabel?: string
   id: WorkshopCardId
   kind: 'card'
+  labelX: WorkshopLabelX
+  labelY: WorkshopLabelY
   line: string
   objectLabel: string
   title: string
@@ -25,6 +30,8 @@ export type WorkshopLampHotspot = {
   bounds: WorkshopBounds
   id: 'lamp'
   kind: 'lamp'
+  labelX: WorkshopLabelX
+  labelY: WorkshopLabelY
   objectLabel: string
 }
 
@@ -44,6 +51,8 @@ export const workshopHotspots: WorkshopHotspot[] = [
     bounds: { height: 0.36, left: 0.35, top: 0.17, width: 0.23 },
     id: 'local-ai',
     kind: 'card',
+    labelX: 'center',
+    labelY: 'above',
     line: 'Open model, tools, gates',
     objectLabel: 'Laptop',
     title: 'Local AI on your machine',
@@ -53,6 +62,8 @@ export const workshopHotspots: WorkshopHotspot[] = [
     bounds: { height: 0.145, left: 0.618, top: 0.448, width: 0.095 },
     id: 'imessage',
     kind: 'card',
+    labelX: 'center',
+    labelY: 'above',
     line: 'Front-desk packs',
     objectLabel: 'Phone',
     title: 'iMessage agent for your business',
@@ -64,6 +75,8 @@ export const workshopHotspots: WorkshopHotspot[] = [
     hrefLabel: 'FirstDistro',
     id: 'firstdistro',
     kind: 'card',
+    labelX: 'end',
+    labelY: 'above',
     line: 'Account intelligence for lean CS',
     objectLabel: 'Mini-PC',
     title: 'Morning who needs you',
@@ -75,6 +88,8 @@ export const workshopHotspots: WorkshopHotspot[] = [
     hrefLabel: 'UseLay',
     id: 'uselay',
     kind: 'card',
+    labelX: 'start',
+    labelY: 'below',
     line: 'Feedback pinned to the UI',
     objectLabel: 'Pinboard',
     title: 'UseLay',
@@ -83,6 +98,8 @@ export const workshopHotspots: WorkshopHotspot[] = [
     bounds: { height: 0.26, left: 0.575, top: 0.02, width: 0.155 },
     id: 'lamp',
     kind: 'lamp',
+    labelX: 'center',
+    labelY: 'below',
     objectLabel: 'Lamp',
   },
 ]

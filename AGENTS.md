@@ -109,11 +109,12 @@ Home Last shipped is a stacked deck of three ships. `/shipped` is the list from 
 
 Home hero is the locked letter (left) plus a warm-lit workshop still (right). Mobile stacks letter, then workshop. Last shipped stays below.
 
+- Letter: compact editorial type (not billboard). Copy is locked in `HomeLetter.astro`
 - Phase 1: static still + HTML hotspot hit targets + glass cards. Invisible hits, small point + label on hover. No floating HUD
 - Phase 2: lazy `createWorkshop` Three.js scene over the still (OrbitControls, pause / reset). WebGL fail or reduced motion keeps the still + HTML hotspots
 - Still: `code/app/web/public/workshop/still.webp` (+ png fallback)
 - Data: `code/app/web/src/lib/workshop.ts`. Ids: `local-ai`, `imessage`, `firstdistro`, `uselay`, `lamp`
-- Lamp toggles a warm light (`aria-pressed`). No card. Set dressing is not clickable
+- Lamp starts on (matches the lit still). Toggle off dims the still / 3D lights. No card. Set dressing is not clickable
 - Cards: light glass dialog, Escape / × / empty dismiss. FirstDistro and UseLay links from `@shared/lib/site`
 - GitHub counts: build-time fetch (`src/lib/workshop-github.ts`) shown on the 3D laptop screen and in the Local AI card. Allowlist: `JideLambo/portfolio`, `Wonderstand-AI/first-distro`, `Wonderstand-AI/feedback-layer`. Park Cursor/Grok agent counts
 

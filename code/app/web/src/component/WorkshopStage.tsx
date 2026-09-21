@@ -41,7 +41,7 @@ const WorkshopStage = ({ githubLine }: WorkshopStageProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const sceneRef = useRef<WorkshopSceneApi | null>(null)
   const [mode, setMode] = useState<'still' | 'webgl'>('still')
-  const [lampOn, setLampOn] = useState(false)
+  const [lampOn, setLampOn] = useState(true)
   const [motionOn, setMotionOn] = useState(true)
   const lampRef = useRef(lampOn)
   const motionRef = useRef(motionOn)
@@ -220,6 +220,8 @@ const WorkshopStage = ({ githubLine }: WorkshopStageProps) => {
               aria-label={getWorkshopHotspotLabel(hotspot)}
               aria-pressed={hotspot.kind === 'lamp' ? lampOn : undefined}
               className="workshop-hotspot"
+              data-label-x={hotspot.labelX}
+              data-label-y={hotspot.labelY}
               data-workshop-id={hotspot.id}
               key={hotspot.id}
               onBlur={() => {

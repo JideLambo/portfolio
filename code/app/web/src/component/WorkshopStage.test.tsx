@@ -43,7 +43,7 @@ describe('WorkshopStage', () => {
     ).toBeTruthy()
     expect(
       screen.getByRole('button', { name: 'Toggle workshop lamp' }),
-    ).toHaveAttribute('aria-pressed', 'false')
+    ).toHaveAttribute('aria-pressed', 'true')
     expect(screen.queryByRole('dialog')).toBeNull()
   })
 
@@ -74,6 +74,17 @@ describe('WorkshopStage', () => {
       name: 'iMessage agent for your business, Phone',
     })
     expect(phone.querySelector('.workshop-hotspot__mark')).toBeTruthy()
+    expect(phone.getAttribute('data-label-x')).toBe('center')
+    expect(
+      screen
+        .getByRole('button', { name: 'UseLay, Pinboard' })
+        .getAttribute('data-label-x'),
+    ).toBe('start')
+    expect(
+      screen
+        .getByRole('button', { name: 'Morning who needs you, Mini-PC' })
+        .getAttribute('data-label-x'),
+    ).toBe('end')
     const style = getComputedStyle(phone)
     expect(
       style.backgroundColor === 'rgba(0, 0, 0, 0)' ||
@@ -99,6 +110,9 @@ describe('WorkshopStage', () => {
     })
     expect(dialog.className).toBe('workshop-card')
     expect(screen.getByText('Laptop')).toBeTruthy()
+    const cardStyle = getComputedStyle(dialog)
+    expect(Number.parseFloat(cardStyle.paddingTop)).toBeGreaterThan(12)
+    expect(cardStyle.backgroundColor).not.toBe('rgba(0, 0, 0, 0)')
     expect(screen.getByText('Open model, tools, gates')).toBeTruthy()
     expect(
       screen.getByText(
@@ -151,16 +165,21 @@ describe('WorkshopStage', () => {
     render(<WorkshopStage />)
 
     const lamp = screen.getByRole('button', { name: 'Toggle workshop lamp' })
-    expect(lamp.getAttribute('aria-pressed')).toBe('false')
-    fireEvent.click(lamp)
     expect(lamp.getAttribute('aria-pressed')).toBe('true')
     expect(
       screen
         .getByRole('region', { name: 'Workshop' })
         .getAttribute('data-lamp'),
     ).toBe('on')
-    expect(screen.queryByRole('dialog')).toBeNull()
     fireEvent.click(lamp)
     expect(lamp.getAttribute('aria-pressed')).toBe('false')
+    expect(
+      screen
+        .getByRole('region', { name: 'Workshop' })
+        .getAttribute('data-lamp'),
+    ).toBe('off')
+    expect(screen.queryByRole('dialog')).toBeNull()
+    fireEvent.click(lamp)
+    expect(lamp.getAttribute('aria-pressed')).toBe('true')
   })
 })
