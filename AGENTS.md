@@ -114,6 +114,7 @@ Home hero is the locked letter (left) plus a warm-lit workshop still (right). Mo
 - Data: `code/app/web/src/lib/workshop.ts`. Ids: `local-ai`, `imessage`, `firstdistro`, `uselay`, `lamp`
 - Lamp toggles a warm CSS overlay (`aria-pressed`). No card. Set dressing is not clickable
 - Cards: light glass dialog, Escape / × / empty dismiss. FirstDistro and UseLay links from `@shared/lib/site`
+- Laptop HUD: Ready plus build-time GitHub open PRs and commits this week (`src/lib/workshop-github.ts`). Allowlist: `JideLambo/portfolio`, `Wonderstand-AI/first-distro`, `Wonderstand-AI/feedback-layer`. Optional `GITHUB_TOKEN` / `GH_TOKEN` for private repos. Park Cursor/Grok agent counts
 
 ---
 
@@ -172,6 +173,6 @@ See `.cursor/commands/bump-dependencies.md` for npm + GHA tracks.
 | Browser tests | `code/app/web/vitest.config.js` |
 | Blog prose + callouts | `code/app/web/src/style/prose.css` |
 | Last shipped | `code/app/web/src/content/shipped/`, `src/lib/shipped.ts`, `src/lib/product.ts` |
-| Workshop | `src/lib/workshop.ts`, `src/component/WorkshopStage.tsx`, `public/workshop/` |
+| Workshop | `src/lib/workshop.ts`, `src/lib/workshop-github.ts`, `src/component/WorkshopStage.tsx`, `public/workshop/` |
 | Lint | `biome.json`, knip |
 | CI | `.github/workflows/web-*.yml` |

@@ -38,6 +38,13 @@ export const workshopStill = {
   width: 491,
 }
 
+export const workshopLaptopHudBounds: WorkshopBounds = {
+  height: 0.2,
+  left: 0.368,
+  top: 0.212,
+  width: 0.228,
+}
+
 export const workshopHotspots: WorkshopHotspot[] = [
   {
     body: "I've been running a small open model on my own machine with Ollama. Wired tools and gates on top so it's not just chat.",

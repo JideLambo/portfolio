@@ -5,6 +5,7 @@ import {
   getWorkshopHotspotLabel,
   isWorkshopCardHotspot,
   workshopHotspots,
+  workshopLaptopHudBounds,
   workshopStill,
 } from '@/lib/workshop'
 
@@ -88,5 +89,19 @@ describe('workshop', () => {
     expect(workshopStill.webp).toBe('/workshop/still.webp')
     expect(workshopStill.width).toBe(491)
     expect(workshopStill.height).toBe(276)
+  })
+
+  it('keeps the laptop HUD on the screen, inside the still', () => {
+    expect(workshopLaptopHudBounds.left).toBeGreaterThan(
+      workshopHotspots[0]!.bounds.left,
+    )
+    expect(
+      workshopLaptopHudBounds.left + workshopLaptopHudBounds.width,
+    ).toBeLessThan(
+      workshopHotspots[0]!.bounds.left + workshopHotspots[0]!.bounds.width,
+    )
+    expect(
+      workshopLaptopHudBounds.top + workshopLaptopHudBounds.height,
+    ).toBeLessThanOrEqual(1)
   })
 })

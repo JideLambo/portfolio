@@ -5,15 +5,20 @@ import PostList from '@/component/PostList.astro'
 import WorkshopStage from '@/component/WorkshopStage'
 import Layout from '@/layout/Layout.astro'
 import { getHomepageWriting } from '@/lib/post'
+import {
+  formatWorkshopGithubLine,
+  getWorkshopGithubStats,
+} from '@/lib/workshop-github'
 
 const { latestPosts } = await getHomepageWriting()
+const githubLine = formatWorkshopGithubLine(await getWorkshopGithubStats())
 ---
 
 <Layout>
   <div class="wrap">
     <div class="home-hero">
       <HomeLetter />
-      <WorkshopStage client:load />
+      <WorkshopStage client:load githubLine={githubLine} />
     </div>
 
     <LastShipped />

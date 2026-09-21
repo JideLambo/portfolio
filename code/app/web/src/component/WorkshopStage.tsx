@@ -10,20 +10,26 @@ import {
 import {
   getWorkshopHotspotLabel,
   isWorkshopCardHotspot,
+  type WorkshopBounds,
   type WorkshopCardHotspot,
   type WorkshopHotspot,
   workshopHotspots,
+  workshopLaptopHudBounds,
   workshopStill,
 } from '@/lib/workshop'
 
-const boundsStyle = (hotspot: WorkshopHotspot) => ({
-  height: `${hotspot.bounds.height * 100}%`,
-  left: `${hotspot.bounds.left * 100}%`,
-  top: `${hotspot.bounds.top * 100}%`,
-  width: `${hotspot.bounds.width * 100}%`,
+type WorkshopStageProps = {
+  githubLine?: string
+}
+
+const boundsStyle = (bounds: WorkshopBounds) => ({
+  height: `${bounds.height * 100}%`,
+  left: `${bounds.left * 100}%`,
+  top: `${bounds.top * 100}%`,
+  width: `${bounds.width * 100}%`,
 })
 
-const WorkshopStage = () => {
+const WorkshopStage = ({ githubLine }: WorkshopStageProps) => {
   const titleId = useId()
   const bodyId = useId()
   const hintId = useId()
@@ -115,7 +121,9 @@ const WorkshopStage = () => {
       data-lamp={lampOn ? 'on' : 'off'}
     >
       <p className="visually-hidden" id={hintId}>
-        Select a desk object to read a short note. The lamp toggles the light.
+        {githubLine
+          ? `Local model ready. ${githubLine}. Select a desk object to read a short note. The lamp toggles the light.`
+          : 'Local model ready. Select a desk object to read a short note. The lamp toggles the light.'}
       </p>
       <div className="workshop-stage__frame">
         <picture>
@@ -131,6 +139,21 @@ const WorkshopStage = () => {
           />
         </picture>
         <div aria-hidden="true" className="workshop-stage__glow" />
+        <div
+          aria-hidden="true"
+          className="workshop-hud"
+          style={boundsStyle(workshopLaptopHudBounds)}
+        >
+          <div className="workshop-hud__panel">
+            <p className="workshop-hud__ready">
+              <span className="workshop-hud__dot" />
+              Ready
+            </p>
+            {githubLine ? (
+              <p className="workshop-hud__line">{githubLine}</p>
+            ) : null}
+          </div>
+        </div>
         <div className="workshop-stage__hotspots">
           {workshopHotspots.map(hotspot => (
             <button
@@ -146,7 +169,7 @@ const WorkshopStage = () => {
               onClick={event => {
                 onHotspotClick(event, hotspot)
               }}
-              style={boundsStyle(hotspot)}
+              style={boundsStyle(hotspot.bounds)}
               type="button"
             >
               <span aria-hidden="true" className="workshop-hotspot__label">

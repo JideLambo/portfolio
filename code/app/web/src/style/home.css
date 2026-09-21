@@ -555,6 +555,10 @@
   inset: 0;
 }
 
+.workshop-stage__hotspots {
+  z-index: 2;
+}
+
 .workshop-stage__glow {
   pointer-events: none;
   opacity: 0;
@@ -563,6 +567,51 @@
     rgb(255 186 92 / 32%),
     transparent 70%
   );
+}
+
+.workshop-hud {
+  position: absolute;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.workshop-hud__panel {
+  display: grid;
+  align-content: start;
+  gap: 0.12rem;
+  height: 100%;
+  padding: 0.22rem 0.28rem 0.18rem;
+  border-radius: 0.22rem;
+  background: #f4f4f5;
+  color: #1c1c1e;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 28%);
+}
+
+.workshop-hud__ready {
+  display: flex;
+  align-items: center;
+  gap: 0.22rem;
+  margin: 0;
+  color: #1f7a3f;
+  font-size: 0.58rem;
+  font-weight: 550;
+  line-height: 1.2;
+}
+
+.workshop-hud__dot {
+  width: 0.32rem;
+  height: 0.32rem;
+  border-radius: 50%;
+  background: #34c759;
+}
+
+.workshop-hud__line {
+  margin: 0;
+  color: #1c1c1e;
+  font-size: 0.5rem;
+  font-weight: 500;
+  line-height: 1.25;
 }
 
 .workshop-stage[data-lamp="on"] .workshop-stage__glow {

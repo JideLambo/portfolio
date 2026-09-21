@@ -133,8 +133,16 @@ assert(
   'Workshop should include the pinboard hotspot',
 )
 assert(
-  home.includes('data-workshop-id="lamp"'),
-  'Workshop should include the lamp hotspot',
+  home.includes('workshop-hud'),
+  'Workshop laptop should show a local-status HUD',
+)
+assert(
+  home.includes('workshop-hud__ready'),
+  'Workshop laptop HUD should keep Ready',
+)
+assert(
+  !home.includes('Cursor cloud') && !home.includes('Grok Bot'),
+  'Workshop must not show parked Cursor or Grok agent counts',
 )
 assert(
   home.includes('/workshop/still.webp') || home.includes('/workshop/still.png'),

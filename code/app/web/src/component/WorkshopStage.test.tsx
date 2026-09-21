@@ -47,6 +47,27 @@ describe('WorkshopStage', () => {
     expect(screen.queryByRole('dialog')).toBeNull()
   })
 
+  it('always shows Ready on the laptop and adds GitHub counts when present', () => {
+    const { rerender } = render(<WorkshopStage />)
+
+    const hud = document.querySelector('.workshop-hud') as HTMLElement
+    expect(hud).toBeTruthy()
+    expect(hud.getAttribute('aria-hidden')).toBe('true')
+    expect(hud.querySelector('.workshop-hud__ready')?.textContent).toContain(
+      'Ready',
+    )
+    expect(screen.queryByText(/open PR/)).toBeNull()
+    expect(screen.queryByText(/this week/)).toBeNull()
+    expect(screen.queryByText(/Cursor/i)).toBeNull()
+    expect(screen.queryByText(/Grok/i)).toBeNull()
+
+    rerender(<WorkshopStage githubLine="2 open PRs · 8 this week" />)
+    expect(screen.getByText('2 open PRs · 8 this week')).toBeTruthy()
+    expect(
+      screen.getByText(/Local model ready\. 2 open PRs · 8 this week/),
+    ).toBeTruthy()
+  })
+
   it('opens a glass card with locked copy and dismisses it', async () => {
     render(<WorkshopStage />)
 
