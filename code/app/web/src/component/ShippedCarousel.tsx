@@ -21,11 +21,6 @@ type ShippedCarouselProps = {
   slides: ShippedSlide[]
 }
 
-const scrollBehavior = () =>
-  window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    ? 'auto'
-    : 'smooth'
-
 const peekOf = (track: HTMLElement) =>
   Number.parseFloat(getComputedStyle(track).paddingInlineStart) || 0
 
@@ -37,7 +32,6 @@ const offsetsOf = (track: HTMLElement) => {
 }
 
 const ShippedCarousel = ({ slides }: ShippedCarouselProps) => {
-  const rootRef = useRef<HTMLElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
   const didDragRef = useRef(false)
   const ignoreScrollRef = useRef(false)
@@ -65,19 +59,11 @@ const ShippedCarousel = ({ slides }: ShippedCarouselProps) => {
       return
     }
     ignoreScrollRef.current = true
-    const release = () => {
-      ignoreScrollRef.current = false
-    }
-    track.addEventListener('scrollend', release, { once: true })
     track.scrollTo({
-      behavior: scrollBehavior(),
+      behavior: 'auto',
       left: slideScrollLeft(slide.offsetLeft, peekOf(track)),
     })
-    const fallback = window.setTimeout(release, 450)
-    return () => {
-      track.removeEventListener('scrollend', release)
-      window.clearTimeout(fallback)
-    }
+    ignoreScrollRef.current = false
   }, [index])
 
   useEffect(() => {
@@ -96,26 +82,6 @@ const ShippedCarousel = ({ slides }: ShippedCarouselProps) => {
       track.removeEventListener('scrollend', onScrollEnd)
     }
   }, [])
-
-  useEffect(() => {
-    const onKey = (event: globalThis.KeyboardEvent) => {
-      const root = rootRef.current
-      const active = document.activeElement
-      if (
-        !root ||
-        (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') ||
-        !(root === active || root.contains(active))
-      ) {
-        return
-      }
-      event.preventDefault()
-      goTo(index + (event.key === 'ArrowRight' ? 1 : -1))
-    }
-    window.addEventListener('keydown', onKey)
-    return () => {
-      window.removeEventListener('keydown', onKey)
-    }
-  }, [goTo, index])
 
   const onPointerDown = (event: PointerEvent<HTMLDivElement>) => {
     if (event.pointerType === 'touch') {
@@ -193,7 +159,6 @@ const ShippedCarousel = ({ slides }: ShippedCarouselProps) => {
       aria-roledescription="carousel"
       className="shipped-carousel"
       onKeyDown={onKeyDown}
-      ref={rootRef}
     >
       <div aria-atomic="true" aria-live="polite" className="visually-hidden">
         {current ? `Ship ${index + 1} of ${count}: ${current.title}` : null}
