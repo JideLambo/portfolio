@@ -56,7 +56,7 @@ Vite overrides in root `package.json` keep `@vitejs/plugin-react` on v6 with Ast
 
 | Route | Purpose |
 | --- | --- |
-| `/` | Home (letter, last shipped, latest writing) |
+| `/` | Home (letter + workshop still, last shipped, latest writing) |
 | `/shipped` | Last shipped list (from All shipped →, not in nav) |
 | `/writing` | Essays |
 | `/writing/{slug}` | Post |
@@ -102,6 +102,18 @@ Home Last shipped is a stacked deck of three ships. `/shipped` is the list from 
 - Required frontmatter: `slug`, `title`, `product` (`firstdistro` \| `uselay` \| `gre` \| `sinch` \| `personal`), `shippedAt` (drives the relative timestamp). Optional: `visual`, `visualDark`, `href`, `source`, `example`
 - Body is the short writeup (2–4 sentences)
 - Use `getHomepageShipped()` on Home (cap 5); `getShippedEntries()` throws on duplicate slugs
+
+---
+
+## Content (workshop)
+
+Home hero is the locked letter (left) plus a warm-lit workshop still (right). Mobile stacks letter, then workshop. Last shipped stays below.
+
+- Phase 1 (this): static still + HTML hotspot hit targets + glass cards. No Three.js / WebGL / OrbitControls
+- Still: `code/app/web/public/workshop/still.webp` (+ png fallback)
+- Data: `code/app/web/src/lib/workshop.ts`. Ids: `local-ai`, `imessage`, `firstdistro`, `uselay`, `lamp`
+- Lamp toggles a warm CSS overlay (`aria-pressed`). No card. Set dressing is not clickable
+- Cards: light glass dialog, Escape / × / empty dismiss. FirstDistro and UseLay links from `@shared/lib/site`
 
 ---
 
@@ -160,5 +172,6 @@ See `.cursor/commands/bump-dependencies.md` for npm + GHA tracks.
 | Browser tests | `code/app/web/vitest.config.js` |
 | Blog prose + callouts | `code/app/web/src/style/prose.css` |
 | Last shipped | `code/app/web/src/content/shipped/`, `src/lib/shipped.ts`, `src/lib/product.ts` |
+| Workshop | `src/lib/workshop.ts`, `src/component/WorkshopStage.tsx`, `public/workshop/` |
 | Lint | `biome.json`, knip |
 | CI | `.github/workflows/web-*.yml` |

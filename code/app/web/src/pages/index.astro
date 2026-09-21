@@ -2,6 +2,7 @@
 import HomeLetter from '@/component/HomeLetter.astro'
 import LastShipped from '@/component/LastShipped.astro'
 import PostList from '@/component/PostList.astro'
+import WorkshopStage from '@/component/WorkshopStage'
 import Layout from '@/layout/Layout.astro'
 import { getHomepageWriting } from '@/lib/post'
 
@@ -10,7 +11,10 @@ const { latestPosts } = await getHomepageWriting()
 
 <Layout>
   <div class="wrap">
-    <HomeLetter />
+    <div class="home-hero">
+      <HomeLetter />
+      <WorkshopStage client:load />
+    </div>
 
     <LastShipped />
 

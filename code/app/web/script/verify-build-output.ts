@@ -53,6 +53,8 @@ assertExists('rss.xml')
 assertExists('sitemap-index.xml')
 assertExists('llms.txt')
 assertExists('robots.txt')
+assertExists('workshop/still.webp')
+assertExists('workshop/still.png')
 
 const llms = read('llms.txt')
 assert(llms.includes('Jide Lambo'), 'llms.txt should identify Jide Lambo')
@@ -110,6 +112,49 @@ assert(
   'Home must not keep the old About heading',
 )
 assert(home.includes('Last shipped'), 'Home page should include Last shipped')
+assert(
+  home.includes('workshop-stage'),
+  'Home should include the workshop stage',
+)
+assert(
+  home.includes('data-workshop-id="local-ai"'),
+  'Workshop should include the laptop hotspot',
+)
+assert(
+  home.includes('data-workshop-id="imessage"'),
+  'Workshop should include the phone hotspot',
+)
+assert(
+  home.includes('data-workshop-id="firstdistro"'),
+  'Workshop should include the mini-PC hotspot',
+)
+assert(
+  home.includes('data-workshop-id="uselay"'),
+  'Workshop should include the pinboard hotspot',
+)
+assert(
+  home.includes('data-workshop-id="lamp"'),
+  'Workshop should include the lamp hotspot',
+)
+assert(
+  home.includes('/workshop/still.webp') || home.includes('/workshop/still.png'),
+  'Workshop should load the art-direction still',
+)
+assert(
+  !home.includes('three.js') &&
+    !home.includes('Three.js') &&
+    !home.includes('OrbitControls'),
+  'Phase 1 Home must not include a WebGL workshop',
+)
+assert(
+  home.indexOf("I'm Jide, a product design engineer.") <
+    home.indexOf('workshop-stage'),
+  'Home should be letter, then workshop',
+)
+assert(
+  home.indexOf('workshop-stage') < home.indexOf('Last shipped'),
+  'Home should be workshop, then Last shipped',
+)
 assert(
   home.indexOf("I'm Jide, a product design engineer.") <
     home.indexOf('Last shipped'),
@@ -304,6 +349,11 @@ assert(
 assert(
   cssBundle.includes('.home-letter') && cssBundle.includes('max-width:38rem'),
   'Home letter must keep a left-aligned reading measure',
+)
+assert(
+  cssBundle.includes('.workshop-stage') &&
+    cssBundle.includes('prefers-reduced-motion'),
+  'Workshop must sit on Home and honor reduced motion',
 )
 assert(
   !cssBundle.includes('home-intro__photo'),
