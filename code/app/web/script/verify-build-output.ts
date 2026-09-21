@@ -100,7 +100,10 @@ assert(
   home.includes('https://github.com/JideLambo'),
   'Home letter should link GitHub',
 )
-assert(!home.includes('id="projects"'), 'Home must not render a Projects section')
+assert(
+  !home.includes('id="projects"'),
+  'Home must not render a Projects section',
+)
 assert(!home.includes('/jide.jpg'), 'Home must not include a portrait')
 assert(home.includes('Last shipped'), 'Home page should include Last shipped')
 assert(

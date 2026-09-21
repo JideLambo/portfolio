@@ -1,21 +1,19 @@
 /* Home page: letter, section heads, and the shared post list. */
 
 .home-letter {
+  display: grid;
   max-width: 38rem;
+  gap: 1.35em;
 }
 
 .home-letter h1,
 .home-letter p {
-  margin: 0 0 1.35em;
+  margin: 0;
   color: var(--text);
   font-size: var(--step-1);
   font-weight: 400;
   line-height: 1.8;
   letter-spacing: 0;
-}
-
-.home-letter p:last-child {
-  margin-bottom: 0;
 }
 
 .home-section {
