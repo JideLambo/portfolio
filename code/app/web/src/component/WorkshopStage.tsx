@@ -150,9 +150,13 @@ const WorkshopStage = ({ githubLine }: WorkshopStageProps) => {
               <span className="workshop-hud__dot" />
               Ready
             </p>
-            {githubLine ? (
-              <p className="workshop-hud__line">{githubLine}</p>
-            ) : null}
+            {githubLine
+              ? githubLine.split('\n').map(line => (
+                  <p className="workshop-hud__line" key={line}>
+                    {line}
+                  </p>
+                ))
+              : null}
           </div>
         </div>
         <div className="workshop-stage__hotspots">

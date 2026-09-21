@@ -579,10 +579,10 @@
 
 .workshop-hud__panel {
   display: grid;
-  align-content: start;
-  gap: 0.35cqmin;
+  align-content: center;
+  gap: 2cqh;
   height: 100%;
-  padding: 7cqmin 8cqmin 6cqmin;
+  padding: 8cqh 9cqw;
   border-radius: 0.18rem;
   background: #f4f4f5;
   color: #1c1c1e;
@@ -594,9 +594,9 @@
   gap: 0.4em;
   margin: 0;
   color: #1f7a3f;
-  font-size: clamp(0.38rem, 22cqmin, 0.7rem);
+  font-size: clamp(0.4rem, 26cqh, 1.15rem);
   font-weight: 550;
-  line-height: 1.15;
+  line-height: 1.1;
 }
 
 .workshop-hud__dot {
@@ -608,11 +608,13 @@
 
 .workshop-hud__line {
   margin: 0;
+  overflow: hidden;
   color: #1c1c1e;
-  font-size: clamp(0.34rem, 16cqmin, 0.55rem);
+  font-size: clamp(0.34rem, 18cqh, 0.9rem);
   font-weight: 500;
-  line-height: 1.2;
-  white-space: pre-line;
+  line-height: 1.15;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .workshop-stage[data-lamp="on"] .workshop-stage__glow {
