@@ -67,7 +67,7 @@ assert(
   'Home page should include the latest shipped card',
 )
 assert(
-  home.includes('Nothing sends until you act'),
+  home.includes('I shipped a morning Slack briefing automation'),
   'Home page should include the locked Automations writeup',
 )
 assert(
@@ -75,8 +75,16 @@ assert(
   'Home page should include the GRE iMessage ship',
 )
 assert(
-  home.includes('proving the pack model'),
+  home.includes('before I bet on one industry'),
   'Home page should include the locked GRE writeup',
+)
+assert(
+  home.includes('Local AI on your machine'),
+  'Home page should include the local AI ship',
+)
+assert(
+  home.includes('with Ollama'),
+  'Home page should include the locked local AI writeup',
 )
 assert(
   !home.includes('Point at what'),
@@ -140,6 +148,10 @@ assert(
   'Last shipped timestamp must be relative, not a calendar date',
 )
 assert(
+  home.includes('shipped-mini--slack'),
+  'Morning ship should render a Slack briefing panel',
+)
+assert(
   home.includes('Helios Cloud'),
   'Slack briefing should name a single account',
 )
@@ -152,11 +164,24 @@ assert(
   'iMessage panel should include a customer bubble',
 )
 assert(
+  home.includes('shipped-mini--local'),
+  'Local AI ship should render a local-status panel',
+)
+assert(home.includes('qwen2.5:7b'), 'Local-status card should name the model')
+assert(
+  home.includes('book / reply'),
+  'Local-status card should show a tool line',
+)
+assert(
   !home.includes('morning-who-needs-you.svg'),
   'Last shipped must not use abstract SVG glyphs',
 )
 assert(
   !home.includes('imessage-agent-for-your-business.svg'),
+  'Last shipped must not use abstract SVG glyphs',
+)
+assert(
+  !home.includes('local-ai-on-your-machine.svg'),
   'Last shipped must not use abstract SVG glyphs',
 )
 assertExists('shipped/index.html')
@@ -169,19 +194,31 @@ assert(
 )
 assert(
   shipped.includes('Morning who needs you'),
-  '/shipped should list the latest ship',
+  '/shipped should list the Automations ship',
 )
 assert(
   shipped.includes('iMessage agent for your business'),
   '/shipped should list the GRE iMessage ship',
 )
 assert(
+  shipped.includes('Local AI on your machine'),
+  '/shipped should list the local AI ship',
+)
+assert(
   shipped.includes('shipped-card__when'),
   '/shipped cards should show a relative timestamp',
 )
 assert(
+  shipped.includes('shipped-mini--slack'),
+  '/shipped should render the Slack briefing panel',
+)
+assert(
   shipped.includes('shipped-mini--imessage'),
   '/shipped should render the iMessage thread panel',
+)
+assert(
+  shipped.includes('shipped-mini--local'),
+  '/shipped should render the local-status panel',
 )
 
 const cssBundle = listFiles(distPath, '.css')

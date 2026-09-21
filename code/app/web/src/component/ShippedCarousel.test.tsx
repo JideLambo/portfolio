@@ -14,7 +14,7 @@ const slides: ShippedSlide[] = [
     title: 'Morning who needs you',
     when: '5 days ago',
     writeup:
-      'Each morning in Slack: the accounts that need attention, a suggested move, and a draft held for you. Ready-made for lean CS. Nothing sends until you act.',
+      'I shipped a morning Slack briefing automation on FirstDistro. Each day it surfaces who needs attention, suggests a move, and holds a draft. Nothing sends until you act.',
   },
   {
     example: false,
@@ -23,7 +23,7 @@ const slides: ShippedSlide[] = [
     title: 'iMessage agent for your business',
     when: '1 day ago',
     writeup:
-      "An iMessage agent for the front desk. Same loop, different packs: clinic, salon, Shopify-style shop. We're proving the pack model before we bet on a single industry.",
+      "I've been building an iMessage agent for the front desk. Same loop, packs for clinic, salon, and Shopify-style shops. Still proving the pack model before I bet on one industry.",
   },
 ]
 
@@ -96,6 +96,34 @@ describe('ShippedCarousel', () => {
     expect(screen.getByText('Quiet for 18 days')).toBeTruthy()
     expect(screen.getByText('Any openings Friday?')).toBeTruthy()
     expect(document.querySelector('img[src*="/shipped/"]')).toBeNull()
+  })
+
+  it('renders a light local-status card for the local AI ship', () => {
+    render(
+      <>
+        <h2 id="last-shipped">Last shipped</h2>
+        <ShippedCarousel
+          slides={[
+            {
+              example: false,
+              shippedAt: '2026-09-21',
+              slug: 'local-ai-on-your-machine',
+              title: 'Local AI on your machine',
+              when: 'just now',
+              writeup:
+                "I've been running a small open model on my own machine with Ollama. Wired tools and gates on top so it's not just chat. Still learning how far I can push it before it needs the cloud.",
+            },
+            ...slides,
+          ]}
+        />
+      </>,
+    )
+
+    expect(document.querySelector('.shipped-mini--local')).toBeTruthy()
+    expect(screen.getByText('qwen2.5:7b')).toBeTruthy()
+    expect(screen.getByText('Ready')).toBeTruthy()
+    expect(screen.getByText('book / reply')).toBeTruthy()
+    expect(screen.queryByText('Sinch')).toBeNull()
   })
 
   it('renders disabled arrows when there is only one ship', () => {

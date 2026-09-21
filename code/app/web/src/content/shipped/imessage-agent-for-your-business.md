@@ -5,4 +5,4 @@ product: gre
 shippedAt: 2026-09-20
 ---
 
-An iMessage agent for the front desk. Same loop, different packs: clinic, salon, Shopify-style shop. We're proving the pack model before we bet on a single industry.
+I've been building an iMessage agent for the front desk. Same loop, packs for clinic, salon, and Shopify-style shops. Still proving the pack model before I bet on one industry.

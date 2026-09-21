@@ -85,16 +85,16 @@ Nav: Home · About · Work · Writing.
 
 ## Content (last shipped)
 
-Home Last shipped is a stacked deck of two ships. `/shipped` is the list from **All shipped →**:
+Home Last shipped is a stacked deck of three ships. `/shipped` is the list from **All shipped →**:
 
 - Eyebrow: `Last shipped`, with `All shipped →` (`/shipped`)
 - Front card is primary. Empty nested card backs peek top/right. Inactive ships are hidden, not a content sliver
-- Two ships: Morning who needs you (`firstdistro`) and iMessage agent for your business (`gre`)
-- Visual: HTML/CSS light UI fragment on the dark card, slightly cropped. Morning is one Slack briefing card. GRE is a 2–3 bubble iMessage thread. No abstract glyphs
+- Three ships: Local AI on your machine (`personal`), iMessage agent for your business (`gre`), Morning who needs you (`firstdistro`)
+- Visual: HTML/CSS light UI fragment on the dark card, slightly cropped. Local is a status card (model, ready, one tool line). GRE is a 2–3 bubble iMessage thread. Morning is one Slack briefing card. No abstract glyphs
 - Title, quiet relative timestamp from `shippedAt` (`just now` / `N days ago` / weeks / months / years), 2–4 sentence body, `View →` in ink when `href` is set
 - Controls: designed prev/next arrows. Drag/swipe still works. No `drag →` label. No numbered ticks
 - No product or example chips. `product` stays in frontmatter for later filtering
-- Site tokens only. Full white type on dark. Light Slack/iMessage panels keep their own chrome. No Slack purple. No chromatic blue. Links: underline + ink, white hover with a thicker underline. White focus ring and selection wash
+- Site tokens only. Full white type on dark. Light Slack/iMessage/local-status panels keep their own chrome. No Slack purple. No chromatic blue. Links: underline + ink, white hover with a thicker underline. White focus ring and selection wash
 - UI font is Geist Sans (`"Geist Sans", ui-sans-serif, system-ui, sans-serif`)
 - Hide the Home section if empty
 

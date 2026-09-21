@@ -7,4 +7,4 @@ href: https://firstdistro.com
 source: https://github.com/Wonderstand-AI/first-distro/pull/557
 ---
 
-Each morning in Slack: the accounts that need attention, a suggested move, and a draft held for you. Ready-made for lean CS. Nothing sends until you act.
+I shipped a morning Slack briefing automation on FirstDistro. Each day it surfaces who needs attention, suggests a move, and holds a draft. Nothing sends until you act.
