@@ -106,7 +106,7 @@ export const formatWorkshopGithubLine = (
         : `${stats.commitsThisWeek} this week`,
     )
   }
-  return parts.length > 0 ? parts.join(' · ') : undefined
+  return parts.length > 0 ? parts.join('\n') : undefined
 }
 
 export const getWorkshopGithubStats = async (options?: {

@@ -61,10 +61,12 @@ describe('WorkshopStage', () => {
     expect(screen.queryByText(/Cursor/i)).toBeNull()
     expect(screen.queryByText(/Grok/i)).toBeNull()
 
-    rerender(<WorkshopStage githubLine="2 open PRs · 8 this week" />)
-    expect(screen.getByText('2 open PRs · 8 this week')).toBeTruthy()
+    rerender(<WorkshopStage githubLine={'2 open PRs\n8 this week'} />)
+    expect(hud.querySelector('.workshop-hud__line')?.textContent).toBe(
+      '2 open PRs\n8 this week',
+    )
     expect(
-      screen.getByText(/Local model ready\. 2 open PRs · 8 this week/),
+      screen.getByText(/Local model ready\. 2 open PRs, 8 this week/),
     ).toBeTruthy()
   })
 

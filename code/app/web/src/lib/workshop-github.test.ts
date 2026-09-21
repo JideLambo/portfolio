@@ -28,11 +28,11 @@ describe('workshop github', () => {
   it('formats a tiny local-status line from real counts', () => {
     expect(formatWorkshopGithubLine({})).toBeUndefined()
     expect(formatWorkshopGithubLine({ commitsThisWeek: 0, openPulls: 0 })).toBe(
-      '0 open PRs · 0 this week',
+      '0 open PRs\n0 this week',
     )
     expect(formatWorkshopGithubLine({ openPulls: 1 })).toBe('1 open PR')
     expect(formatWorkshopGithubLine({ commitsThisWeek: 1, openPulls: 4 })).toBe(
-      '4 open PRs · 1 this week',
+      '4 open PRs\n1 this week',
     )
   })
 
@@ -41,7 +41,7 @@ describe('workshop github', () => {
       commitsThisWeek: 8,
       openPulls: 2,
     })
-    expect(line).toBe('2 open PRs · 8 this week')
+    expect(line).toBe('2 open PRs\n8 this week')
     expect(line).not.toMatch(/cursor|grok|agent/i)
   })
 

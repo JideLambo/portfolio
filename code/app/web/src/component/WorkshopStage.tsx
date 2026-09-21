@@ -33,6 +33,7 @@ const WorkshopStage = ({ githubLine }: WorkshopStageProps) => {
   const titleId = useId()
   const bodyId = useId()
   const hintId = useId()
+  const githubSpoken = githubLine?.replaceAll('\n', ', ')
   const dialogRef = useRef<HTMLDialogElement>(null)
   const [lampOn, setLampOn] = useState(false)
   const [selectedId, setSelectedId] = useState<
@@ -121,8 +122,8 @@ const WorkshopStage = ({ githubLine }: WorkshopStageProps) => {
       data-lamp={lampOn ? 'on' : 'off'}
     >
       <p className="visually-hidden" id={hintId}>
-        {githubLine
-          ? `Local model ready. ${githubLine}. Select a desk object to read a short note. The lamp toggles the light.`
+        {githubSpoken
+          ? `Local model ready. ${githubSpoken}. Select a desk object to read a short note. The lamp toggles the light.`
           : 'Local model ready. Select a desk object to read a short note. The lamp toggles the light.'}
       </p>
       <div className="workshop-stage__frame">

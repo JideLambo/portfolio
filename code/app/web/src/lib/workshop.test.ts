@@ -92,16 +92,16 @@ describe('workshop', () => {
   })
 
   it('keeps the laptop HUD on the screen, inside the still', () => {
-    expect(workshopLaptopHudBounds.left).toBeGreaterThan(
-      workshopHotspots[0]!.bounds.left,
-    )
-    expect(
-      workshopLaptopHudBounds.left + workshopLaptopHudBounds.width,
-    ).toBeLessThan(
-      workshopHotspots[0]!.bounds.left + workshopHotspots[0]!.bounds.width,
-    )
-    expect(
-      workshopLaptopHudBounds.top + workshopLaptopHudBounds.height,
-    ).toBeLessThanOrEqual(1)
+    const laptop = workshopHotspots[0]!.bounds
+    const hud = workshopLaptopHudBounds
+    expect(hud.left).toBeGreaterThan(laptop.left)
+    expect(hud.top).toBeGreaterThan(laptop.top)
+    expect(hud.left + hud.width).toBeLessThan(laptop.left + laptop.width)
+    expect(hud.top + hud.height).toBeLessThan(laptop.top + laptop.height)
+    expect(hud.left).toBeGreaterThanOrEqual(0.36)
+    expect(hud.left + hud.width).toBeLessThanOrEqual(0.53)
+    expect(hud.top).toBeGreaterThanOrEqual(0.18)
+    expect(hud.top + hud.height).toBeGreaterThan(0.4)
+    expect(hud.top + hud.height).toBeLessThanOrEqual(0.45)
   })
 })

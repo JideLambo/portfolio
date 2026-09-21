@@ -574,34 +574,34 @@
   z-index: 1;
   overflow: hidden;
   pointer-events: none;
+  container-type: size;
 }
 
 .workshop-hud__panel {
   display: grid;
   align-content: start;
-  gap: 0.12rem;
+  gap: 0.35cqmin;
   height: 100%;
-  padding: 0.22rem 0.28rem 0.18rem;
-  border-radius: 0.22rem;
+  padding: 7cqmin 8cqmin 6cqmin;
+  border-radius: 0.18rem;
   background: #f4f4f5;
   color: #1c1c1e;
-  box-shadow: 0 4px 12px rgb(0 0 0 / 28%);
 }
 
 .workshop-hud__ready {
   display: flex;
   align-items: center;
-  gap: 0.22rem;
+  gap: 0.4em;
   margin: 0;
   color: #1f7a3f;
-  font-size: 0.58rem;
+  font-size: clamp(0.38rem, 22cqmin, 0.7rem);
   font-weight: 550;
-  line-height: 1.2;
+  line-height: 1.15;
 }
 
 .workshop-hud__dot {
-  width: 0.32rem;
-  height: 0.32rem;
+  width: 0.45em;
+  height: 0.45em;
   border-radius: 50%;
   background: #34c759;
 }
@@ -609,9 +609,10 @@
 .workshop-hud__line {
   margin: 0;
   color: #1c1c1e;
-  font-size: 0.5rem;
+  font-size: clamp(0.34rem, 16cqmin, 0.55rem);
   font-weight: 500;
-  line-height: 1.25;
+  line-height: 1.2;
+  white-space: pre-line;
 }
 
 .workshop-stage[data-lamp="on"] .workshop-stage__glow {
