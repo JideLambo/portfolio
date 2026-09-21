@@ -1,7 +1,6 @@
 import {
   AmbientLight,
   BoxGeometry,
-  CanvasTexture,
   Color,
   CylinderGeometry,
   DirectionalLight,
@@ -37,7 +36,6 @@ import {
 
 type CreateWorkshopOptions = {
   canvas: HTMLCanvasElement
-  githubLine?: string
   lampOn?: boolean
   motion?: boolean
   onHover: (id: WorkshopHoverId) => void
@@ -57,8 +55,6 @@ const charcoal = 0x2a2a2c
 const metal = 0x3a3a3c
 const paper = 0xefe6d6
 const plant = 0x5c7354
-const screenInk = '#e8e8ea'
-const screenReady = '#3ddc6a'
 
 const mat = (
   color: number,
@@ -107,37 +103,7 @@ const tag = (mesh: Object3D, id: WorkshopHotspot['id']) => {
   return mesh
 }
 
-const createScreenTexture = (githubLine?: string): CanvasTexture => {
-  const canvas = document.createElement('canvas')
-  canvas.width = 512
-  canvas.height = 320
-  const ctx = canvas.getContext('2d')
-  if (!ctx) {
-    return new CanvasTexture(canvas)
-  }
-  ctx.fillStyle = '#141814'
-  ctx.fillRect(0, 0, 512, 320)
-  ctx.fillStyle = screenReady
-  ctx.beginPath()
-  ctx.arc(46, 78, 11, 0, Math.PI * 2)
-  ctx.fill()
-  ctx.fillStyle = screenReady
-  ctx.font = '600 40px "Geist Sans", ui-sans-serif, system-ui, sans-serif'
-  ctx.fillText('Ready', 70, 92)
-  if (githubLine) {
-    ctx.fillStyle = screenInk
-    ctx.font = '500 26px "Geist Sans", ui-sans-serif, system-ui, sans-serif'
-    githubLine.split('\n').forEach((line, index) => {
-      ctx.fillText(line, 36, 158 + index * 38)
-    })
-  }
-  const texture = new CanvasTexture(canvas)
-  texture.colorSpace = SRGBColorSpace
-  texture.needsUpdate = true
-  return texture
-}
-
-const buildDesk = (githubLine?: string) => {
+const buildDesk = () => {
   const root = new Group()
   const hotspots: HotspotMesh[] = []
 
@@ -185,16 +151,15 @@ const buildDesk = (githubLine?: string) => {
   const lid = box(0.78, 0.48, 0.03, metal)
   lid.position.set(0, 0.28, -0.24)
   lid.rotation.x = -0.18
-  const screen = new Mesh(
-    new PlaneGeometry(0.68, 0.4),
-    new MeshStandardMaterial({
-      emissive: new Color(0x101810),
-      emissiveIntensity: 0.7,
-      map: createScreenTexture(githubLine),
-      metalness: 0.05,
-      roughness: 0.28,
-    }),
-  )
+  const screenMat = new MeshStandardMaterial({
+    color: 0x141814,
+    emissive: new Color(0x101810),
+    emissiveIntensity: 0.45,
+    metalness: 0.05,
+    roughness: 0.28,
+  })
+  screenMat.userData.lockEmissive = true
+  const screen = new Mesh(new PlaneGeometry(0.68, 0.4), screenMat)
   screen.position.set(0, 0.29, -0.222)
   screen.rotation.x = -0.18
   laptop.add(base, keys, lid, screen)
@@ -309,7 +274,7 @@ const buildDesk = (githubLine?: string) => {
 export const createWorkshop = (
   options: CreateWorkshopOptions,
 ): WorkshopSceneApi => {
-  const { canvas, githubLine, onHover, onLamp, onSelect } = options
+  const { canvas, onHover, onLamp, onSelect } = options
   const scene = new Scene()
   scene.background = new Color(0x0d0d0f)
 
@@ -317,7 +282,7 @@ export const createWorkshop = (
   const startPosition = new Vector3(0.15, 2.35, 4.15)
   camera.position.copy(startPosition)
 
-  const { hotspots, root } = buildDesk(githubLine)
+  const { hotspots, root } = buildDesk()
   scene.add(root)
   const floor = new Mesh(
     new PlaneGeometry(14, 14),

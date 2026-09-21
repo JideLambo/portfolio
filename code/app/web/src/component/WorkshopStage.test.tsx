@@ -2,6 +2,7 @@ import { firstDistroUrl, useLayUrl } from '@shared/lib/site'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 import WorkshopStage from '@/component/WorkshopStage'
+import { canUseWorkshopWebgl } from '@/lib/workshop-webgl'
 import '@/style/home.css'
 
 const openCard = async (name: string) => {
@@ -47,24 +48,47 @@ describe('WorkshopStage', () => {
     expect(screen.queryByRole('dialog')).toBeNull()
   })
 
-  it('keeps GitHub counts in the Local AI card, not a floating HUD', async () => {
-    const { rerender } = render(<WorkshopStage />)
+  it('hides GitHub counts from the HUD, laptop, and Local AI card', async () => {
+    render(<WorkshopStage />)
 
     expect(document.querySelector('.workshop-hud')).toBeNull()
-    expect(screen.queryByText(/open PR/)).toBeNull()
+    expect(document.querySelector('.workshop-card__signal')).toBeNull()
+    expect(screen.queryByText(/open PR/i)).toBeNull()
     expect(screen.queryByText(/Cursor/i)).toBeNull()
     expect(screen.queryByText(/Grok/i)).toBeNull()
 
-    rerender(<WorkshopStage githubLine={'2 open PRs\n8 this week'} />)
-    expect(
-      screen.getByText(/Local model ready\. 2 open PRs, 8 this week/),
-    ).toBeTruthy()
-
     await openCard('Local AI on your machine, Laptop')
-    expect(
-      document.querySelector('.workshop-card__signal')?.textContent,
-    ).toContain('Ready')
-    expect(screen.getByText(/2 open PRs · 8 this week/)).toBeTruthy()
+    expect(document.querySelector('.workshop-card__signal')).toBeNull()
+    expect(screen.queryByText(/open PR/i)).toBeNull()
+    expect(screen.queryByText(/^Ready/)).toBeNull()
+  })
+
+  it('groups pause and reset as icon-only controls when WebGL is on', async () => {
+    render(<WorkshopStage />)
+
+    if (!canUseWorkshopWebgl()) {
+      expect(screen.queryByRole('group', { name: 'Workshop view' })).toBeNull()
+      return
+    }
+
+    await waitFor(() => {
+      expect(
+        screen
+          .getByRole('region', { name: 'Workshop' })
+          .getAttribute('data-mode'),
+      ).toBe('webgl')
+    })
+
+    const group = screen.getByRole('group', { name: 'Workshop view' })
+    expect(group.className).toBe('workshop-stage__controls')
+    const pause = screen.getByRole('button', { name: 'Pause motion' })
+    const reset = screen.getByRole('button', { name: 'Reset view' })
+    expect(pause.textContent?.trim()).toBe('')
+    expect(reset.textContent?.trim()).toBe('')
+    expect(pause.querySelector('svg')).toBeTruthy()
+    expect(reset.querySelector('svg')).toBeTruthy()
+    fireEvent.click(pause)
+    expect(screen.getByRole('button', { name: 'Resume motion' })).toBeTruthy()
   })
 
   it('uses invisible hotspot hits with a small mark, not a glass box', () => {

@@ -20,7 +20,6 @@ describe('createWorkshop', () => {
     const { createWorkshop } = await import('@/lib/createWorkshop')
     const scene = createWorkshop({
       canvas,
-      githubLine: '2 open PRs\n8 this week',
       onHover: () => undefined,
       onLamp: () => undefined,
       onSelect: () => undefined,

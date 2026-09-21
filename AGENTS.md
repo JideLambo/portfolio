@@ -116,7 +116,7 @@ Home hero is the locked letter (left) plus a warm-lit workshop still (right). Mo
 - Data: `code/app/web/src/lib/workshop.ts`. Ids: `local-ai`, `imessage`, `firstdistro`, `uselay`, `lamp`
 - Lamp starts on (matches the lit still). Toggle off dims the still / 3D lights. No card. Set dressing is not clickable
 - Cards: light glass dialog, Escape / × / empty dismiss. FirstDistro and UseLay links from `@shared/lib/site`
-- GitHub counts: build-time fetch (`src/lib/workshop-github.ts`) shown on the 3D laptop screen and in the Local AI card. Allowlist: `JideLambo/portfolio`, `Wonderstand-AI/first-distro`, `Wonderstand-AI/feedback-layer`. Park Cursor/Grok agent counts
+- No visible GitHub or Ready counts on the laptop, HUD, or Local AI card. Pause and reset are icon-only controls in one compact pill
 
 ---
 
@@ -175,6 +175,6 @@ See `.cursor/commands/bump-dependencies.md` for npm + GHA tracks.
 | Browser tests | `code/app/web/vitest.config.js` |
 | Blog prose + callouts | `code/app/web/src/style/prose.css` |
 | Last shipped | `code/app/web/src/content/shipped/`, `src/lib/shipped.ts`, `src/lib/product.ts` |
-| Workshop | `src/lib/workshop.ts`, `src/lib/workshop-github.ts`, `src/lib/createWorkshop.ts`, `src/component/WorkshopStage.tsx`, `public/workshop/` |
+| Workshop | `src/lib/workshop.ts`, `src/lib/createWorkshop.ts`, `src/component/WorkshopStage.tsx`, `public/workshop/` |
 | Lint | `biome.json`, knip |
 | CI | `.github/workflows/web-*.yml` |

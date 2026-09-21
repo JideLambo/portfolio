@@ -20,10 +20,6 @@ import {
   type WorkshopSceneApi,
 } from '@/lib/workshop-webgl'
 
-type WorkshopStageProps = {
-  githubLine?: string
-}
-
 const boundsStyle = (bounds: WorkshopBounds) => ({
   height: `${bounds.height * 100}%`,
   left: `${bounds.left * 100}%`,
@@ -31,12 +27,43 @@ const boundsStyle = (bounds: WorkshopBounds) => ({
   width: `${bounds.width * 100}%`,
 })
 
-const WorkshopStage = ({ githubLine }: WorkshopStageProps) => {
+const PauseIcon = () => (
+  <svg aria-hidden="true" viewBox="0 0 24 24">
+    <rect fill="currentColor" height="14" rx="1" width="3.2" x="6.4" y="5" />
+    <rect fill="currentColor" height="14" rx="1" width="3.2" x="14.4" y="5" />
+  </svg>
+)
+
+const PlayIcon = () => (
+  <svg aria-hidden="true" viewBox="0 0 24 24">
+    <path d="M8 5.2v13.6L19.2 12z" fill="currentColor" />
+  </svg>
+)
+
+const ResetIcon = () => (
+  <svg aria-hidden="true" viewBox="0 0 24 24">
+    <path
+      d="M7.4 7.4a7 7 0 1 1-1.2 7.8"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeWidth="1.8"
+    />
+    <path
+      d="M7.2 3.8v4.4H3"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="1.8"
+    />
+  </svg>
+)
+
+const WorkshopStage = () => {
   const titleId = useId()
   const bodyId = useId()
   const hintId = useId()
-  const githubSpoken = githubLine?.replaceAll('\n', ', ')
-  const githubCardLine = githubLine?.replaceAll('\n', ' · ')
   const dialogRef = useRef<HTMLDialogElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const sceneRef = useRef<WorkshopSceneApi | null>(null)
@@ -110,7 +137,6 @@ const WorkshopStage = ({ githubLine }: WorkshopStageProps) => {
         }
         sceneRef.current = createWorkshop({
           canvas,
-          githubLine,
           lampOn: lampRef.current,
           motion: motionRef.current,
           onHover: setHoverId,
@@ -132,7 +158,7 @@ const WorkshopStage = ({ githubLine }: WorkshopStageProps) => {
       sceneRef.current?.dispose()
       sceneRef.current = null
     }
-  }, [githubLine])
+  }, [])
 
   useEffect(() => {
     sceneRef.current?.toggleLamp(lampOn)
@@ -187,9 +213,7 @@ const WorkshopStage = ({ githubLine }: WorkshopStageProps) => {
       data-mode={mode}
     >
       <p className="visually-hidden" id={hintId}>
-        {githubSpoken
-          ? `Local model ready. ${githubSpoken}. Select a desk object to read a short note. The lamp toggles the light.`
-          : 'Local model ready. Select a desk object to read a short note. The lamp toggles the light.'}
+        Select a desk object to read a short note. The lamp toggles the light.
       </p>
       <div className="workshop-stage__frame">
         <picture>
@@ -264,26 +288,30 @@ const WorkshopStage = ({ githubLine }: WorkshopStageProps) => {
         ) : null}
       </div>
       {mode === 'webgl' ? (
-        <div className="workshop-stage__controls">
+        <fieldset className="workshop-stage__controls">
+          <legend className="visually-hidden">Workshop view</legend>
           <button
+            aria-label={motionOn ? 'Pause motion' : 'Resume motion'}
+            aria-pressed={!motionOn}
             className="workshop-stage__control"
             onClick={() => {
               setMotionOn(on => !on)
             }}
             type="button"
           >
-            {motionOn ? 'Pause motion' : 'Resume motion'}
+            {motionOn ? <PauseIcon /> : <PlayIcon />}
           </button>
           <button
+            aria-label="Reset view"
             className="workshop-stage__control"
             onClick={() => {
               sceneRef.current?.reset()
             }}
             type="button"
           >
-            Reset view
+            <ResetIcon />
           </button>
-        </div>
+        </fieldset>
       ) : null}
       {selectedCard ? (
         <dialog
@@ -313,13 +341,6 @@ const WorkshopStage = ({ githubLine }: WorkshopStageProps) => {
           <p className="workshop-card__body" id={bodyId}>
             {selectedCard.body}
           </p>
-          {selectedCard.id === 'local-ai' ? (
-            <p className="workshop-card__signal">
-              <span className="workshop-card__dot" />
-              Ready
-              {githubCardLine ? ` · ${githubCardLine}` : ''}
-            </p>
-          ) : null}
           {selectedCard.href && selectedCard.hrefLabel ? (
             <p className="workshop-card__actions">
               <a

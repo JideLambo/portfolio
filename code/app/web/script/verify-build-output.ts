@@ -161,6 +161,11 @@ assert(
   'Workshop must not render a floating laptop HUD',
 )
 assert(
+  !home.includes('workshop-card__signal'),
+  'Workshop must not render a Ready or GitHub-count strip on cards',
+)
+assert(!home.includes('open PRs'), 'Workshop must not show open PR counts')
+assert(
   home.includes('workshop-stage__canvas'),
   'Workshop should include a lazy WebGL canvas over the still',
 )
