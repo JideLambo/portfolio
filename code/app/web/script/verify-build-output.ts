@@ -71,6 +71,10 @@ assert(
   'Last shipped card should link to FirstDistro',
 )
 assert(
+  home.includes('>View'),
+  'Last shipped card should use a View text action',
+)
+assert(
   !home.includes('href="/projects"'),
   'Home page must not link to /projects',
 )

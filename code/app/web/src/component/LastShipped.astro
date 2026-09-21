@@ -1,5 +1,5 @@
 ---
-import { formatDate, toISODate } from '@/lib/date'
+import { formatDate, formatRelativeTime, toISODate } from '@/lib/date'
 import { getProductLabel } from '@/lib/product'
 import { getLatestShipped, getShippedVisual } from '@/lib/shipped'
 import { render } from 'astro:content'
@@ -15,10 +15,17 @@ const headingId = 'last-shipped'
 {
   entry && Content && productLabel && (
     <section class="home-section last-shipped" aria-labelledby={headingId}>
-      <div class="home-section__head">
+      <div class="last-shipped__eyebrow">
         <h2 id={headingId}>Last shipped</h2>
-        <time class="post-date" datetime={toISODate(entry.data.shippedAt)}>
-          {formatDate(entry.data.shippedAt)}
+        <span class="last-shipped__sep" aria-hidden="true">
+          ·
+        </span>
+        <time
+          class="post-date"
+          datetime={toISODate(entry.data.shippedAt)}
+          title={formatDate(entry.data.shippedAt)}
+        >
+          {formatRelativeTime(entry.data.shippedAt)}
         </time>
       </div>
       <article class="last-shipped__card">
@@ -28,15 +35,12 @@ const headingId = 'last-shipped'
               src={visual}
               alt=""
               width="320"
-              height="220"
+              height="320"
               loading="lazy"
               decoding="async"
             />
           ) : (
-            <div class="last-shipped__placeholder" aria-hidden="true">
-              <span class="last-shipped__placeholder-sheet" />
-              <span class="last-shipped__placeholder-sheet last-shipped__placeholder-sheet--front" />
-            </div>
+            <div class="last-shipped__placeholder" aria-hidden="true" />
           )}
         </div>
         <div class="last-shipped__copy">
@@ -46,14 +50,14 @@ const headingId = 'last-shipped'
             <Content />
           </div>
           {entry.data.href && (
-            <p class="last-shipped__cta">
+            <p class="last-shipped__actions">
               <a
-                class="text-link external-link"
+                class="text-link"
                 href={entry.data.href}
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                {productLabel}
+                View
                 <span class="visually-hidden"> (opens in new tab)</span>
               </a>
             </p>
