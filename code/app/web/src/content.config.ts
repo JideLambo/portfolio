@@ -30,12 +30,12 @@ const slug = z
   )
 
 /**
- * Last shipped: Home snap carousel of 3–5 latest ships; `/shipped` is the
- * list from All shipped →. Cards use a white-on-dark visual panel, title,
- * 2–4 sentence body, and `View →`. No visible product/example pills.
+ * Last shipped: Home snap carousel of latest ships; `/shipped` is the list
+ * from All shipped →. Cards use a light UI fragment on a dark visual panel,
+ * title, 2–4 sentence body, and `View →`. No visible product/example pills.
  * Site tokens only (no Slack purple, no chromatic blue). `example: true`
- * marks placeholder ships for data, not a visible tag.
- * Detection allowlist: Linear Done on FIR, LAY, GRE; GitHub merges on
+ * marks placeholder ships for data, not a visible tag. v1 seeds one real
+ * ship. Detection allowlist: Linear Done on FIR, LAY, GRE; GitHub merges on
  * first-distro, feedback-layer, portfolio; Grok bots Builder, Product at
  * Sinch, Local Models, iMessage/SMS Agent Build, figma bro; rare: Sales Man.
  */

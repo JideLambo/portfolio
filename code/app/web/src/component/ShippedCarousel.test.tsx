@@ -53,9 +53,23 @@ describe('ShippedCarousel', () => {
     expect(
       screen.getByRole('button', { name: 'Previous ship' }),
     ).toHaveProperty('disabled', true)
+    expect(document.querySelector('.shipped-carousel__tick')).toBeNull()
+    expect(document.querySelector('.shipped-carousel__rail')).toBeNull()
   })
 
-  it('advances with next, ticks, and arrow keys', () => {
+  it('hides arrows when there is only one ship', () => {
+    render(
+      <>
+        <h2 id="last-shipped">Last shipped</h2>
+        <ShippedCarousel slides={slides.slice(0, 1)} />
+      </>,
+    )
+
+    expect(screen.queryByRole('button', { name: 'Previous ship' })).toBeNull()
+    expect(screen.queryByRole('button', { name: 'Next ship' })).toBeNull()
+  })
+
+  it('advances with next and arrow keys', () => {
     render(
       <>
         <h2 id="last-shipped">Last shipped</h2>
@@ -66,11 +80,8 @@ describe('ShippedCarousel', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Next ship' }))
     expect(screen.getByText("Ship 2 of 4: Point at what's broken")).toBeTruthy()
 
-    fireEvent.click(
-      screen.getByRole('button', {
-        name: 'Go to ship 4 of 4: Silent churn watch',
-      }),
-    )
+    fireEvent.click(screen.getByRole('button', { name: 'Next ship' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Next ship' }))
     expect(screen.getByText('Ship 4 of 4: Silent churn watch')).toBeTruthy()
     expect(screen.getByRole('button', { name: 'Next ship' })).toHaveProperty(
       'disabled',

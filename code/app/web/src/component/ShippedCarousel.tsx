@@ -177,7 +177,11 @@ const ShippedCarousel = ({ slides }: ShippedCarouselProps) => {
     <section
       aria-label="Last shipped carousel"
       aria-roledescription="carousel"
-      className="shipped-carousel"
+      className={
+        count > 1
+          ? 'shipped-carousel'
+          : 'shipped-carousel shipped-carousel--single'
+      }
       onKeyDown={onKeyDown}
       ref={rootRef}
     >
@@ -242,53 +246,45 @@ const ShippedCarousel = ({ slides }: ShippedCarouselProps) => {
         ))}
       </div>
       {count > 1 ? (
-        <div className="shipped-carousel__meter">
-          <div className="shipped-carousel__rail">
-            <div
-              className="shipped-carousel__fill"
-              style={{
-                width: count === 1 ? '100%' : `${(index / (count - 1)) * 100}%`,
-              }}
-            />
-            {slides.map((slide, tickIndex) => (
-              <button
-                aria-current={tickIndex === index ? 'true' : undefined}
-                aria-label={`Go to ship ${tickIndex + 1} of ${count}: ${slide.title}`}
-                className="shipped-carousel__tick"
-                key={slide.slug}
-                onClick={() => {
-                  goTo(tickIndex)
-                }}
-                style={{
-                  left:
-                    count === 1 ? '0%' : `${(tickIndex / (count - 1)) * 100}%`,
-                }}
-                type="button"
+        <div className="shipped-carousel__keys">
+          <button
+            aria-label="Previous ship"
+            disabled={index === 0}
+            onClick={() => {
+              goTo(index - 1)
+            }}
+            type="button"
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path
+                d="M14.5 5.5 8 12l6.5 6.5"
+                fill="none"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2.4"
               />
-            ))}
-          </div>
-          <div className="shipped-carousel__keys">
-            <button
-              aria-label="Previous ship"
-              disabled={index === 0}
-              onClick={() => {
-                goTo(index - 1)
-              }}
-              type="button"
-            >
-              ←
-            </button>
-            <button
-              aria-label="Next ship"
-              disabled={index === count - 1}
-              onClick={() => {
-                goTo(index + 1)
-              }}
-              type="button"
-            >
-              →
-            </button>
-          </div>
+            </svg>
+          </button>
+          <button
+            aria-label="Next ship"
+            disabled={index === count - 1}
+            onClick={() => {
+              goTo(index + 1)
+            }}
+            type="button"
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path
+                d="M9.5 5.5 16 12l-6.5 6.5"
+                fill="none"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2.4"
+              />
+            </svg>
+          </button>
         </div>
       ) : null}
     </section>
