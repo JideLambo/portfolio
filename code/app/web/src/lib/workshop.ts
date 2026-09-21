@@ -50,7 +50,7 @@ export const workshopHotspots: WorkshopHotspot[] = [
   },
   {
     body: "I'm building iMessage agents for vertical businesses. Front-desk packs that answer like a person at the desk, then you take over when it matters.",
-    bounds: { height: 0.15, left: 0.655, top: 0.455, width: 0.09 },
+    bounds: { height: 0.145, left: 0.618, top: 0.448, width: 0.095 },
     id: 'imessage',
     kind: 'card',
     line: 'Front-desk packs',
