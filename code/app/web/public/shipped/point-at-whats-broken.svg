@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" role="img" aria-labelledby="point-at-whats-broken-visual">
+  <title id="point-at-whats-broken-visual">A marked window on a dark field</title>
+  <rect width="320" height="320" fill="#050506"/>
+  <g fill="none" stroke="#fff" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round">
+    <rect x="58" y="78" width="168" height="128" rx="8"/>
+    <path d="M78 108h92M78 126h74M78 144h84M78 162h58"/>
+    <circle cx="214" cy="198" r="26"/>
+    <path d="M232 216 L268 256"/>
+  </g>
+</svg>

@@ -137,15 +137,17 @@ const ShippedCarousel = ({ slides }: ShippedCarouselProps) => {
 
   const endDrag = (event: PointerEvent<HTMLDivElement>) => {
     const drag = dragRef.current
-    const track = trackRef.current
     if (!drag || event.pointerId !== drag.id) {
       return
     }
     didDragRef.current = drag.moved
     dragRef.current = null
-    if (track) {
-      setIndex(nearestIndex(track.scrollLeft, offsetsOf(track)))
+    const delta = drag.origin - event.clientX
+    if (drag.moved && Math.abs(delta) > 48) {
+      goTo(index + (delta > 0 ? 1 : -1))
+      return
     }
+    goTo(index)
   }
 
   const onClickCapture = (event: MouseEvent<HTMLDivElement>) => {
@@ -177,11 +179,7 @@ const ShippedCarousel = ({ slides }: ShippedCarouselProps) => {
     <section
       aria-label="Last shipped carousel"
       aria-roledescription="carousel"
-      className={
-        count > 1
-          ? 'shipped-carousel'
-          : 'shipped-carousel shipped-carousel--single'
-      }
+      className="shipped-carousel"
       onKeyDown={onKeyDown}
       ref={rootRef}
     >
@@ -199,20 +197,30 @@ const ShippedCarousel = ({ slides }: ShippedCarouselProps) => {
       >
         {slides.map((slide, slideIndex) => (
           <article
-            aria-hidden={slideIndex === index ? undefined : true}
             aria-label={`${slideIndex + 1} of ${count}: ${slide.title}${slide.example ? ' (example)' : ''}`}
             aria-roledescription="slide"
             className="shipped-carousel__slide shipped-card"
             data-active={slideIndex === index ? 'true' : undefined}
             key={slide.slug}
           >
+            {slideIndex === index ? null : (
+              <button
+                aria-label={`Show ship ${slideIndex + 1} of ${count}: ${slide.title}`}
+                className="shipped-carousel__peek-hit"
+                onClick={() => {
+                  goTo(slideIndex)
+                }}
+                tabIndex={-1}
+                type="button"
+              />
+            )}
             <div className="shipped-card__visual">
               {slide.visual ? (
                 <img
                   alt=""
                   decoding="async"
                   draggable={false}
-                  height="200"
+                  height="320"
                   loading="lazy"
                   src={slide.visual}
                   width="320"
@@ -222,7 +230,10 @@ const ShippedCarousel = ({ slides }: ShippedCarouselProps) => {
               )}
             </div>
             <div className="shipped-card__copy">
-              <h3 className="shipped-card__title">{slide.title}</h3>
+              <div className="shipped-card__heading">
+                <h3 className="shipped-card__title">{slide.title}</h3>
+                <p className="shipped-card__product">{slide.productLabel}</p>
+              </div>
               <div className="shipped-card__writeup">
                 {splitWriteup(slide.writeup).map(paragraph => (
                   <p key={paragraph}>{paragraph}</p>
@@ -245,46 +256,30 @@ const ShippedCarousel = ({ slides }: ShippedCarouselProps) => {
           </article>
         ))}
       </div>
-      <div className="shipped-carousel__keys">
-        <button
-          aria-label="Previous ship"
-          disabled={index === 0}
-          onClick={() => {
-            goTo(index - 1)
-          }}
-          type="button"
-        >
-          <svg aria-hidden="true" viewBox="0 0 24 24">
-            <path
-              d="M14.5 5.5 8 12l6.5 6.5"
-              fill="none"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2.4"
-            />
-          </svg>
-        </button>
-        <button
-          aria-label="Next ship"
-          disabled={index === count - 1}
-          onClick={() => {
-            goTo(index + 1)
-          }}
-          type="button"
-        >
-          <svg aria-hidden="true" viewBox="0 0 24 24">
-            <path
-              d="M9.5 5.5 16 12l-6.5 6.5"
-              fill="none"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2.4"
-            />
-          </svg>
-        </button>
-      </div>
+      {count > 1 ? (
+        <div className="shipped-carousel__chrome">
+          <p aria-hidden="true" className="shipped-carousel__drag">
+            drag →
+          </p>
+          <div className="shipped-carousel__dots">
+            {slides.map((slide, tickIndex) => (
+              <button
+                aria-current={tickIndex === index ? 'true' : undefined}
+                aria-label={`Go to ship ${tickIndex + 1} of ${count}: ${slide.title}`}
+                className="shipped-carousel__tick"
+                key={slide.slug}
+                onClick={() => {
+                  goTo(tickIndex)
+                }}
+                type="button"
+              >
+                <span className="shipped-carousel__dot" />
+                <span className="shipped-carousel__n">{tickIndex + 1}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      ) : null}
     </section>
   )
 }

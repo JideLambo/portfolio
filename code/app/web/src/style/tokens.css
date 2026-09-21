@@ -65,8 +65,7 @@
 
 :root {
   /* Site voice: Geist Sans for UI text (mono stays for code/chrome marks). */
-  --font-sans:
-    "Geist Sans", "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Geist Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono:
     ui-monospace, sfmono-regular, "SF Mono", menlo, consolas, "Liberation Mono",
     monospace;

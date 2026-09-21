@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" role="img" aria-labelledby="silent-churn-watch-visual">
+  <title id="silent-churn-watch-visual">A watch ring over quiet account nodes</title>
+  <rect width="320" height="320" fill="#050506"/>
+  <g fill="none" stroke="#fff" stroke-width="1.4" stroke-linecap="round">
+    <circle cx="160" cy="160" r="92"/>
+    <circle cx="160" cy="160" r="62"/>
+    <circle cx="160" cy="160" r="32"/>
+    <path d="M160 160 L218 112"/>
+    <path d="M160 68 L160 98"/>
+    <path d="M160 222 L160 252"/>
+    <path d="M68 160 L98 160"/>
+    <path d="M222 160 L252 160"/>
+    <path d="M84 84 L114 114"/>
+    <path d="M236 84 L206 114"/>
+    <path d="M84 236 L114 206"/>
+    <path d="M236 236 L206 206"/>
+  </g>
+  <g fill="#fff">
+    <circle cx="160" cy="160" r="4.2"/>
+    <circle cx="218" cy="112" r="3.4"/>
+    <circle cx="114" cy="114" r="3"/>
+    <circle cx="206" cy="114" r="3"/>
+    <circle cx="114" cy="206" r="3"/>
+    <circle cx="206" cy="206" r="3"/>
+  </g>
+</svg>

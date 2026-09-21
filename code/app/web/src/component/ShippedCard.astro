@@ -1,4 +1,5 @@
 ---
+import { getProductLabel } from '@/lib/product'
 import { getShippedVisual } from '@/lib/shipped'
 import type { CollectionEntry } from 'astro:content'
 import { render } from 'astro:content'
@@ -10,6 +11,7 @@ type Props = {
 const { entry } = Astro.props
 const { Content } = await render(entry)
 const visual = getShippedVisual(entry.data)
+const productLabel = getProductLabel(entry.data.product)
 ---
 
 <article class="shipped-card">
@@ -20,7 +22,7 @@ const visual = getShippedVisual(entry.data)
           src={visual}
           alt=""
           width="320"
-          height="200"
+          height="320"
           loading="lazy"
           decoding="async"
         />
@@ -30,7 +32,10 @@ const visual = getShippedVisual(entry.data)
     }
   </div>
   <div class="shipped-card__copy">
-    <h2 class="shipped-card__title">{entry.data.title}</h2>
+    <div class="shipped-card__heading">
+      <h2 class="shipped-card__title">{entry.data.title}</h2>
+      <p class="shipped-card__product">{productLabel}</p>
+    </div>
     <div class="shipped-card__writeup">
       <Content />
     </div>

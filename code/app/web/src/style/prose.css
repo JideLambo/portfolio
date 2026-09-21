@@ -122,6 +122,7 @@
   color: var(--accent-strong);
   text-decoration-color: var(--accent-strong);
   text-decoration-thickness: 2px;
+  text-underline-offset: 0.22em;
 }
 
 .prose strong {

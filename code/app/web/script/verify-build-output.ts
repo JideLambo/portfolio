@@ -67,24 +67,25 @@ assert(
   'Home page should include the latest shipped card',
 )
 assert(
-  !home.includes('Point at what'),
-  'Home carousel should not include placeholder example ships',
+  home.includes('Point at what'),
+  'Home page carousel should include the UseLay example ship',
 )
 assert(
-  !home.includes('Hold, then send times'),
-  'Home carousel should not include placeholder example ships',
+  home.includes('Hold, then send times'),
+  'Home page carousel should include the GRE example ship',
 )
 assert(
-  !home.includes('Silent churn watch'),
-  'Home carousel should not include placeholder example ships',
+  home.includes('Silent churn watch'),
+  'Home page carousel should include the FirstDistro example ship',
 )
 assert(
-  !home.includes('shipped-card__product'),
-  'Home carousel must not render product or example pills',
+  home.includes('shipped-card__product'),
+  'Home carousel should render the product pill',
 )
+assert(home.includes('drag →'), 'Last shipped should show a drag affordance')
 assert(
-  !home.includes('shipped-carousel__tick'),
-  'Last shipped must not render progress ticks',
+  home.includes('shipped-carousel__tick'),
+  'Last shipped should render numbered ticks',
 )
 assert(
   home.includes('aria-roledescription="carousel"'),
@@ -109,13 +110,16 @@ assert(
 )
 assert(!home.includes('href="/blog"'), 'Home page must not link to /blog')
 assertExists('shipped/morning-who-needs-you.svg')
+assertExists('shipped/point-at-whats-broken.svg')
+assertExists('shipped/hold-then-send-times.svg')
+assertExists('shipped/silent-churn-watch.svg')
 assertExists('shipped/index.html')
 assertExists('og/shipped.png')
 
 const shipped = read('shipped/index.html')
 assert(
-  !shipped.includes('shipped-card__product'),
-  '/shipped must not render product or example pills',
+  shipped.includes('shipped-card__product'),
+  '/shipped should render the product pill',
 )
 assert(
   shipped.includes('Morning who needs you'),

@@ -30,14 +30,14 @@ const slug = z
   )
 
 /**
- * Last shipped: Home snap carousel of latest ships; `/shipped` is the list
- * from All shipped →. Cards use a light UI fragment on a dark visual panel,
- * title, 2–4 sentence body, and `View →`. No visible product/example pills.
+ * Last shipped: Home snap carousel of 3–5 latest ships; `/shipped` is the
+ * list from All shipped →. Cards use a square white-on-dark visual panel,
+ * title, muted outline product pill, 2–4 sentence body, and `View →`.
  * Site tokens only (no Slack purple, no chromatic blue). `example: true`
- * marks placeholder ships for data, not a visible tag. v1 seeds one real
- * ship. Detection allowlist: Linear Done on FIR, LAY, GRE; GitHub merges on
- * first-distro, feedback-layer, portfolio; Grok bots Builder, Product at
- * Sinch, Local Models, iMessage/SMS Agent Build, figma bro; rare: Sales Man.
+ * marks placeholder ships. Detection allowlist: Linear Done on FIR, LAY,
+ * GRE; GitHub merges on first-distro, feedback-layer, portfolio; Grok bots
+ * Builder, Product at Sinch, Local Models, iMessage/SMS Agent Build,
+ * figma bro; rare: Sales Man.
  */
 const shipped = defineCollection({
   loader: glob({ base: './src/content/shipped', pattern: '*.md' }),

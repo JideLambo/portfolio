@@ -1,5 +1,6 @@
 ---
 import ShippedCarousel from '@/component/ShippedCarousel'
+import { getProductLabel } from '@/lib/product'
 import {
   getHomepageShipped,
   getShippedVisual,
@@ -11,6 +12,7 @@ const headingId = 'last-shipped'
 const slides: ShippedSlide[] = entries.map(entry => ({
   example: entry.data.example,
   href: entry.data.href,
+  productLabel: getProductLabel(entry.data.product),
   slug: entry.data.slug,
   title: entry.data.title,
   visual: getShippedVisual(entry.data),
@@ -21,7 +23,7 @@ const slides: ShippedSlide[] = entries.map(entry => ({
 {
   slides.length > 0 && (
     <section class="home-section last-shipped" aria-labelledby={headingId}>
-      <div class="home-section__head">
+      <div class="home-section__head last-shipped__head">
         <h2 id={headingId}>Last shipped</h2>
         <a class="last-shipped__all" href="/shipped">
           All shipped →
