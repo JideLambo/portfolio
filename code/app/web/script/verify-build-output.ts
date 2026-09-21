@@ -67,7 +67,7 @@ const home = read('index.html')
 assert(!home.includes('href="/about"'), 'Home must not link to /about')
 assert(home.includes('href="/writing"'), 'Home page should link to /writing')
 assert(
-  home.includes("I'm Jide and I'm a product design engineer."),
+  home.includes("I'm Jide, a product design engineer."),
   'Home should open with the letter',
 )
 assert(
@@ -111,7 +111,7 @@ assert(
 )
 assert(home.includes('Last shipped'), 'Home page should include Last shipped')
 assert(
-  home.indexOf("I'm Jide and I'm a product design engineer.") <
+  home.indexOf("I'm Jide, a product design engineer.") <
     home.indexOf('Last shipped'),
   'Home should be letter, then Last shipped',
 )
