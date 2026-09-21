@@ -1,10 +1,11 @@
 /*
  * Design system — flat, editorial, mobile-first.
- * Barrel: import partials in cascade order (tokens first, page layers last).
+ * Barrel: import partials in cascade order (fonts, tokens, page layers last).
  * Long-form post typography lives in prose.css (including `.callout` asides);
  * bespoke per-post styles are colocated under src/content/blog/<slug>.css and linked by [slug].astro.
  */
 
+@import url("./geist-sans.css");
 @import url("./tokens.css");
 @import url("./base.css");
 @import url("./utilities.css");

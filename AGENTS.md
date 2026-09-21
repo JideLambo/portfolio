@@ -88,10 +88,11 @@ Nav: Home · About · Work · Writing.
 Home snap carousel (3–5 latest) and the `/shipped` list from **All shipped →**:
 
 - Section heading: `Last shipped`, with `All shipped →` (`/shipped`)
-- One horizontal snap carousel: peeks of prev/next, CSS scroll-snap, keyboard ← →, tick progress, pointer drag/swipe
-- Each card: white-on-dark visual panel (bright white line-art on near-black), title, muted outline product pill, 2–4 sentence body, `View →`
-- `example: true` marks placeholder ships (Example pill)
-- Site tokens only. No Slack purple. Accent blue on text links
+- One container, focused card plus peek of the next (not a three-up grid): CSS scroll-snap, keyboard ← →, ticks, pointer drag
+- Each card: white-on-dark visual panel, title, 2–4 sentence body, `View →`
+- No visible product or example pills on Home or `/shipped`
+- Site tokens only. No Slack purple. No chromatic blue. Links are underline + ink, white on hover. White focus ring and selection wash
+- UI font is Geist Sans
 - Hide the Home section if empty
 
 - Cards: `code/app/web/src/content/shipped/*.md`
@@ -107,7 +108,8 @@ Home snap carousel (3–5 latest) and the `/shipped` list from **All shipped →
 - Prefer `type` over `interface`
 - No `console.log` in app code (tests/scripts exempt)
 - Hand-rolled CSS design system (no UI library). Tokens in `src/style/`
-- Theming: dark-only tokens on `:root` in `src/style/tokens.css`
+- Theming: dark-only tokens on `:root` in `src/style/tokens.css`. No chromatic blue (`#5ba3ff`). Links: underline + ink, white hover. White focus ring and selection wash
+- UI font: Geist Sans via `@fontsource-variable/geist` (`"Geist Sans", "Geist Variable", ui-sans-serif, system-ui, sans-serif`). No Geist Mono unless already used
 - Writing voice: [`.cursor/rules/writing-voice.mdc`](./.cursor/rules/writing-voice.mdc) (no em dashes, sentence case)
 
 ---

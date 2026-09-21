@@ -22,15 +22,15 @@ const assertExists = (path: string) => {
   assert(existsSync(file(path)), `Expected build output to include ${path}`)
 }
 
-const listXmlFiles = (directory: string): string[] => {
+const listFiles = (directory: string, suffix: string): string[] => {
   const entries = readdirSync(directory, { withFileTypes: true })
   return entries.flatMap(entry => {
     const entryPath = join(directory, entry.name)
     if (entry.isDirectory()) {
-      return listXmlFiles(entryPath)
+      return listFiles(entryPath, suffix)
     }
 
-    return entry.name.endsWith('.xml') ? [entryPath] : []
+    return entry.name.endsWith(suffix) ? [entryPath] : []
   })
 }
 
@@ -78,7 +78,10 @@ assert(
   home.includes('Silent churn watch'),
   'Home page carousel should include the FirstDistro example ship',
 )
-assert(home.includes('Example'), 'Example ships should be marked as Example')
+assert(
+  !home.includes('shipped-card__product'),
+  'Home carousel must not render product or example pills',
+)
 assert(
   home.includes('aria-roledescription="carousel"'),
   'Last shipped should render a snap carousel',
@@ -107,6 +110,34 @@ assertExists('shipped/hold-then-send-times.svg')
 assertExists('shipped/silent-churn-watch.svg')
 assertExists('shipped/index.html')
 assertExists('og/shipped.png')
+
+const shipped = read('shipped/index.html')
+assert(
+  !shipped.includes('shipped-card__product'),
+  '/shipped must not render product or example pills',
+)
+assert(
+  shipped.includes('Morning who needs you'),
+  '/shipped should list the latest ship',
+)
+
+const cssBundle = listFiles(distPath, '.css')
+  .map(path => readFileSync(path, 'utf8'))
+  .join('\n')
+
+assert(
+  !cssBundle.includes('5ba3ff'),
+  'Built CSS must not include chromatic #5ba3ff',
+)
+assert(
+  !cssBundle.includes('#7bb6ff'),
+  'Built CSS must not include chromatic #7bb6ff',
+)
+assert(cssBundle.includes('Geist Sans'), 'Built CSS must wire Geist Sans')
+assert(
+  !cssBundle.includes('Helvetica Neue'),
+  'Built CSS must not keep Helvetica Neue as the UI font',
+)
 
 const about = read('about/index.html')
 assert(about.includes('href="/writing"'), 'About page should link to /writing')
@@ -167,7 +198,7 @@ assert(
   'vercel.json must not redirect /work to /about',
 )
 
-const sitemap = listXmlFiles(distPath)
+const sitemap = listFiles(distPath, '.xml')
   .map(path => readFileSync(path, 'utf8'))
   .join('\n')
 assert(

@@ -8,7 +8,6 @@ const slides: ShippedSlide[] = [
   {
     example: false,
     href: 'https://firstdistro.com',
-    productLabel: 'FirstDistro',
     slug: 'morning-who-needs-you',
     title: 'Morning who needs you',
     visual: '/shipped/morning-who-needs-you.svg',
@@ -17,14 +16,12 @@ const slides: ShippedSlide[] = [
   {
     example: true,
     href: 'https://uselay.com',
-    productLabel: 'UseLay',
     slug: 'point-at-whats-broken',
     title: "Point at what's broken",
     writeup: 'Someone marks the UI instead of writing a ticket.',
   },
   {
     example: true,
-    productLabel: 'GRE',
     slug: 'hold-then-send-times',
     title: 'Hold, then send times',
     writeup: 'GRE holds the request, then sends times.',
@@ -32,7 +29,6 @@ const slides: ShippedSlide[] = [
   {
     example: true,
     href: 'https://firstdistro.com',
-    productLabel: 'FirstDistro',
     slug: 'silent-churn-watch',
     title: 'Silent churn watch',
     writeup: 'Quiet accounts drain while the dashboard still looks fine.',
@@ -122,7 +118,7 @@ describe('ShippedCarousel', () => {
     expect(scrollLeft).toBeGreaterThan(0)
   })
 
-  it('marks example slides in the accessible name', () => {
+  it('does not render product or example pills', () => {
     render(
       <>
         <h2 id="last-shipped">Last shipped</h2>
@@ -134,10 +130,16 @@ describe('ShippedCarousel', () => {
       '[aria-label="2 of 4: Point at what\'s broken (example)"]',
     )
     expect(exampleSlide).toBeTruthy()
+    expect(document.querySelector('.shipped-card__product')).toBeNull()
     expect(
-      [...document.querySelectorAll('.shipped-card__product')].some(
+      [...document.querySelectorAll('.shipped-card p')].some(
         node => node.textContent === 'Example',
       ),
-    ).toBe(true)
+    ).toBe(false)
+    expect(
+      [...document.querySelectorAll('.shipped-card p')].some(
+        node => node.textContent === 'FirstDistro',
+      ),
+    ).toBe(false)
   })
 })

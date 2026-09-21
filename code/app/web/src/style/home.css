@@ -42,8 +42,8 @@
 }
 
 .shipped-carousel {
-  --shipped-gap: 0.7rem;
-  --shipped-peek: 1.15rem;
+  --shipped-gap: 0.75rem;
+  --shipped-peek: 2.75rem;
 
   padding: 0.85rem 0.7rem 1rem;
   border: var(--border-thin);
@@ -55,15 +55,22 @@
   display: flex;
   position: relative;
   gap: var(--shipped-gap);
-  padding-inline: var(--shipped-peek);
+  padding-inline: 0.55rem;
   overflow: auto hidden;
   user-select: none;
   scroll-snap-type: x mandatory;
-  scroll-padding-inline: var(--shipped-peek);
+  scroll-padding-inline: 0.55rem;
   scroll-behavior: smooth;
   overscroll-behavior-x: contain;
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features -- desktop drag affordance */
+  cursor: grab;
   /* stylelint-disable-next-line plugin/no-unsupported-browser-features -- ticks replace the scrollbar */
   scrollbar-width: none;
+}
+
+.shipped-carousel__track:active {
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features -- desktop drag affordance */
+  cursor: grabbing;
 }
 
 .shipped-carousel__track::-webkit-scrollbar {
@@ -71,7 +78,7 @@
 }
 
 .shipped-carousel__slide {
-  flex: 0 0 calc(100% - (2 * var(--shipped-peek)));
+  flex: 0 0 calc(100% - var(--shipped-peek));
   min-width: 0;
   scroll-snap-align: start;
   scroll-snap-stop: always;
@@ -118,27 +125,6 @@
   align-content: start;
 }
 
-.shipped-card__heading {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.4rem 0.55rem;
-}
-
-.shipped-card__product {
-  display: inline-flex;
-  width: fit-content;
-  margin: 0;
-  padding: 0.12rem 0.5rem;
-  border: var(--border-thin);
-  border-radius: 999px;
-  background: transparent;
-  color: var(--text-muted);
-  font-family: var(--font-sans);
-  font-size: 0.78rem;
-  letter-spacing: 0;
-}
-
 .shipped-card__title {
   margin: 0;
   font-size: var(--step-1);
@@ -166,26 +152,24 @@
 }
 
 .shipped-card__actions a {
-  color: var(--accent);
-  text-decoration: none;
+  color: var(--text);
 }
 
 .shipped-card__actions a:hover,
 .shipped-card__actions a:focus-visible {
-  text-decoration: underline;
-  text-decoration-color: var(--accent);
+  color: var(--accent-strong);
+  text-decoration-color: var(--accent-strong);
 }
 
 .last-shipped__all {
-  color: var(--accent);
+  color: var(--text);
   font-size: 0.9rem;
-  text-decoration: none;
 }
 
 .last-shipped__all:hover,
 .last-shipped__all:focus-visible {
-  text-decoration: underline;
-  text-decoration-color: var(--accent);
+  color: var(--accent-strong);
+  text-decoration-color: var(--accent-strong);
 }
 
 .shipped-carousel__meter {
@@ -267,17 +251,27 @@
 
 @media (width >= 48rem) {
   .shipped-carousel {
-    --shipped-gap: 0.85rem;
-    --shipped-peek: 0.85rem;
+    --shipped-gap: 0.9rem;
+    --shipped-peek: 5.5rem;
 
     padding: 1rem 0.85rem 1.15rem;
   }
 
-  .shipped-carousel__slide {
-    flex-basis: calc(
-      (100% - (2 * var(--shipped-gap)) - (2 * var(--shipped-peek))) /
-      3
-    );
+  .shipped-card {
+    flex-direction: row;
+    min-height: 13.5rem;
+  }
+
+  .shipped-card__visual {
+    flex: 0 0 13.5rem;
+    width: 13.5rem;
+    aspect-ratio: 1;
+    align-self: stretch;
+  }
+
+  .shipped-card__copy {
+    flex: 1 1 auto;
+    padding: 1.2rem 1.3rem 1.25rem;
   }
 }
 
@@ -329,7 +323,7 @@
 
 .post-link:hover .post-link__title,
 .post-link:focus-visible .post-link__title {
-  color: var(--accent);
+  color: var(--accent-strong);
 }
 
 .post-link__desc {

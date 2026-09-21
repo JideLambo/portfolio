@@ -218,13 +218,7 @@ const ShippedCarousel = ({ slides }: ShippedCarouselProps) => {
               )}
             </div>
             <div className="shipped-card__copy">
-              <div className="shipped-card__heading">
-                <h3 className="shipped-card__title">{slide.title}</h3>
-                <p className="shipped-card__product">{slide.productLabel}</p>
-                {slide.example ? (
-                  <p className="shipped-card__product">Example</p>
-                ) : null}
-              </div>
+              <h3 className="shipped-card__title">{slide.title}</h3>
               <div className="shipped-card__writeup">
                 {splitWriteup(slide.writeup).map(paragraph => (
                   <p key={paragraph}>{paragraph}</p>

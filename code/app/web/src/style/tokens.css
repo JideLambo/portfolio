@@ -36,36 +36,37 @@
 @property --accent {
   syntax: "<color>";
   inherits: true;
-  initial-value: #5ba3ff;
+  initial-value: #ededee;
 }
 
 @property --accent-strong {
   syntax: "<color>";
   inherits: true;
-  initial-value: #7bb6ff;
+  initial-value: #fff;
 }
 
 @property --accent-wash {
   syntax: "<color>";
   inherits: true;
-  initial-value: rgb(91 163 255 / 12%);
+  initial-value: rgb(255 255 255 / 8%);
 }
 
 @property --selection {
   syntax: "<color>";
   inherits: true;
-  initial-value: rgb(91 163 255 / 22%);
+  initial-value: rgb(255 255 255 / 18%);
 }
 
 @property --focus {
   syntax: "<color>";
   inherits: true;
-  initial-value: #5ba3ff;
+  initial-value: #fff;
 }
 
 :root {
-  /* Site voice: Helvetica Neue for UI text (mono stays for code/chrome marks). */
-  --font-sans: "Helvetica Neue", helvetica, arial, sans-serif;
+  /* Site voice: Geist Sans for UI text (mono stays for code/chrome marks). */
+  --font-sans:
+    "Geist Sans", "Geist Variable", ui-sans-serif, system-ui, sans-serif;
   --font-mono:
     ui-monospace, sfmono-regular, "SF Mono", menlo, consolas, "Liberation Mono",
     monospace;
@@ -75,11 +76,11 @@
   --text: #ededee;
   --text-muted: #9a9aa2;
   --border: #26262b;
-  --accent: #5ba3ff;
-  --accent-strong: #7bb6ff;
-  --accent-wash: rgb(91 163 255 / 12%);
-  --selection: rgb(91 163 255 / 22%);
-  --focus: #5ba3ff;
+  --accent: #ededee;
+  --accent-strong: #fff;
+  --accent-wash: rgb(255 255 255 / 8%);
+  --selection: rgb(255 255 255 / 18%);
+  --focus: #fff;
   --grid-dot: rgb(237 237 238 / 5%);
 
   --radius: 0;
