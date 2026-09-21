@@ -1,0 +1,57 @@
+---
+import {
+  firstDistroUrl,
+  getSocialLink,
+  sinchUrl,
+  siteEmail,
+  useLayUrl,
+} from '@shared/lib/site'
+
+const x = getSocialLink('X')
+const github = getSocialLink('GitHub')
+---
+
+<section class="home-letter" aria-label="Introduction">
+  <h1>I'm Jide, a product design engineer.</h1>
+  <p>
+    I'm building{' '}
+    <a href={firstDistroUrl} rel="noopener noreferrer" target="_blank">
+      FirstDistro
+      <span class="visually-hidden"> (opens in new tab)</span>
+    </a>
+    , account intelligence for lean CS. Catch silent churn, draft the next
+    move, nothing sends until you act.
+  </p>
+  <p>
+    I also built{' '}
+    <a href={useLayUrl} rel="noopener noreferrer" target="_blank">
+      UseLay
+      <span class="visually-hidden"> (opens in new tab)</span>
+    </a>
+    , in-app feedback that pins comments to the UI.
+  </p>
+  <p>
+    Dayside I'm a senior product designer at{' '}
+    <a href={sinchUrl} rel="noopener noreferrer" target="_blank">
+      Sinch
+      <span class="visually-hidden"> (opens in new tab)</span>
+    </a>
+    , on messaging and AI for businesses. Off hours I'm usually shipping small
+    agent experiments (iMessage desk, local models).
+  </p>
+  <p>
+    Reach me on{' '}
+    <a href={x.href} rel="noopener noreferrer" target="_blank">
+      X
+      <span class="visually-hidden"> (opens in new tab)</span>
+    </a>
+    ,{' '}
+    <a href={`mailto:${siteEmail}`}>email</a>
+    , or{' '}
+    <a href={github.href} rel="noopener noreferrer" target="_blank">
+      GitHub
+      <span class="visually-hidden"> (opens in new tab)</span>
+    </a>
+    .
+  </p>
+</section>

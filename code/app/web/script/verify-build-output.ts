@@ -2,7 +2,13 @@ import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-import { siteUrl } from '@shared/lib/site'
+import {
+  firstDistroUrl,
+  sinchUrl,
+  siteEmail,
+  siteUrl,
+  useLayUrl,
+} from '@shared/lib/site'
 
 const dist = new URL('../dist/', import.meta.url)
 const distPath = fileURLToPath(dist)
@@ -35,7 +41,6 @@ const listFiles = (directory: string, suffix: string): string[] => {
 }
 
 assertExists('index.html')
-assertExists('about/index.html')
 assertExists('work/index.html')
 assertExists('work/firstdistro-install-rail/index.html')
 assertExists('work/uselay-conversational-follow-up/index.html')
@@ -59,9 +64,57 @@ assert(
 assert(llms.includes('https://uselay.com'), 'llms.txt should link UseLay')
 
 const home = read('index.html')
-assert(home.includes('href="/about"'), 'Home page should link to /about')
+assert(!home.includes('href="/about"'), 'Home must not link to /about')
 assert(home.includes('href="/writing"'), 'Home page should link to /writing')
+assert(
+  home.includes("I'm Jide, a product design engineer."),
+  'Home should open with the letter',
+)
+assert(
+  home.includes('account intelligence for lean CS'),
+  'Home letter should describe FirstDistro',
+)
+assert(
+  home.includes('pins comments to the UI'),
+  'Home letter should describe UseLay',
+)
+assert(
+  home.includes(`href="${firstDistroUrl}"`),
+  'Home letter should link FirstDistro from site.ts',
+)
+assert(
+  home.includes(`href="${useLayUrl}"`),
+  'Home letter should link UseLay from site.ts',
+)
+assert(
+  home.includes(`href="${sinchUrl}"`),
+  'Home letter should link Sinch from site.ts',
+)
+assert(
+  home.includes(`mailto:${siteEmail}`),
+  'Home letter should link email from site.ts',
+)
+assert(home.includes('https://x.com/JideLambo'), 'Home letter should link X')
+assert(
+  home.includes('https://github.com/JideLambo'),
+  'Home letter should link GitHub',
+)
+assert(
+  !home.includes('id="projects"'),
+  'Home must not render a Projects section',
+)
+assert(!home.includes('/jide.jpg'), 'Home must not include a portrait')
+assert(!home.includes('id="career"'), 'Home must not render Career')
+assert(
+  !home.includes("Hi, I'm Jide"),
+  'Home must not keep the old About heading',
+)
 assert(home.includes('Last shipped'), 'Home page should include Last shipped')
+assert(
+  home.indexOf("I'm Jide, a product design engineer.") <
+    home.indexOf('Last shipped'),
+  'Home should be letter, then Last shipped',
+)
 assert(
   home.includes('Morning who needs you'),
   'Home page should include the latest shipped card',
@@ -248,13 +301,21 @@ assert(
   !cssBundle.includes('Helvetica Neue'),
   'Built CSS must not keep Helvetica Neue as the UI font',
 )
+assert(
+  cssBundle.includes('.home-letter') && cssBundle.includes('max-width:38rem'),
+  'Home letter must keep a left-aligned reading measure',
+)
+assert(
+  !cssBundle.includes('home-intro__photo'),
+  'Built CSS must not keep the Home portrait layout',
+)
 
-const about = read('about/index.html')
-assert(about.includes('href="/writing"'), 'About page should link to /writing')
-assert(!about.includes('href="/blog"'), 'About page must not link to /blog')
+const aboutMissing = !existsSync(file('about/index.html'))
+assert(aboutMissing, 'About page must not be built')
 
 const notFound = read('404.html')
 assert(!notFound.includes('href="/blog"'), '404 page must not link to /blog')
+assert(!notFound.includes('href="/about"'), '404 page must not link to /about')
 
 const rss = read('rss.xml')
 assert(!rss.includes('/blog/'), 'RSS must not contain /blog URLs')
@@ -295,9 +356,10 @@ assert(
   hasRedirect('/blog/:path*', '/writing/:path*'),
   'vercel.json should redirect /blog/* to /writing/*',
 )
+assert(hasRedirect('/about', '/'), 'vercel.json should redirect /about to /')
 assert(
-  hasRedirect('/projects', '/about'),
-  'vercel.json should redirect /projects to /about',
+  hasRedirect('/projects', '/'),
+  'vercel.json should redirect /projects to /',
 )
 assert(
   hasRedirect('/reading', '/'),
@@ -323,6 +385,10 @@ assert(
 assert(
   !sitemap.includes(`${siteUrl}/blog`),
   'Sitemap must not include /blog URLs',
+)
+assert(
+  !sitemap.includes(`${siteUrl}/about`),
+  'Sitemap must not include /about URLs',
 )
 
 process.stdout.write('Build output verified\n')

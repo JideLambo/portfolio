@@ -1,15 +1,19 @@
-/* Home page: hero, section heads, and the shared post list. */
+/* Home page: letter, section heads, and the shared post list. */
 
-.hero__lead {
-  max-width: 46ch;
-  margin-top: 0;
+.home-letter {
+  display: grid;
+  max-width: 38rem;
+  gap: 1.35em;
 }
 
-.hero__cta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem 1.5rem;
-  margin: 1.25rem 0 0;
+.home-letter h1,
+.home-letter p {
+  margin: 0;
+  color: var(--text);
+  font-size: var(--step-1);
+  font-weight: 400;
+  line-height: 1.8;
+  letter-spacing: 0;
 }
 
 .home-section {

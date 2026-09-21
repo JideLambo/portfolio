@@ -16,8 +16,13 @@
       "permanent": true
     },
     {
+      "source": "/about",
+      "destination": "/",
+      "permanent": true
+    },
+    {
       "source": "/projects",
-      "destination": "/about",
+      "destination": "/",
       "permanent": true
     },
     {

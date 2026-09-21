@@ -56,18 +56,17 @@ Vite overrides in root `package.json` keep `@vitejs/plugin-react` on v6 with Ast
 
 | Route | Purpose |
 | --- | --- |
-| `/` | Home (name, tagline, last shipped, projects, latest writing) |
+| `/` | Home (letter, last shipped, latest writing) |
 | `/shipped` | Last shipped list (from All shipped →, not in nav) |
-| `/about` | Conversation-style bio + career |
 | `/writing` | Essays |
 | `/writing/{slug}` | Post |
 
 | `/work` | Design case studies (FirstDistro, UseLay) |
 | `/work/{slug}` | Case study |
 
-Redirects (see `vercel.json`): `/blog` → `/writing`, `/projects` → `/about`, `/reading` → `/`.
+Redirects (see `vercel.json`): `/blog` → `/writing`, `/about` → `/`, `/projects` → `/`, `/reading` → `/`.
 
-Nav: Home · About · Work · Writing.
+Nav: Home · Work · Writing.
 
 ---
 
