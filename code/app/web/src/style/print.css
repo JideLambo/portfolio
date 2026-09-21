@@ -1,7 +1,7 @@
 /*
  * Print styles. Screens use dark tokens; paper does not.
  * Force high-contrast light tokens so dark-theme colors do not print as
- * #ededee text on white paper. Expand collapsible callouts, drop the
+ * white text on white paper. Expand collapsible callouts, drop the
  * navigation chrome, and unbox inline code.
  */
 
@@ -12,8 +12,8 @@
     --text: #000;
     --text-muted: #333;
     --border: #999;
-    --accent: #0052b8;
-    --accent-strong: #003d8a;
+    --accent: #000;
+    --accent-strong: #000;
     --accent-wash: transparent;
     --selection: transparent;
 

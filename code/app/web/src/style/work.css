@@ -65,7 +65,7 @@
 
 .work-card__link:hover .work-card__title,
 .work-card__link:focus-visible .work-card__title {
-  color: var(--accent);
+  color: var(--accent-strong);
 }
 
 .work-card__desc {

@@ -1,4 +1,5 @@
 ---
+import LastShipped from '@/component/LastShipped.astro'
 import PostList from '@/component/PostList.astro'
 import ProjectsSection from '@/component/ProjectsSection.astro'
 import Layout from '@/layout/Layout.astro'
@@ -17,6 +18,8 @@ const { latestPosts } = await getHomepageWriting()
         <a class="text-link" href="/writing">Writing →</a>
       </p>
     </section>
+
+    <LastShipped />
 
     <ProjectsSection />
 

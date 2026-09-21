@@ -56,7 +56,8 @@ Vite overrides in root `package.json` keep `@vitejs/plugin-react` on v6 with Ast
 
 | Route | Purpose |
 | --- | --- |
-| `/` | Home (name, tagline, latest writing) |
+| `/` | Home (name, tagline, last shipped, projects, latest writing) |
+| `/shipped` | Last shipped list (from All shipped →, not in nav) |
 | `/about` | Conversation-style bio + career |
 | `/writing` | Essays |
 | `/writing/{slug}` | Post |
@@ -82,12 +83,36 @@ Nav: Home · About · Work · Writing.
 
 ---
 
+## Content (last shipped)
+
+Home Last shipped is a stacked deck of three ships. `/shipped` is the list from **All shipped →**:
+
+- Eyebrow: `Last shipped`, with `All shipped →` (`/shipped`)
+- Front card is primary. Empty nested card backs peek top/right. Inactive ships are hidden, not a content sliver
+- Three ships: Local AI on your machine (`personal`), iMessage agent for your business (`gre`), Morning who needs you (`firstdistro`)
+- Visual: HTML/CSS light UI fragment on the dark card, slightly cropped. Local is a status card (model, ready, one tool line). GRE is a 2–3 bubble iMessage thread. Morning is one Slack briefing card. No abstract glyphs
+- Title, quiet relative timestamp from `shippedAt` (`just now` / `N days ago` / weeks / months / years), 2–4 sentence body, `View →` in ink when `href` is set
+- Controls: designed prev/next arrows. Drag/swipe still works. No `drag →` label. No numbered ticks
+- No product or example chips. `product` stays in frontmatter for later filtering
+- Site tokens only. Full white type on dark. Light Slack/iMessage/local-status panels keep their own chrome. No Slack purple. No chromatic blue. Links: underline + ink, white hover with a thicker underline. White focus ring and selection wash
+- UI font is Geist Sans (`"Geist Sans", ui-sans-serif, system-ui, sans-serif`)
+- Hide the Home section if empty
+
+- Cards: `code/app/web/src/content/shipped/*.md`
+- Schema: `code/app/web/src/content.config.ts` (`shipped` collection)
+- Required frontmatter: `slug`, `title`, `product` (`firstdistro` \| `uselay` \| `gre` \| `sinch` \| `personal`), `shippedAt` (drives the relative timestamp). Optional: `visual`, `visualDark`, `href`, `source`, `example`
+- Body is the short writeup (2–4 sentences)
+- Use `getHomepageShipped()` on Home (cap 5); `getShippedEntries()` throws on duplicate slugs
+
+---
+
 ## Coding conventions
 
 - Prefer `type` over `interface`
 - No `console.log` in app code (tests/scripts exempt)
 - Hand-rolled CSS design system (no UI library). Tokens in `src/style/`
-- Theming: dark-only tokens on `:root` in `src/style/tokens.css`
+- Theming: dark-only tokens on `:root` in `src/style/tokens.css`. Body copy is full white (`--text` and `--text-muted` are `#fff`). No washed-out gray type on dark. Light UI illustrations keep their own chrome colors. No chromatic blue (`#5ba3ff`). Links: underline + ink, white hover. White focus ring and selection wash
+- UI font: Geist Sans via `@fontsource-variable/geist` (`"Geist Sans", ui-sans-serif, system-ui, sans-serif`). No Geist Mono unless already used
 - Writing voice: [`.cursor/rules/writing-voice.mdc`](./.cursor/rules/writing-voice.mdc) (no em dashes, sentence case)
 
 ---
@@ -135,5 +160,6 @@ See `.cursor/commands/bump-dependencies.md` for npm + GHA tracks.
 | Agent map | `code/app/web/public/llms.txt` |
 | Browser tests | `code/app/web/vitest.config.js` |
 | Blog prose + callouts | `code/app/web/src/style/prose.css` |
+| Last shipped | `code/app/web/src/content/shipped/`, `src/lib/shipped.ts`, `src/lib/product.ts` |
 | Lint | `biome.json`, knip |
 | CI | `.github/workflows/web-*.yml` |

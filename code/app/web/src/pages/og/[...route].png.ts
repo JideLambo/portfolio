@@ -87,6 +87,13 @@ export const getStaticPaths = (async () => {
       },
     },
     {
+      params: { route: 'shipped' },
+      props: {
+        description: 'Things I have shipped recently, one card at a time.',
+        title: 'Last shipped',
+      },
+    },
+    {
       params: { route: '404' },
       props: {
         description: 'That page could not be found.',

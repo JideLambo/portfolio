@@ -1,0 +1,26 @@
+---
+import ShippedCard from '@/component/ShippedCard.astro'
+import Layout from '@/layout/Layout.astro'
+import { getShippedEntries } from '@/lib/shipped'
+
+const entries = await getShippedEntries()
+---
+
+<Layout
+  title="Last shipped"
+  description="Things I have shipped recently, one card at a time."
+>
+  <div class="wrap">
+    <header class="hero">
+      <h1>Last shipped</h1>
+    </header>
+
+    <div class="home-section last-shipped last-shipped--list">
+      {
+        entries.map(entry => (
+          <ShippedCard entry={entry} />
+        ))
+      }
+    </div>
+  </div>
+</Layout>

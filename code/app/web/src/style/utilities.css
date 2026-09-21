@@ -64,8 +64,8 @@
 }
 
 .button:hover {
-  border-color: var(--accent);
-  color: var(--accent);
+  border-color: var(--accent-strong);
+  color: var(--accent-strong);
 }
 
 /* External-link affordance: a small CSS-drawn arrow marking links that leave the site. */

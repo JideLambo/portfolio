@@ -1,0 +1,31 @@
+---
+import ShippedCarousel from '@/component/ShippedCarousel'
+import { formatRelativeShipped, toISODate } from '@/lib/date'
+import { getHomepageShipped, type ShippedSlide } from '@/lib/shipped'
+
+const entries = await getHomepageShipped()
+const headingId = 'last-shipped'
+const slides: ShippedSlide[] = entries.map(entry => ({
+  example: entry.data.example,
+  href: entry.data.href,
+  shippedAt: toISODate(entry.data.shippedAt),
+  slug: entry.data.slug,
+  title: entry.data.title,
+  when: formatRelativeShipped(entry.data.shippedAt),
+  writeup: entry.body.trim(),
+}))
+---
+
+{
+  slides.length > 0 && (
+    <section class="home-section last-shipped" aria-labelledby={headingId}>
+      <div class="home-section__head last-shipped__head">
+        <h2 id={headingId}>Last shipped</h2>
+        <a class="last-shipped__all" href="/shipped">
+          All shipped →
+        </a>
+      </div>
+      <ShippedCarousel client:load slides={slides} />
+    </section>
+  )
+}

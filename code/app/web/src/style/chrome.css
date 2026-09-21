@@ -33,7 +33,7 @@
 }
 
 .brand:hover {
-  color: var(--accent);
+  color: var(--accent-strong);
 }
 
 .site-header__actions {
@@ -92,7 +92,7 @@
 
 .site-nav__link[aria-current="page"] {
   text-decoration: underline;
-  text-decoration-color: var(--accent);
+  text-decoration-color: var(--text);
   text-underline-offset: 0.3em;
 }
 
@@ -129,7 +129,10 @@
 }
 
 .site-footer a:hover {
-  color: var(--accent);
+  color: var(--accent-strong);
+  text-decoration-color: var(--accent-strong);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.22em;
 }
 
 /* Page scaffold */

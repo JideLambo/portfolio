@@ -36,6 +36,401 @@
   color: var(--text-muted);
 }
 
+.last-shipped--list {
+  display: grid;
+  gap: 1.15rem;
+}
+
+.last-shipped__head {
+  margin-bottom: 0.85rem;
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.last-shipped__head h2 {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.shipped-carousel {
+  --shipped-stack: 0.55rem;
+
+  padding: calc(var(--shipped-stack) * 2 + 0.4rem)
+    calc(var(--shipped-stack) * 2 + 0.7rem) 0.85rem 0.7rem;
+  border: var(--border-thin);
+  border-radius: 1.05rem;
+  background: var(--bg);
+}
+
+.shipped-carousel__deck {
+  position: relative;
+  z-index: 0;
+}
+
+.shipped-carousel__deck::before,
+.shipped-carousel__deck::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  border: var(--border-thin);
+  border-radius: 0.95rem;
+  pointer-events: none;
+}
+
+.shipped-carousel__deck::before {
+  inset: calc(var(--shipped-stack) * -1) calc(var(--shipped-stack) * -1)
+    var(--shipped-stack) var(--shipped-stack);
+}
+
+.shipped-carousel__deck::after {
+  inset: calc(var(--shipped-stack) * -2) calc(var(--shipped-stack) * -2)
+    calc(var(--shipped-stack) * 2) calc(var(--shipped-stack) * 2);
+}
+
+.shipped-carousel__track {
+  display: flex;
+  position: relative;
+  z-index: 1;
+  align-items: stretch;
+  min-height: 16.5rem;
+  overflow: hidden;
+  user-select: none;
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features -- keep vertical page scroll */
+  touch-action: pan-y;
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features -- desktop drag affordance */
+  cursor: grab;
+}
+
+.shipped-carousel__track:active {
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features -- desktop drag affordance */
+  cursor: grabbing;
+}
+
+.shipped-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  border: var(--border-thin);
+  border-radius: 0.85rem;
+  background: var(--bg-subtle);
+}
+
+.shipped-carousel__slide:not([data-active="true"]) {
+  display: none;
+}
+
+.shipped-carousel__slide[data-active="true"] {
+  display: flex;
+  flex: 1 1 auto;
+  width: 100%;
+}
+
+.shipped-card__visual {
+  position: relative;
+  order: -1;
+  overflow: hidden;
+  aspect-ratio: 1;
+  pointer-events: none;
+}
+
+.shipped-card__placeholder {
+  width: 100%;
+  height: 100%;
+  background:
+    linear-gradient(#fff 1px, transparent 1px) 0 0 / 1.5rem 1.5rem,
+    linear-gradient(90deg, #fff 1px, transparent 1px) 0 0 / 1.5rem 1.5rem;
+  opacity: 0.18;
+}
+
+.shipped-mini {
+  position: absolute;
+  inset: 10% -10% -22% 8%;
+}
+
+.shipped-mini__panel {
+  height: 100%;
+  padding: 0.9rem 0.95rem 1rem;
+  border-radius: 1rem;
+  background: #f4f4f5;
+  color: #1c1c1e;
+  box-shadow: 0 10px 28px rgb(0 0 0 / 28%);
+}
+
+.shipped-mini--slack .shipped-mini__panel {
+  display: grid;
+  align-content: start;
+  gap: 0.38rem;
+  border-left: 3px solid #2a2a2e;
+  border-radius: 0.85rem;
+}
+
+.shipped-mini__account {
+  margin: 0;
+  font-size: 0.98rem;
+  font-weight: 650;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.shipped-mini__status,
+.shipped-mini__move,
+.shipped-mini__draft {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.shipped-mini__status {
+  color: #6e6e73;
+}
+
+.shipped-mini__move {
+  color: #1c1c1e;
+}
+
+.shipped-mini__draft {
+  margin-top: 0.2rem;
+  padding: 0.42rem 0.5rem;
+  border-radius: 0.45rem;
+  background: #fff;
+  color: #6e6e73;
+}
+
+.shipped-mini--imessage .shipped-mini__panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  justify-content: center;
+  padding: 0.85rem 0.7rem;
+  border-radius: 1.15rem;
+  background: #f2f2f4;
+}
+
+.shipped-mini__bubble {
+  max-width: 86%;
+  margin: 0;
+  padding: 0.42rem 0.65rem;
+  border-radius: 1.05rem;
+  font-size: 0.78rem;
+  line-height: 1.3;
+}
+
+.shipped-mini__bubble--in {
+  align-self: flex-start;
+  border-bottom-left-radius: 0.28rem;
+  background: #e8e8ed;
+  color: #1c1c1e;
+}
+
+.shipped-mini__bubble--out {
+  align-self: flex-end;
+  border-bottom-right-radius: 0.28rem;
+  background: #1c1c1e;
+  color: #f4f4f5;
+}
+
+.shipped-mini--local .shipped-mini__panel {
+  display: grid;
+  align-content: start;
+  gap: 0.4rem;
+}
+
+.shipped-mini__model {
+  margin: 0;
+  font-size: 0.98rem;
+  font-weight: 650;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.shipped-mini__ready {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0;
+  color: #1f7a3f;
+  font-size: 0.78rem;
+  font-weight: 550;
+  line-height: 1.3;
+}
+
+.shipped-mini__dot {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: #34c759;
+}
+
+.shipped-mini__tool {
+  margin: 0;
+  padding: 0.42rem 0.5rem;
+  border-radius: 0.45rem;
+  background: #fff;
+  color: #1c1c1e;
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.shipped-card__copy {
+  display: grid;
+  gap: 0.5rem;
+  min-width: 0;
+  padding: 0.95rem 1rem 1.05rem;
+  align-content: start;
+}
+
+.shipped-card__title {
+  margin: 0;
+  font-size: var(--step-1);
+  font-weight: 650;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.shipped-card__when {
+  margin: -0.15rem 0 0;
+  color: var(--text);
+  font-size: 0.78rem;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.shipped-card__writeup {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.shipped-card__writeup p {
+  margin: 0;
+}
+
+.shipped-card__writeup p + p {
+  margin-top: 0.7em;
+}
+
+.shipped-card__actions {
+  margin: 0.15rem 0 0;
+}
+
+.shipped-card__actions a {
+  color: var(--text);
+}
+
+.shipped-card__actions a:hover,
+.shipped-card__actions a:focus-visible {
+  color: var(--accent-strong);
+  text-decoration-color: var(--accent-strong);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.22em;
+}
+
+.last-shipped__all {
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+.last-shipped__all:hover,
+.last-shipped__all:focus-visible {
+  color: var(--accent-strong);
+  text-decoration-color: var(--accent-strong);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.22em;
+}
+
+.shipped-carousel__keys {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  margin-top: 1.15rem;
+  padding-inline: 0.15rem;
+}
+
+.shipped-carousel__keys button {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  border: 1.5px solid var(--border);
+  border-radius: 0.55rem;
+  background: var(--bg-subtle);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.shipped-carousel__keys svg {
+  display: block;
+  width: 1.35rem;
+  height: 1.35rem;
+}
+
+.shipped-carousel__keys button:disabled {
+  cursor: default;
+  opacity: 0.35;
+}
+
+.shipped-carousel__keys button:hover:not(:disabled),
+.shipped-carousel__keys button:focus-visible:not(:disabled) {
+  border-color: var(--text);
+  background: var(--accent-wash);
+  color: var(--accent-strong);
+}
+
+.shipped-carousel--single {
+  padding: 0.85rem 0.7rem 1rem;
+}
+
+.shipped-carousel--single .shipped-carousel__deck::before,
+.shipped-carousel--single .shipped-carousel__deck::after {
+  content: none;
+}
+
+.shipped-carousel--single .shipped-carousel__slide[data-active="true"] {
+  flex-basis: 100%;
+}
+
+.shipped-carousel--single .shipped-carousel__track,
+.shipped-carousel--single .shipped-carousel__track:active {
+  min-height: 0;
+  overflow: hidden;
+  cursor: default;
+}
+
+@media (width >= 48rem) {
+  .shipped-carousel {
+    --shipped-stack: 0.65rem;
+
+    padding: calc(var(--shipped-stack) * 2 + 0.5rem)
+      calc(var(--shipped-stack) * 2 + 0.85rem) 1rem 0.95rem;
+  }
+
+  .shipped-carousel__track {
+    min-height: 14.5rem;
+  }
+
+  .shipped-card {
+    flex-direction: row;
+    min-height: 13.5rem;
+  }
+
+  .shipped-card__visual {
+    order: 0;
+    flex: 0 0 12.5rem;
+    width: 12.5rem;
+    aspect-ratio: 1;
+    align-self: stretch;
+  }
+
+  .shipped-card__copy {
+    flex: 1 1 auto;
+    padding: 1.2rem 1.3rem 1.25rem;
+  }
+}
+
 /* Post list (home + blog index; .post-date is reused by article meta) */
 
 .post-list {
@@ -78,7 +473,7 @@
 
 .post-link:hover .post-link__title,
 .post-link:focus-visible .post-link__title {
-  color: var(--accent);
+  color: var(--accent-strong);
 }
 
 .post-link__desc {
