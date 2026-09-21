@@ -18,13 +18,20 @@ type GithubListResult = {
   count: number
 }
 
+const githubToken = (): string | undefined => {
+  const env = (
+    globalThis as { process?: { env?: Record<string, string | undefined> } }
+  ).process?.env
+  return env?.GITHUB_TOKEN ?? env?.GH_TOKEN
+}
+
 const githubHeaders = (): HeadersInit => {
   const headers: Record<string, string> = {
     Accept: 'application/vnd.github+json',
     'User-Agent': 'jidelambo-portfolio',
     'X-GitHub-Api-Version': '2022-11-28',
   }
-  const token = process.env.GITHUB_TOKEN ?? process.env.GH_TOKEN
+  const token = githubToken()
   if (token) {
     headers.Authorization = `Bearer ${token}`
   }
@@ -36,10 +43,13 @@ const requestGithub = async (
   request: GithubFetch,
 ): Promise<Response | undefined> => {
   try {
-    return await request(url, {
+    const init: RequestInit = {
       headers: githubHeaders(),
-      signal: AbortSignal.timeout(8000),
-    })
+    }
+    if (typeof AbortSignal.timeout === 'function') {
+      init.signal = AbortSignal.timeout(8000)
+    }
+    return await request(url, init)
   } catch {
     return undefined
   }

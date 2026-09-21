@@ -68,7 +68,9 @@ describe('workshop github', () => {
     const commitUrl = spy.mock.calls
       .map(([url]) => String(url))
       .find(url => url.includes('/commits'))
-    expect(commitUrl).toContain('since=2026-09-14T12:00:00.000Z')
+    expect(decodeURIComponent(commitUrl ?? '')).toContain(
+      'since=2026-09-14T12:00:00.000Z',
+    )
   })
 
   it('falls back to empty stats when every fetch fails', async () => {
