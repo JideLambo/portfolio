@@ -33,6 +33,7 @@ describe('createWorkshop', () => {
     scene.motion(false)
     scene.reset()
     scene.dismiss()
+    expect(canvas.style.touchAction).toBe('none')
     scene.dispose()
     parent.remove()
   })

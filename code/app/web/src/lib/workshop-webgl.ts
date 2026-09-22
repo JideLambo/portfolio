@@ -32,14 +32,17 @@ export const prefersWorkshopStill = (): boolean => {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches
 }
 
-export const canOrbitWorkshop = (): boolean => {
-  if (
-    typeof window === 'undefined' ||
-    typeof window.matchMedia !== 'function'
-  ) {
-    return false
-  }
-  return window.matchMedia('(hover: hover) and (pointer: fine)').matches
+export const canOrbitWorkshop = (): boolean => typeof window !== 'undefined'
+
+export const workshopTapSlopPx = 8
+
+export const isWorkshopTap = (
+  start: { x: number; y: number },
+  end: { x: number; y: number },
+): boolean => {
+  const dx = end.x - start.x
+  const dy = end.y - start.y
+  return dx * dx + dy * dy <= workshopTapSlopPx * workshopTapSlopPx
 }
 
 export const canUseWorkshopWebgl = (): boolean => {
