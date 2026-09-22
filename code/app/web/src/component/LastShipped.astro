@@ -2,8 +2,9 @@
 import ShippedCarousel from '@/component/ShippedCarousel'
 import { formatRelativeShipped, toISODate } from '@/lib/date'
 import { getHomepageShipped, type ShippedSlide } from '@/lib/shipped'
+import { showHomeLastShipped } from '@/lib/site-flags'
 
-const entries = await getHomepageShipped()
+const entries = showHomeLastShipped ? await getHomepageShipped() : []
 const headingId = 'last-shipped'
 const slides: ShippedSlide[] = entries.map(entry => ({
   example: entry.data.example,

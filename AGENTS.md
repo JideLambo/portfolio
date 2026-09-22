@@ -56,8 +56,8 @@ Vite overrides in root `package.json` keep `@vitejs/plugin-react` on v6 with Ast
 
 | Route | Purpose |
 | --- | --- |
-| `/` | Home (letter + workshop still, last shipped, latest writing) |
-| `/shipped` | Last shipped list (from All shipped →, not in nav) |
+| `/` | Home (letter + workshop still, latest writing). Last shipped is off via `showHomeLastShipped` |
+| `/shipped` | Last shipped list (direct URL only while the Home flag is off, not in nav) |
 | `/writing` | Essays |
 | `/writing/{slug}` | Post |
 
@@ -84,7 +84,7 @@ Nav: Home · Work · Writing.
 
 ## Content (last shipped)
 
-Home Last shipped is a stacked deck of three ships. `/shipped` is the list from **All shipped →**:
+Home Last shipped is a stacked deck of three ships. It is hidden on Home while `showHomeLastShipped` in `code/app/web/src/lib/site-flags.ts` is false. Flip that flag to restore the Home section. `/shipped` stays at its URL:
 
 - Eyebrow: `Last shipped`, with `All shipped →` (`/shipped`)
 - Home `Latest writing` uses the same quiet title type and All → row
@@ -108,7 +108,7 @@ Home Last shipped is a stacked deck of three ships. `/shipped` is the list from 
 
 ## Content (workshop)
 
-Home hero is the locked letter (left) plus a warm-lit workshop still (right). Mobile stacks letter, then workshop. Last shipped stays below.
+Home hero is the locked letter (left) plus a warm-lit workshop still (right). Mobile stacks letter, then workshop. Latest writing stays below. Last shipped is off until `showHomeLastShipped` is true.
 
 - Letter: compact editorial type (not billboard). Copy is locked in `HomeLetter.astro`. Small screens: ~18px opener / ~14px body; desktop keeps ~22px / 16px
 - Phase 1: static still + HTML hotspot hit targets + glass cards. Invisible hits, small point + label on hover. No floating HUD
