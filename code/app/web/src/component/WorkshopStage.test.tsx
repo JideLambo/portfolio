@@ -87,8 +87,39 @@ describe('WorkshopStage', () => {
     expect(reset.textContent?.trim()).toBe('')
     expect(pause.querySelector('svg')).toBeTruthy()
     expect(reset.querySelector('svg')).toBeTruthy()
+    const resetPath = reset.querySelector('svg path')?.getAttribute('d')
+    expect(resetPath).toContain('L21 8')
+    expect(resetPath).not.toContain('M7.4 7.4')
     fireEvent.click(pause)
     expect(screen.getByRole('button', { name: 'Resume motion' })).toBeTruthy()
+  })
+
+  it('lets the webgl canvas take touch, not the hotspot overlay', async () => {
+    render(<WorkshopStage />)
+
+    if (!canUseWorkshopWebgl()) {
+      expect(screen.queryByRole('group', { name: 'Workshop view' })).toBeNull()
+      return
+    }
+
+    await waitFor(() => {
+      expect(
+        screen
+          .getByRole('region', { name: 'Workshop' })
+          .getAttribute('data-mode'),
+      ).toBe('webgl')
+    })
+
+    const canvas = document.querySelector('.workshop-stage__canvas')
+    const frame = document.querySelector('.workshop-stage__frame')
+    const hotspots = document.querySelector('.workshop-stage__hotspots')
+    expect(canvas).toBeTruthy()
+    expect(frame).toBeTruthy()
+    expect(hotspots).toBeTruthy()
+    expect(getComputedStyle(canvas as Element).pointerEvents).toBe('auto')
+    expect(getComputedStyle(canvas as Element).touchAction).toBe('none')
+    expect(getComputedStyle(frame as Element).touchAction).toBe('none')
+    expect(getComputedStyle(hotspots as Element).pointerEvents).toBe('none')
   })
 
   it('uses invisible hotspot hits with a small mark, not a glass box', () => {

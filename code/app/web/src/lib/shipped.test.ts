@@ -9,6 +9,7 @@ import {
   getShippedSlug,
   getShippedVisual,
 } from '@/lib/shipped'
+import { showHomeLastShipped } from '@/lib/site-flags'
 
 const shippedEntry = (
   data: Partial<CollectionEntry<'shipped'>['data']> &
@@ -25,6 +26,9 @@ const shippedEntry = (
   }) as CollectionEntry<'shipped'>
 
 describe('shipped', () => {
+  it('hides the Home Last shipped deck until showHomeLastShipped is true', () => {
+    expect(showHomeLastShipped).toBe(false)
+  })
   beforeEach(() => {
     vi.mocked(getCollection).mockReset()
   })

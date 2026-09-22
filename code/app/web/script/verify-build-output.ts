@@ -9,6 +9,7 @@ import {
   siteUrl,
   useLayUrl,
 } from '@shared/lib/site'
+import { showHomeLastShipped } from '../src/lib/site-flags.ts'
 
 const dist = new URL('../dist/', import.meta.url)
 const distPath = fileURLToPath(dist)
@@ -123,7 +124,6 @@ assert(
   !home.includes("Hi, I'm Jide"),
   'Home must not keep the old About heading',
 )
-assert(home.includes('Last shipped'), 'Home page should include Last shipped')
 assert(
   home.includes('workshop-stage'),
   'Home should include the workshop stage',
@@ -182,125 +182,150 @@ assert(
     home.indexOf('workshop-stage'),
   'Home should be letter, then workshop',
 )
+assert(home.includes('Latest writing'), 'Home should include Latest writing')
 assert(
-  home.indexOf('workshop-stage') < home.indexOf('Last shipped'),
-  'Home should be workshop, then Last shipped',
-)
-assert(
-  home.indexOf("I'm Jide, a product design engineer.") <
-    home.indexOf('Last shipped'),
-  'Home should be letter, then Last shipped',
+  home.includes('All writing →'),
+  'Home Latest writing should keep the All writing row',
 )
 assert(
   home.includes('Morning who needs you'),
-  'Home page should include the latest shipped card',
-)
-assert(
-  home.includes('I shipped a morning Slack briefing automation'),
-  'Home page should include the locked Automations writeup',
+  'Home workshop should still name the FirstDistro card',
 )
 assert(
   home.includes('iMessage agent for your business'),
-  'Home page should include the GRE iMessage ship',
-)
-assert(
-  home.includes('before I bet on one industry'),
-  'Home page should include the locked GRE writeup',
+  'Home workshop should still name the GRE card',
 )
 assert(
   home.includes('Local AI on your machine'),
-  'Home page should include the local AI ship',
-)
-assert(
-  home.includes('with Ollama'),
-  'Home page should include the locked local AI writeup',
+  'Home workshop should still name the local AI card',
 )
 assert(
   !home.includes('Point at what'),
-  'Home carousel should not include placeholder example ships',
+  'Home must not include placeholder example ships',
 )
 assert(
   !home.includes('Hold, then send times'),
-  'Home carousel should not include placeholder example ships',
+  'Home must not include placeholder example ships',
 )
 assert(
   !home.includes('Silent churn watch'),
-  'Home carousel should not include placeholder example ships',
+  'Home must not include placeholder example ships',
 )
 assert(
   !home.includes('shipped-card__product'),
-  'Home carousel must not render a product pill',
+  'Home must not render a product pill',
 )
 assert(
   !home.includes('shipped-carousel__tick'),
-  'Last shipped must not render progress ticks',
+  'Home must not render progress ticks',
 )
-assert(!home.includes('drag →'), 'Last shipped must not render a drag label')
-assert(
-  home.includes('Previous ship'),
-  'Last shipped should keep prev/next arrows',
-)
-assert(
-  home.includes('aria-roledescription="carousel"'),
-  'Last shipped should render a stacked carousel',
-)
-assert(
-  home.includes('shipped-carousel__deck'),
-  'Last shipped should render a stacked deck',
-)
+assert(!home.includes('drag →'), 'Home must not render a drag label')
 assert(
   home.includes('https://firstdistro.com'),
-  'Last shipped card should link to FirstDistro',
+  'Home letter should link to FirstDistro',
 )
-assert(
-  home.includes('View →'),
-  'Last shipped card should use a View text action',
-)
-assert(
-  home.includes('All shipped →'),
-  'Last shipped section should use an All shipped text action',
-)
-assert(home.includes('href="/shipped"'), 'Home page should link to /shipped')
 assert(
   !home.includes('href="/projects"'),
   'Home page must not link to /projects',
 )
 assert(!home.includes('href="/blog"'), 'Home page must not link to /blog')
-assert(
-  home.includes('shipped-card__when'),
-  'Last shipped cards should show a relative timestamp',
-)
-assert(
-  /just now|\d+ days? ago|\d+ weeks? ago|\d+ months? ago|\d+ years? ago/.test(
-    home,
-  ),
-  'Last shipped timestamp must be relative, not a calendar date',
-)
-assert(
-  home.includes('shipped-mini--slack'),
-  'Morning ship should render a Slack briefing panel',
-)
-assert(
-  home.includes('Helios Cloud'),
-  'Slack briefing should name a single account',
-)
-assert(
-  home.includes('shipped-mini--imessage'),
-  'GRE ship should render an iMessage thread panel',
-)
-assert(
-  home.includes('Any openings Friday?'),
-  'iMessage panel should include a customer bubble',
-)
-assert(
-  home.includes('shipped-mini--local'),
-  'Local AI ship should render a local-status panel',
-)
-assert(home.includes('qwen2.5:7b'), 'Local-status card should name the model')
-assert(
-  home.includes('book / reply'),
-  'Local-status card should show a tool line',
-)
+
+if (showHomeLastShipped) {
+  assert(home.includes('Last shipped'), 'Home page should include Last shipped')
+  assert(
+    home.indexOf('workshop-stage') < home.indexOf('Last shipped'),
+    'Home should be workshop, then Last shipped',
+  )
+  assert(
+    home.includes('I shipped a morning Slack briefing automation'),
+    'Home page should include the locked Automations writeup',
+  )
+  assert(
+    home.includes('before I bet on one industry'),
+    'Home page should include the locked GRE writeup',
+  )
+  assert(
+    home.includes('with Ollama'),
+    'Home page should include the locked local AI writeup',
+  )
+  assert(
+    home.includes('Previous ship'),
+    'Last shipped should keep prev/next arrows',
+  )
+  assert(
+    home.includes('aria-roledescription="carousel"'),
+    'Last shipped should render a stacked carousel',
+  )
+  assert(
+    home.includes('shipped-carousel__deck'),
+    'Last shipped should render a stacked deck',
+  )
+  assert(
+    home.includes('View →'),
+    'Last shipped card should use a View text action',
+  )
+  assert(
+    home.includes('All shipped →'),
+    'Last shipped section should use an All shipped text action',
+  )
+  assert(home.includes('href="/shipped"'), 'Home page should link to /shipped')
+  assert(
+    home.includes('shipped-card__when'),
+    'Last shipped cards should show a relative timestamp',
+  )
+  assert(
+    /just now|\d+ days? ago|\d+ weeks? ago|\d+ months? ago|\d+ years? ago/.test(
+      home,
+    ),
+    'Last shipped timestamp must be relative, not a calendar date',
+  )
+  assert(
+    home.includes('shipped-mini--slack'),
+    'Morning ship should render a Slack briefing panel',
+  )
+  assert(
+    home.includes('Helios Cloud'),
+    'Slack briefing should name a single account',
+  )
+  assert(
+    home.includes('shipped-mini--imessage'),
+    'GRE ship should render an iMessage thread panel',
+  )
+  assert(
+    home.includes('Any openings Friday?'),
+    'iMessage panel should include a customer bubble',
+  )
+  assert(
+    home.includes('shipped-mini--local'),
+    'Local AI ship should render a local-status panel',
+  )
+  assert(home.includes('qwen2.5:7b'), 'Local-status card should name the model')
+  assert(
+    home.includes('book / reply'),
+    'Local-status card should show a tool line',
+  )
+} else {
+  assert(
+    !home.includes('Last shipped'),
+    'Home must hide Last shipped while the flag is off',
+  )
+  assert(
+    !home.includes('All shipped →'),
+    'Home must not link All shipped while the flag is off',
+  )
+  assert(
+    !home.includes('href="/shipped"'),
+    'Home must not link /shipped while the flag is off',
+  )
+  assert(
+    !home.includes('shipped-carousel'),
+    'Home must not render the shipped carousel while the flag is off',
+  )
+  assert(
+    !home.includes('Previous ship'),
+    'Home must not render shipped carousel controls while the flag is off',
+  )
+}
 assert(
   !home.includes('morning-who-needs-you.svg'),
   'Last shipped must not use abstract SVG glyphs',

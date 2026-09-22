@@ -16,6 +16,7 @@ import {
   Raycaster,
   Scene,
   SRGBColorSpace,
+  TOUCH,
   Vector2,
   Vector3,
   WebGLRenderer,
@@ -30,6 +31,7 @@ import {
 } from '@/lib/workshop'
 import {
   canOrbitWorkshop,
+  isWorkshopTap,
   type WorkshopHoverId,
   type WorkshopSceneApi,
 } from '@/lib/workshop-webgl'
@@ -323,6 +325,7 @@ export const createWorkshop = (
   controls.enableDamping = true
   controls.dampingFactor = 0.08
   controls.enablePan = false
+  controls.enableZoom = true
   controls.autoRotate = options.motion !== false
   controls.autoRotateSpeed = 0.35
   controls.minDistance = 2.6
@@ -331,10 +334,13 @@ export const createWorkshop = (
   controls.maxPolarAngle = 1.22
   controls.target.set(0, 0.28, 0)
   controls.enableRotate = canOrbitWorkshop()
+  controls.touches.ONE = TOUCH.ROTATE
+  controls.touches.TWO = TOUCH.DOLLY_PAN
   controls.saveState()
 
   const raycaster = new Raycaster()
   const pointer = new Vector2()
+  let pointerDown: { x: number; y: number } | null = null
   let hovered: WorkshopHoverId = null
   let lampOn = options.lampOn !== false
   lampLight.intensity = lampOn ? 1.7 : 0.08
@@ -389,6 +395,10 @@ export const createWorkshop = (
     return typeof id === 'string' ? (id as WorkshopHotspot['id']) : null
   }
 
+  const onPointerDown = (event: PointerEvent) => {
+    pointerDown = { x: event.clientX, y: event.clientY }
+  }
+
   const onPointerMove = (event: PointerEvent) => {
     setHover(pick(event.clientX, event.clientY))
   }
@@ -398,6 +408,14 @@ export const createWorkshop = (
   }
 
   const onPointerUp = (event: PointerEvent) => {
+    const start = pointerDown
+    pointerDown = null
+    if (
+      !start ||
+      !isWorkshopTap(start, { x: event.clientX, y: event.clientY })
+    ) {
+      return
+    }
     const id = pick(event.clientX, event.clientY)
     if (!id) {
       return
@@ -429,6 +447,7 @@ export const createWorkshop = (
     observer.observe(canvas.parentElement)
   }
   sizeToParent()
+  canvas.addEventListener('pointerdown', onPointerDown)
   canvas.addEventListener('pointermove', onPointerMove)
   canvas.addEventListener('pointerleave', onPointerLeave)
   canvas.addEventListener('pointerup', onPointerUp)
@@ -442,6 +461,7 @@ export const createWorkshop = (
       disposed = true
       window.cancelAnimationFrame(frame)
       observer.disconnect()
+      canvas.removeEventListener('pointerdown', onPointerDown)
       canvas.removeEventListener('pointermove', onPointerMove)
       canvas.removeEventListener('pointerleave', onPointerLeave)
       canvas.removeEventListener('pointerup', onPointerUp)
@@ -467,7 +487,7 @@ export const createWorkshop = (
       setHover(id)
     },
     motion: enabled => {
-      controls.autoRotate = enabled && canOrbitWorkshop()
+      controls.autoRotate = enabled
     },
     reset: () => {
       controls.reset()

@@ -586,6 +586,13 @@
 .workshop-stage[data-mode="webgl"] .workshop-stage__canvas {
   opacity: 1;
   pointer-events: auto;
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features -- keep orbit gestures on the canvas */
+  touch-action: none;
+}
+
+.workshop-stage[data-mode="webgl"] .workshop-stage__frame {
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features -- keep orbit gestures inside the stage */
+  touch-action: none;
 }
 
 .workshop-stage__glow,
