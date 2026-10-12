@@ -152,6 +152,12 @@ Home hero is the locked letter (left) plus a warm-lit workshop still (right). Mo
 
 ---
 
+## Learn
+
+After a meaningful code change, write a plain-language lesson in `learn/` and copy it into the pull request under `## Lesson`. Follow [`.cursor/rules/learn.mdc`](./.cursor/rules/learn.mdc). `learn/` stays at the repo root, outside `code/app/web`, so the Astro build does not publish it as pages.
+
+---
+
 ## Dependency bumps
 
 ```bash
@@ -178,5 +184,6 @@ See `.cursor/commands/bump-dependencies.md` for npm + GHA tracks.
 | Last shipped | `code/app/web/src/content/shipped/`, `src/lib/shipped.ts`, `src/lib/product.ts` |
 | Workshop | `src/lib/workshop.ts`, `src/lib/createWorkshop.ts`, `src/component/WorkshopStage.tsx`, `public/workshop/` |
 | Contributions | `src/lib/github-contributions.ts`, `src/component/Contributions.astro`. Home section above Latest writing. Build-time GraphQL with `GITHUB_CONTRIBUTIONS_TOKEN` (`read:user`). Hide the section if the fetch fails. Squares are GitHub's dark graph greens. Daily refresh is `.github/workflows/refresh-contributions.yml` (`VERCEL_DEPLOY_HOOK`). |
+| Learn | `.cursor/rules/learn.mdc`, `learn/INDEX.md` |
 | Lint | `biome.json`, knip |
 | CI | `.github/workflows/web-*.yml` |

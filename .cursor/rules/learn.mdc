@@ -1,0 +1,44 @@
+---
+description: After a meaningful code change, write a plain-language lesson in learn/ and in the pull request.
+alwaysApply: true
+---
+
+# Learn
+
+After you finish a change that adds or meaningfully changes logic (a feature, a real bug fix, a refactor, a new integration, a data model, or an algorithm), write one short lesson so a reader can understand the code. Skip trivial edits: typos, formatting, renames, comments, version bumps, one-line config changes, or tasks where you only read code. One lesson per task, not per file. If the user says "skip learn", skip it for that task. If they ask to turn it off, stop for the session.
+
+## Where
+
+Save it to `learn/YYYY-MM-DD-short-name.md`. Create `learn/` if needed. If that file name is taken, add `-2`, then `-3`.
+
+Add a line at the top of the list in `learn/INDEX.md`:
+
+`- [YYYY-MM-DD] [Short title](filename.md): one-sentence summary`
+
+Commit `learn/` with the change. Do not add `learn/` to `.gitignore` or any other ignore file. Keep `learn/` at the repo root. Do not put lessons in `code/app/web/src/pages` or in an Astro content collection. The site build publishes `code/app/web/dist` only. Routes come from `code/app/web/src/pages`. Content collections load `src/content/blog` and `src/content/shipped` only.
+
+## Pull request
+
+Put the same lesson in the pull request description under `## Lesson`.
+
+## Structure
+
+Follow `learn/breakdown-template.md`:
+
+1. `# Title`, then a line with the date and the task in one line
+2. **In short:** 2-3 plain sentences on what was done and why
+3. **What changed:** each file touched and what changed there
+4. **How it works:** the flow, step by step, as the code runs
+5. **Why it's built this way:** key decisions and alternatives not chosen
+6. **Concept worth knowing:** one idea the code relies on. Explain it simply, with an analogy, then precisely
+7. **Watch out for:** edge cases, risks, assumptions, untested parts, and what to test
+8. **Check yourself:** 3 "why" or "what if" questions. Hide each answer in `<details><summary>Answer</summary>...</details>`
+9. **Explain it back:** ask the reader to explain the change in 2-3 sentences without looking at the code
+
+## Rules
+
+Describe only what the diff actually changed. Use real names and paths from that diff. Say plainly when something is untested or assumed. Plain language. Define jargon. About 300 to 600 words. Questions should make the reader think, not test trivia. Never invent URLs. Never include secrets, keys, tokens, or personal data. Never change code in order to write the lesson.
+
+Writing voice in `.cursor/rules/writing-voice.mdc` still applies: sentence case, no em dashes.
+
+End the reply with one line naming the lesson path.
