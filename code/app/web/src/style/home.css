@@ -29,9 +29,13 @@
   line-height: 1.45;
 }
 
+.home-letter p.home-letter__job {
+  margin-top: 0.7em;
+}
+
 @media (width >= 64rem) {
   .home-hero {
-    grid-template-columns: minmax(15rem, 18.5rem) minmax(0, 1fr);
+    grid-template-columns: 24rem minmax(0, 1fr);
     gap: 1.75rem;
     align-items: start;
   }

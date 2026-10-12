@@ -462,6 +462,11 @@ assert(
   'Home letter must keep a compact left-aligned reading measure',
 )
 assert(
+  cssBundle.includes('grid-template-columns:24rem') ||
+    cssBundle.includes('grid-template-columns: 24rem'),
+  'Home letter desktop column should be 24rem',
+)
+assert(
   cssBundle.includes('font-size:1.375rem'),
   'Home letter opener should be editorial, not billboard',
 )
