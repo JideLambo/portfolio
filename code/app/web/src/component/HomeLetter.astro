@@ -5,6 +5,7 @@ import {
   sinchUrl,
   siteEmail,
   useLayUrl,
+  wonderstandUrl,
 } from '@shared/lib/site'
 
 const x = getSocialLink('X')
@@ -13,30 +14,37 @@ const github = getSocialLink('GitHub')
 
 <section class="home-letter" aria-label="Introduction">
   <h1>I'm Jide, a product design engineer.</h1>
+  <p>I founded these, and I still design and build them.</p>
   <p>
-    I'm building{' '}
+    <a href={wonderstandUrl} rel="noopener noreferrer" target="_blank">
+      Wonderstand
+      <span class="visually-hidden"> (opens in new tab)</span>
+    </a>{' '}
+    is the realtor OS. From iMessage, SMS, and WhatsApp, AI agents answer
+    buyers, and realtors send them to handle customers, listings, and
+    contracts.
+  </p>
+  <p>
     <a href={firstDistroUrl} rel="noopener noreferrer" target="_blank">
       FirstDistro
       <span class="visually-hidden"> (opens in new tab)</span>
-    </a>
-    , account intelligence for customer success.
+    </a>{' '}
+    is account intelligence for customer success.
   </p>
   <p>
-    I also built{' '}
     <a href={useLayUrl} rel="noopener noreferrer" target="_blank">
       UseLay
       <span class="visually-hidden"> (opens in new tab)</span>
-    </a>
-    , in-app feedback that pins comments to the UI.
+    </a>{' '}
+    is in-app feedback that pins comments to the UI.
   </p>
-  <p>
+  <p class="home-letter__job">
     Dayside I'm a senior product designer at{' '}
     <a href={sinchUrl} rel="noopener noreferrer" target="_blank">
       Sinch
       <span class="visually-hidden"> (opens in new tab)</span>
     </a>
-    , on messaging and AI for businesses. Off hours: iMessage desk, local
-    models.
+    , on messaging and AI for businesses. Off hours: local models.
   </p>
   <p>
     Reach me on{' '}

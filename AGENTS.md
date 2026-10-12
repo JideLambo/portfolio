@@ -89,7 +89,7 @@ Home Last shipped is a stacked deck of three ships. It is hidden on Home while `
 - Eyebrow: `Last shipped`, with `All shipped →` (`/shipped`)
 - Home `Latest writing` uses the same quiet title type and All → row
 - Front card is primary. Empty nested card backs peek top/right. Inactive ships are hidden, not a content sliver
-- Three ships: Local AI on your machine (`personal`), iMessage agent for your business (`gre`), Morning who needs you (`firstdistro`)
+- Three ships: Local AI on your machine (`personal`), Wonderstand (`gre`), Morning who needs you (`firstdistro`)
 - Visual: HTML/CSS light UI fragment on the dark card, slightly cropped. On small screens the crop is short so title and body stay primary; from 48rem the visual is a 12.5rem side panel. Local is a status card (model, ready, one tool line). GRE is a 2–3 bubble iMessage thread. Morning is one Slack briefing card. No abstract glyphs
 - Title, quiet relative timestamp from `shippedAt` (`just now` / `N days ago` / weeks / months / years), 2–4 sentence body, `View →` in ink when `href` is set
 - Controls: designed prev/next arrows. Drag/swipe still works. No `drag →` label. No numbered ticks
@@ -110,13 +110,13 @@ Home Last shipped is a stacked deck of three ships. It is hidden on Home while `
 
 Home hero is the locked letter (left) plus a warm-lit workshop still (right). Mobile stacks letter, then workshop. Latest writing stays below. Last shipped is off until `showHomeLastShipped` is true.
 
-- Letter: compact editorial type (not billboard). Copy is locked in `HomeLetter.astro`. Small screens: ~18px opener / ~14px body; desktop keeps ~22px / 16px
+- Letter: compact editorial type (not billboard). Copy is locked in `HomeLetter.astro`: "I founded these, and I still design and build them." Then Wonderstand (the realtor OS, linked to wonderstand.ai), FirstDistro, and UseLay. Each product is an "is" sentence. No repeated "I'm building" or "I built". Off hours is local models. Small screens: letter max 22rem, ~18px opener / ~14px body. From 64rem the letter column is 24rem, ~22px / 16px, with a gap before the Sinch line
 - Phase 1: static still + HTML hotspot hit targets + glass cards. Invisible hits, small point + label on hover. No floating HUD
 - Phase 2: lazy `createWorkshop` Three.js scene over the still (OrbitControls, pause / reset). WebGL fail or reduced motion keeps the still + HTML hotspots
 - Still: `code/app/web/public/workshop/still.webp` (+ png fallback)
 - Data: `code/app/web/src/lib/workshop.ts`. Ids: `local-ai`, `imessage`, `firstdistro`, `uselay`, `lamp`
 - Lamp starts on (matches the lit still). Toggle off dims the still / 3D lights. No card. Set dressing is not clickable
-- Cards: light glass dialog, Escape / × / empty dismiss. FirstDistro and UseLay links from `@shared/lib/site`
+- Cards: light glass dialog, Escape / × / empty dismiss. FirstDistro, UseLay, and Wonderstand links from `@shared/lib/site`
 - No visible GitHub or Ready counts on the laptop, HUD, or Local AI card. Pause and reset are icon-only controls in one compact pill
 
 ---

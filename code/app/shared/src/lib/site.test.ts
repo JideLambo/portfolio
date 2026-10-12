@@ -6,6 +6,7 @@ import {
   siteEmail,
   socialLinks,
   useLayUrl,
+  wonderstandUrl,
   xDiscussUrl,
 } from '@shared/lib/site'
 import { describe, expect, it } from 'vitest'
@@ -44,6 +45,7 @@ describe('site', () => {
     it('wires product, email, and social hrefs from site.ts', () => {
       expect(firstDistroUrl).toBe('https://firstdistro.com')
       expect(useLayUrl).toBe('https://uselay.com')
+      expect(wonderstandUrl).toBe('https://wonderstand.ai')
       expect(sinchUrl).toBe('https://sinch.com')
       expect(siteEmail).toBe('jidelambo@gmail.com')
       expect(getSocialLink('X').href).toBe('https://x.com/JideLambo')

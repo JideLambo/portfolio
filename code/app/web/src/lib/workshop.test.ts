@@ -1,4 +1,4 @@
-import { firstDistroUrl, useLayUrl } from '@shared/lib/site'
+import { firstDistroUrl, useLayUrl, wonderstandUrl } from '@shared/lib/site'
 import { describe, expect, it } from 'vitest'
 import {
   getWorkshopCard,
@@ -30,12 +30,13 @@ describe('workshop', () => {
     expect(local.objectLabel).toBe('Laptop')
 
     const imessage = getWorkshopCard('imessage')
-    expect(imessage.title).toBe('iMessage agent for your business')
-    expect(imessage.line).toBe('Front-desk packs')
+    expect(imessage.title).toBe('Wonderstand')
+    expect(imessage.line).toBe('The realtor OS')
     expect(imessage.body).toBe(
-      "I'm building iMessage agents for vertical businesses. Front-desk packs that answer like a person at the desk, then you take over when it matters.",
+      "I'm building Wonderstand, the realtor OS. From iMessage, SMS, and WhatsApp, AI agents answer buyers, and realtors send them to handle customers, listings, and contracts.",
     )
-    expect(imessage.href).toBeUndefined()
+    expect(imessage.href).toBe(wonderstandUrl)
+    expect(imessage.hrefLabel).toBe('Wonderstand')
     expect(imessage.objectLabel).toBe('Phone')
 
     const firstdistro = getWorkshopCard('firstdistro')

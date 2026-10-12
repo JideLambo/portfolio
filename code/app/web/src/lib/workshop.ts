@@ -1,4 +1,4 @@
-import { firstDistroUrl, useLayUrl } from '@shared/lib/site'
+import { firstDistroUrl, useLayUrl, wonderstandUrl } from '@shared/lib/site'
 
 export type WorkshopBounds = {
   height: number
@@ -58,15 +58,17 @@ export const workshopHotspots: WorkshopHotspot[] = [
     title: 'Local AI on your machine',
   },
   {
-    body: "I'm building iMessage agents for vertical businesses. Front-desk packs that answer like a person at the desk, then you take over when it matters.",
+    body: "I'm building Wonderstand, the realtor OS. From iMessage, SMS, and WhatsApp, AI agents answer buyers, and realtors send them to handle customers, listings, and contracts.",
     bounds: { height: 0.145, left: 0.618, top: 0.448, width: 0.095 },
+    href: wonderstandUrl,
+    hrefLabel: 'Wonderstand',
     id: 'imessage',
     kind: 'card',
     labelX: 'center',
     labelY: 'above',
-    line: 'Front-desk packs',
+    line: 'The realtor OS',
     objectLabel: 'Phone',
-    title: 'iMessage agent for your business',
+    title: 'Wonderstand',
   },
   {
     body: 'Catch silent churn, draft the next move. Nothing sends until you act.',

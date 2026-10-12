@@ -21,6 +21,8 @@ export const firstDistroUrl = 'https://firstdistro.com'
 
 export const useLayUrl = 'https://uselay.com'
 
+export const wonderstandUrl = 'https://wonderstand.ai'
+
 export const sinchUrl = 'https://sinch.com'
 
 export const siteEmail = 'jidelambo@gmail.com'
