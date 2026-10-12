@@ -1,4 +1,4 @@
-import { firstDistroUrl, useLayUrl } from '@shared/lib/site'
+import { firstDistroUrl, useLayUrl, wonderstandUrl } from '@shared/lib/site'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 import WorkshopStage from '@/component/WorkshopStage'
@@ -31,7 +31,7 @@ describe('WorkshopStage', () => {
     expect(local.getAttribute('data-workshop-id')).toBe('local-ai')
     expect(
       screen.getByRole('button', {
-        name: 'iMessage agent for your business, Phone',
+        name: 'Wonderstand, Phone',
       }),
     ).toBeTruthy()
     expect(
@@ -126,7 +126,7 @@ describe('WorkshopStage', () => {
     render(<WorkshopStage />)
 
     const phone = screen.getByRole('button', {
-      name: 'iMessage agent for your business, Phone',
+      name: 'Wonderstand, Phone',
     })
     expect(phone.querySelector('.workshop-hotspot__mark')).toBeTruthy()
     expect(phone.getAttribute('data-label-x')).toBe('center')
@@ -185,22 +185,22 @@ describe('WorkshopStage', () => {
   it('clears the card on Escape and on dismiss', async () => {
     render(<WorkshopStage />)
 
-    await openCard('iMessage agent for your business, Phone')
-    expect(screen.getByText('Front-desk packs')).toBeTruthy()
+    await openCard('Wonderstand, Phone')
+    expect(screen.getByText('The realtor OS')).toBeTruthy()
 
     fireEvent.keyDown(screen.getByRole('dialog'), { key: 'Escape' })
     await waitFor(() => {
       expect(screen.queryByRole('dialog')).toBeNull()
     })
 
-    await openCard('iMessage agent for your business, Phone')
+    await openCard('Wonderstand, Phone')
     fireEvent.click(screen.getByRole('dialog'))
     await waitFor(() => {
       expect(screen.queryByRole('dialog')).toBeNull()
     })
   })
 
-  it('links FirstDistro and UseLay from site.ts', async () => {
+  it('links Wonderstand, FirstDistro, and UseLay from site.ts', async () => {
     render(<WorkshopStage />)
 
     await openCard('Morning who needs you, Mini-PC')
@@ -214,6 +214,14 @@ describe('WorkshopStage', () => {
     await openCard('UseLay, Pinboard')
     const useLay = screen.getByRole('link', { name: /UseLay/ })
     expect(useLay.getAttribute('href')).toBe(useLayUrl)
+    fireEvent.click(screen.getByRole('button', { name: 'Close' }))
+    await waitFor(() => {
+      expect(screen.queryByRole('dialog')).toBeNull()
+    })
+
+    await openCard('Wonderstand, Phone')
+    const wonderstand = screen.getByRole('link', { name: /Wonderstand/ })
+    expect(wonderstand.getAttribute('href')).toBe(wonderstandUrl)
   })
 
   it('toggles the lamp without opening a card', () => {

@@ -8,6 +8,7 @@ import {
   siteEmail,
   siteUrl,
   useLayUrl,
+  wonderstandUrl,
 } from '@shared/lib/site'
 import { showHomeLastShipped } from '../src/lib/site-flags.ts'
 
@@ -65,6 +66,7 @@ assert(
   'llms.txt should link FirstDistro',
 )
 assert(llms.includes('https://uselay.com'), 'llms.txt should link UseLay')
+assert(llms.includes(wonderstandUrl), 'llms.txt should link Wonderstand')
 
 const home = read('index.html')
 assert(!home.includes('href="/about"'), 'Home must not link to /about')
@@ -82,8 +84,16 @@ assert(
   'Home letter should describe UseLay',
 )
 assert(
-  home.includes('Off hours: iMessage desk, local models'),
+  home.includes('the realtor OS'),
+  'Home letter should name Wonderstand as the realtor OS',
+)
+assert(
+  home.includes('Off hours: local models'),
   'Home letter should keep the compact off-hours line',
+)
+assert(
+  !home.includes('iMessage desk'),
+  'Home letter must not keep the unnamed iMessage desk clause',
 )
 assert(
   !home.includes('account intelligence for lean CS'),
@@ -100,6 +110,10 @@ assert(
 assert(
   home.includes(`href="${useLayUrl}"`),
   'Home letter should link UseLay from site.ts',
+)
+assert(
+  home.includes(`href="${wonderstandUrl}"`),
+  'Home letter should link Wonderstand from site.ts',
 )
 assert(
   home.includes(`href="${sinchUrl}"`),
@@ -192,8 +206,8 @@ assert(
   'Home workshop should still name the FirstDistro card',
 )
 assert(
-  home.includes('iMessage agent for your business'),
-  'Home workshop should still name the GRE card',
+  home.includes('Wonderstand, Phone'),
+  'Home workshop should name the Wonderstand card',
 )
 assert(
   home.includes('Local AI on your machine'),
@@ -351,8 +365,20 @@ assert(
   '/shipped should list the Automations ship',
 )
 assert(
-  shipped.includes('iMessage agent for your business'),
-  '/shipped should list the GRE iMessage ship',
+  shipped.includes('Wonderstand'),
+  '/shipped should list the Wonderstand ship',
+)
+assert(
+  shipped.includes('the realtor OS'),
+  '/shipped should describe Wonderstand as the realtor OS',
+)
+assert(
+  shipped.includes(`href="${wonderstandUrl}"`),
+  '/shipped should link Wonderstand',
+)
+assert(
+  !shipped.includes('clinic, salon'),
+  '/shipped must not keep the parked pack-model copy',
 )
 assert(
   shipped.includes('Local AI on your machine'),

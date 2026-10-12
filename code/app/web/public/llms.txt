@@ -7,14 +7,15 @@ Personal site for Jide Lambo. Nav: Home, Work, Writing. Hosted on Vercel. Home i
 ## Bio
 
 - Full-time: Senior Product Designer at Sinch (inbox and AI for messaging at scale)
-- Building: FirstDistro, UseLay
-- Earlier products (shut down): Wonderstand, TokiApp
+- Building: FirstDistro, Wonderstand, UseLay
+- Earlier products (shut down): an earlier Wonderstand companion, TokiApp
 - Earlier roles: Nordcloud (IBM / BMW Public Cloud Platform), BCaster (founding design engineer), GTBank (GTWorld app)
 - `/about` redirects to `/`. Career facts are parked in the repo, not on the site.
 
 ## Products
 
 - [FirstDistro](https://firstdistro.com): Account intelligence that catches silent churn and proves the revenue you kept
+- [Wonderstand](https://wonderstand.ai): The realtor OS. From iMessage, SMS, and WhatsApp, AI agents answer buyers, and realtors send them to handle customers, listings, and contracts.
 - [UseLay](https://uselay.com): In-app feedback that lets users point at what's broken instead of describing it
 - Sinch: Employer only (https://sinch.com). Not a founder product
 

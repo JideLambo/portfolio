@@ -1,8 +1,9 @@
 ---
 slug: imessage-agent-for-your-business
-title: iMessage agent for your business
+title: Wonderstand
 product: gre
 shippedAt: 2026-09-20
+href: https://wonderstand.ai
 ---
 
-I've been building an iMessage agent for the front desk. Same loop, packs for clinic, salon, and Shopify-style shops. Still proving the pack model before I bet on one industry.
+I'm building Wonderstand, the realtor OS. From iMessage, SMS, and WhatsApp, AI agents answer buyers, and realtors send them to handle customers, listings, and contracts.
