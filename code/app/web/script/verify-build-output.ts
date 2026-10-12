@@ -88,6 +88,17 @@ assert(
   'Home letter should name Wonderstand as the realtor OS',
 )
 assert(
+  home.indexOf(`href="${wonderstandUrl}"`) <
+    home.indexOf(`href="${firstDistroUrl}"`) &&
+    home.indexOf(`href="${firstDistroUrl}"`) <
+      home.indexOf(`href="${useLayUrl}"`),
+  'Home letter should name Wonderstand, then FirstDistro, then UseLay',
+)
+assert(
+  !home.includes("I'm building") && !home.includes('I also built'),
+  'Home letter should not repeat building verbs',
+)
+assert(
   home.includes('Off hours: local models'),
   'Home letter should keep the compact off-hours line',
 )
