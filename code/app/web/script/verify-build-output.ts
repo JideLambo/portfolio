@@ -145,8 +145,8 @@ assert(
 )
 assert(home.includes('https://x.com/JideLambo'), 'Home letter should link X')
 assert(
-  home.includes('https://github.com/JideLambo'),
-  'Home letter should link GitHub',
+  !home.includes('or GitHub'),
+  'Home letter should not offer GitHub as a way to reach me',
 )
 const contributionsTitle = home.indexOf('id="contributions-title"')
 if (contributionsTitle !== -1) {
@@ -156,6 +156,10 @@ if (contributionsTitle !== -1) {
     'Contributions stay above Latest writing',
   )
   assert(home.includes('GitHub →'), 'Contributions should link GitHub')
+  assert(
+    home.includes('https://github.com/JideLambo'),
+    'Contributions should link the GitHub profile',
+  )
   assert(home.includes('>Less<'), 'Contributions should show the less label')
   assert(home.includes('>More<'), 'Contributions should show the more label')
   assert(
