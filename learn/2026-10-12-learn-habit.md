@@ -41,7 +41,7 @@ Agents now write a short lesson after a meaningful code change. The lesson is a 
 
 - Trivial edits should not get a lesson. A typo, a format pass, a version bump, or a one-line config change is a skip.
 - If a later change moves `learn/` under `code/app/web/src/pages`, or a content collection glob reaches it, those files can become public pages.
-- The publish check is from the current app layout: output folder, pages directory, and the two content collections. Those files were not edited here. A built `dist/` tree has not been compared yet.
+- A local static build wrote `code/app/web/dist` with no learn route, and the lesson text was not in that output. The build config files were not edited here.
 
 ## Check yourself
 
