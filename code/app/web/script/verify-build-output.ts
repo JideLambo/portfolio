@@ -76,6 +76,15 @@ assert(
   'Home should open with the letter',
 )
 assert(
+  home.includes('I founded these, and I still design and build them.'),
+  'Home letter should tie the products to Jide before naming them',
+)
+assert(
+  home.indexOf('I founded these, and I still design and build them.') <
+    home.indexOf(`href="${wonderstandUrl}"`),
+  'Home letter should introduce the products before Wonderstand',
+)
+assert(
   home.includes('account intelligence for customer success'),
   'Home letter should describe FirstDistro',
 )
