@@ -953,7 +953,7 @@
   width: var(--contrib-size);
   height: var(--contrib-size);
   border-radius: 0.125rem;
-  background: rgb(255 255 255 / var(--contrib-alpha, 14%));
+  background: var(--contrib-green, #161b22);
 }
 
 .contributions__grid .contributions__day {
@@ -961,24 +961,25 @@
   grid-row: var(--contrib-row);
 }
 
+/* GitHub dark contribution graph, empty through busiest. */
 .contributions__day--0 {
-  --contrib-alpha: 14%;
+  --contrib-green: #161b22;
 }
 
 .contributions__day--1 {
-  --contrib-alpha: 32%;
+  --contrib-green: #0e4429;
 }
 
 .contributions__day--2 {
-  --contrib-alpha: 52%;
+  --contrib-green: #006d32;
 }
 
 .contributions__day--3 {
-  --contrib-alpha: 76%;
+  --contrib-green: #26a641;
 }
 
 .contributions__day--4 {
-  --contrib-alpha: 100%;
+  --contrib-green: #39d353;
 }
 
 .contributions__legend {

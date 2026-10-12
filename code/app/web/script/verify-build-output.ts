@@ -108,8 +108,8 @@ assert(
   'Home letter should not repeat building verbs',
 )
 assert(
-  home.includes('Off hours: local models'),
-  'Home letter should keep the compact off-hours line',
+  !home.includes('Off hours: local models'),
+  'Home letter should drop the off-hours line',
 )
 assert(
   !home.includes('iMessage desk'),
@@ -152,8 +152,8 @@ const contributionsTitle = home.indexOf('id="contributions-title"')
 if (contributionsTitle !== -1) {
   const latestWriting = home.indexOf('>Latest writing<')
   assert(
-    latestWriting !== -1 && latestWriting < contributionsTitle,
-    'Contributions stay under Latest writing',
+    latestWriting !== -1 && contributionsTitle < latestWriting,
+    'Contributions stay above Latest writing',
   )
   assert(home.includes('GitHub →'), 'Contributions should link GitHub')
   assert(home.includes('>Less<'), 'Contributions should show the less label')

@@ -272,36 +272,36 @@ describe('github contributions', () => {
   })
 
   describe('level paint', () => {
-    it('uses white steps, with an empty day quieter than a full day', () => {
+    it('uses GitHub dark greens, with an empty day quieter than a full day', () => {
       document.body.innerHTML = `
         <div class="contributions">
           <span class="contributions__day contributions__day--0"></span>
+          <span class="contributions__day contributions__day--2"></span>
           <span class="contributions__day contributions__day--4"></span>
         </div>
       `
       const none = document.querySelector('.contributions__day--0')
+      const mid = document.querySelector('.contributions__day--2')
       const most = document.querySelector('.contributions__day--4')
-      if (!(none instanceof HTMLElement) || !(most instanceof HTMLElement)) {
+      if (
+        !(none instanceof HTMLElement) ||
+        !(mid instanceof HTMLElement) ||
+        !(most instanceof HTMLElement)
+      ) {
         throw new Error('missing contribution squares')
       }
-      const noneColor = getComputedStyle(none).backgroundColor
-      const mostColor = getComputedStyle(most).backgroundColor
-      const alphaOf = (color: string) => {
-        const slash = color.match(/\/\s*([\d.]+)%/)
-        if (slash?.[1]) {
-          return Number(slash[1]) / 100
-        }
-        const comma = color.match(/rgba?\([^)]+,\s*([\d.]+)\s*\)$/)
-        if (comma?.[1]) {
-          return Number(comma[1])
-        }
-        return 1
-      }
-      expect(noneColor).toMatch(/255/)
-      expect(mostColor).toMatch(/255/)
-      expect(alphaOf(noneColor)).toBeLessThan(alphaOf(mostColor))
-      expect(noneColor).not.toMatch(/0,\s*109,\s*50|48,\s*161,\s*78/)
-      expect(mostColor).not.toMatch(/0,\s*109,\s*50|48,\s*161,\s*78/)
+      const channels = (color: string) =>
+        [...color.matchAll(/\d+/g)].slice(0, 3).map(Number)
+      const [noneR, noneG, noneB] = channels(
+        getComputedStyle(none).backgroundColor,
+      )
+      const [midR, midG, midB] = channels(getComputedStyle(mid).backgroundColor)
+      const [mostR, mostG, mostB] = channels(
+        getComputedStyle(most).backgroundColor,
+      )
+      expect([noneR, noneG, noneB]).toEqual([22, 27, 34])
+      expect([midR, midG, midB]).toEqual([0, 109, 50])
+      expect([mostR, mostG, mostB]).toEqual([57, 211, 83])
     })
   })
 })

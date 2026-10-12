@@ -28,6 +28,8 @@ const contributions = githubLogin
 
     <LastShipped />
 
+    {contributions && <Contributions calendar={contributions} />}
+
     {
       latestPosts.length > 0 && (
         <section class="home-section">
@@ -41,7 +43,5 @@ const contributions = githubLogin
         </section>
       )
     }
-
-    {contributions && <Contributions calendar={contributions} />}
   </div>
 </Layout>
