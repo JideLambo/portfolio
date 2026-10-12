@@ -108,8 +108,8 @@ assert(
   'Home letter should not repeat building verbs',
 )
 assert(
-  home.includes('Off hours: local models'),
-  'Home letter should keep the compact off-hours line',
+  !home.includes('Off hours: local models'),
+  'Home letter should drop the off-hours line',
 )
 assert(
   !home.includes('iMessage desk'),
@@ -145,9 +145,29 @@ assert(
 )
 assert(home.includes('https://x.com/JideLambo'), 'Home letter should link X')
 assert(
-  home.includes('https://github.com/JideLambo'),
-  'Home letter should link GitHub',
+  !home.includes('or GitHub'),
+  'Home letter should not offer GitHub as a way to reach me',
 )
+const contributionsTitle = home.indexOf('id="contributions-title"')
+if (contributionsTitle !== -1) {
+  const latestWriting = home.indexOf('>Latest writing<')
+  assert(
+    latestWriting !== -1 && contributionsTitle < latestWriting,
+    'Contributions stay above Latest writing',
+  )
+  assert(home.includes('GitHub →'), 'Contributions should link GitHub')
+  assert(
+    home.includes('https://github.com/JideLambo'),
+    'Contributions should link the GitHub profile',
+  )
+  assert(home.includes('>Less<'), 'Contributions should show the less label')
+  assert(home.includes('>More<'), 'Contributions should show the more label')
+  assert(
+    home.includes('contributions__day--0') &&
+      home.includes('contributions__day--4'),
+    'Contributions should paint empty and full days',
+  )
+}
 assert(
   !home.includes('id="projects"'),
   'Home must not render a Projects section',

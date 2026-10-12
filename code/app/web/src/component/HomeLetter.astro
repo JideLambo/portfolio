@@ -9,7 +9,6 @@ import {
 } from '@shared/lib/site'
 
 const x = getSocialLink('X')
-const github = getSocialLink('GitHub')
 ---
 
 <section class="home-letter" aria-label="Introduction">
@@ -44,21 +43,14 @@ const github = getSocialLink('GitHub')
       Sinch
       <span class="visually-hidden"> (opens in new tab)</span>
     </a>
-    , on messaging and AI for businesses. Off hours: local models.
+    , on messaging and AI for businesses.
   </p>
   <p>
     Reach me on{' '}
     <a href={x.href} rel="noopener noreferrer" target="_blank">
       X
       <span class="visually-hidden"> (opens in new tab)</span>
-    </a>
-    ,{' '}
-    <a href={`mailto:${siteEmail}`}>email</a>
-    , or{' '}
-    <a href={github.href} rel="noopener noreferrer" target="_blank">
-      GitHub
-      <span class="visually-hidden"> (opens in new tab)</span>
-    </a>
-    .
+    </a>{' '}
+    or <a href={`mailto:${siteEmail}`}>email</a>.
   </p>
 </section>

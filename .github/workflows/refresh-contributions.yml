@@ -1,0 +1,23 @@
+name: Refresh contributions
+
+on:
+  schedule:
+    # 12:00 UTC daily. Vercel rebuilds the static site so the map stays current.
+    - cron: '0 12 * * *'
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Vercel deploy hook
+        env:
+          VERCEL_DEPLOY_HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$VERCEL_DEPLOY_HOOK" ]; then
+            echo "Set the VERCEL_DEPLOY_HOOK repository secret to a production deploy hook."
+            exit 1
+          fi
+          curl --fail-with-body --silent --show-error --request POST "$VERCEL_DEPLOY_HOOK"

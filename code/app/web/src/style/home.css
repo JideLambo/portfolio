@@ -891,6 +891,111 @@
   outline-color: #1c1c1e;
 }
 
+.contributions {
+  --contrib-gap: 0.1875rem;
+  --contrib-size: 0.6875rem;
+}
+
+.contributions__total {
+  margin: 0 0 0.85rem;
+  font-size: 0.95rem;
+}
+
+.contributions__scroll {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.contributions__frame {
+  display: grid;
+  grid-template-columns: auto max-content;
+  gap: 0.4rem 0.5rem;
+  width: max-content;
+}
+
+.contributions__months,
+.contributions__grid {
+  display: grid;
+  gap: var(--contrib-gap);
+}
+
+.contributions__months {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.contributions__month {
+  grid-column: var(--contrib-start) / span var(--contrib-span);
+  font-size: 0.75rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.contributions__weekdays {
+  display: grid;
+  grid-column: 1;
+  grid-row: 2;
+  grid-template-rows: repeat(7, var(--contrib-size));
+  gap: var(--contrib-gap);
+  color: var(--text);
+  font-size: 0.6875rem;
+  line-height: var(--contrib-size);
+}
+
+.contributions__grid {
+  grid-column: 2;
+  grid-row: 2;
+  grid-template-rows: repeat(7, var(--contrib-size));
+}
+
+.contributions__day {
+  display: block;
+  width: var(--contrib-size);
+  height: var(--contrib-size);
+  border-radius: 0.125rem;
+  background: var(--contrib-green, #161b22);
+}
+
+.contributions__grid .contributions__day {
+  grid-column: var(--contrib-column);
+  grid-row: var(--contrib-row);
+}
+
+/* GitHub dark contribution graph, empty through busiest. */
+.contributions__day--0 {
+  --contrib-green: #161b22;
+}
+
+.contributions__day--1 {
+  --contrib-green: #0e4429;
+}
+
+.contributions__day--2 {
+  --contrib-green: #006d32;
+}
+
+.contributions__day--3 {
+  --contrib-green: #26a641;
+}
+
+.contributions__day--4 {
+  --contrib-green: #39d353;
+}
+
+.contributions__legend {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.4rem;
+  margin: 0.85rem 0 0;
+  font-size: 0.75rem;
+}
+
+.contributions__swatches {
+  display: flex;
+  gap: var(--contrib-gap);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .workshop-stage__glow,
   .workshop-hotspot,
