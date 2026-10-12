@@ -1,0 +1,84 @@
+---
+import { getSocialLink } from '@shared/lib/site'
+
+import { contributionLevelModifier } from '@/lib/github-contributions'
+import type { ContributionCalendar } from '@/lib/github-contributions'
+
+type Props = {
+  calendar: ContributionCalendar
+}
+
+const { calendar } = Astro.props
+const github = getSocialLink('GitHub')
+const columns = `repeat(${calendar.weekCount}, var(--contrib-size))`
+const weekdays = ['', 'Mon', '', 'Wed', '', 'Fri', '']
+---
+
+<section class="home-section" aria-labelledby="contributions-title">
+  <div class="home-section__head">
+    <h2 id="contributions-title">Contributions</h2>
+    <a
+      class="home-section__all"
+      href={github.href}
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      GitHub →
+      <span class="visually-hidden"> (opens in new tab)</span>
+    </a>
+  </div>
+  <p class="contributions__total">{calendar.totalLabel}</p>
+  <div class="contributions">
+    <div class="contributions__scroll">
+      <div class="contributions__frame">
+        <div
+          class="contributions__months"
+          style={`grid-template-columns: ${columns}`}
+        >
+          {
+            calendar.months.map(month => (
+              <span
+                class="contributions__month"
+                style={`--contrib-start: ${month.column + 1}; --contrib-span: ${month.span}`}
+              >
+                {month.name}
+              </span>
+            ))
+          }
+        </div>
+        <div class="contributions__weekdays" aria-hidden="true">
+          {weekdays.map(label => <span>{label}</span>)}
+        </div>
+        <div
+          aria-hidden="true"
+          class="contributions__grid"
+          style={`grid-template-columns: ${columns}`}
+        >
+          {
+            calendar.days.map(day => (
+              <span
+                class:list={[
+                  'contributions__day',
+                  `contributions__day--${contributionLevelModifier(day.level)}`,
+                ]}
+                style={`--contrib-column: ${day.column + 1}; --contrib-row: ${day.row + 1}`}
+                title={day.label}
+              />
+            ))
+          }
+        </div>
+      </div>
+    </div>
+    <p class="contributions__legend">
+      <span>Less</span>
+      <span class="contributions__swatches" aria-hidden="true">
+        <span class="contributions__day contributions__day--0"></span>
+        <span class="contributions__day contributions__day--1"></span>
+        <span class="contributions__day contributions__day--2"></span>
+        <span class="contributions__day contributions__day--3"></span>
+        <span class="contributions__day contributions__day--4"></span>
+      </span>
+      <span>More</span>
+    </p>
+  </div>
+</section>

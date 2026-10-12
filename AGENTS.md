@@ -56,7 +56,7 @@ Vite overrides in root `package.json` keep `@vitejs/plugin-react` on v6 with Ast
 
 | Route | Purpose |
 | --- | --- |
-| `/` | Home (letter + workshop still, latest writing). Last shipped is off via `showHomeLastShipped` |
+| `/` | Home (letter + workshop still, latest writing, then the GitHub contribution map). Last shipped is off via `showHomeLastShipped` |
 | `/shipped` | Last shipped list (direct URL only while the Home flag is off, not in nav) |
 | `/writing` | Essays |
 | `/writing/{slug}` | Post |
@@ -177,5 +177,6 @@ See `.cursor/commands/bump-dependencies.md` for npm + GHA tracks.
 | Blog prose + callouts | `code/app/web/src/style/prose.css` |
 | Last shipped | `code/app/web/src/content/shipped/`, `src/lib/shipped.ts`, `src/lib/product.ts` |
 | Workshop | `src/lib/workshop.ts`, `src/lib/createWorkshop.ts`, `src/component/WorkshopStage.tsx`, `public/workshop/` |
+| Contributions | `src/lib/github-contributions.ts`, `src/component/Contributions.astro`. Home section under Latest writing. Build-time GraphQL with `GITHUB_CONTRIBUTIONS_TOKEN` (`read:user`). Hide the section if the fetch fails. Squares are five white opacities. Daily refresh is `.github/workflows/refresh-contributions.yml` (`VERCEL_DEPLOY_HOOK`). |
 | Lint | `biome.json`, knip |
 | CI | `.github/workflows/web-*.yml` |

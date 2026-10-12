@@ -148,6 +148,22 @@ assert(
   home.includes('https://github.com/JideLambo'),
   'Home letter should link GitHub',
 )
+const contributionsTitle = home.indexOf('id="contributions-title"')
+if (contributionsTitle !== -1) {
+  const latestWriting = home.indexOf('>Latest writing<')
+  assert(
+    latestWriting !== -1 && latestWriting < contributionsTitle,
+    'Contributions stay under Latest writing',
+  )
+  assert(home.includes('GitHub →'), 'Contributions should link GitHub')
+  assert(home.includes('>Less<'), 'Contributions should show the less label')
+  assert(home.includes('>More<'), 'Contributions should show the more label')
+  assert(
+    home.includes('contributions__day--0') &&
+      home.includes('contributions__day--4'),
+    'Contributions should paint empty and full days',
+  )
+}
 assert(
   !home.includes('id="projects"'),
   'Home must not render a Projects section',
