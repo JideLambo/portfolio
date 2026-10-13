@@ -15,6 +15,7 @@ export const beliefGroups: readonly BeliefGroup[] = [
       'Meet people where they already are.',
       'Give value before you ask for anything.',
       'Give people something that works on day one, not a kit to build it.',
+      'Be the harness, not the system of record.',
       'Start simple. Upgrade when it hurts.',
       'Founders should do the first sales themselves.',
     ],
@@ -23,7 +24,7 @@ export const beliefGroups: readonly BeliefGroup[] = [
   {
     id: 'ai',
     items: [
-      'Every tool should return a next step, not a bare error.',
+      'Every agent tool should return a next step, not a bare error.',
       'Every bug becomes a test before the fix merges.',
       "Let agents act. Keep a human on the calls you can't take back.",
       "Download a good local model and keep it on a drive. It's yours forever.",
