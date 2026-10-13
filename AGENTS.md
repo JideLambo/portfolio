@@ -56,7 +56,7 @@ Vite overrides in root `package.json` keep `@vitejs/plugin-react` on v6 with Ast
 
 | Route | Purpose |
 | --- | --- |
-| `/` | Home (letter + workshop still, GitHub contribution map, then latest writing). Last shipped is off via `showHomeLastShipped` |
+| `/` | Home (letter + workshop still, GitHub contribution map, then My beliefs). Last shipped is off via `showHomeLastShipped` |
 | `/shipped` | Last shipped list (direct URL only while the Home flag is off, not in nav) |
 | `/writing` | Essays |
 | `/writing/{slug}` | Post |
@@ -87,7 +87,7 @@ Nav: Home · Work · Writing.
 Home Last shipped is a stacked deck of three ships. It is hidden on Home while `showHomeLastShipped` in `code/app/web/src/lib/site-flags.ts` is false. Flip that flag to restore the Home section. `/shipped` stays at its URL:
 
 - Eyebrow: `Last shipped`, with `All shipped →` (`/shipped`)
-- Home `Latest writing` uses the same quiet title type and All → row
+- Home `My beliefs` uses the same quiet title type as Last shipped. Copy lives in `src/content/beliefs.ts`. Writing routes stay at `/writing`
 - Front card is primary. Empty nested card backs peek top/right. Inactive ships are hidden, not a content sliver
 - Three ships: Local AI on your machine (`personal`), Wonderstand (`gre`), Morning who needs you (`firstdistro`)
 - Visual: HTML/CSS light UI fragment on the dark card, slightly cropped. On small screens the crop is short so title and body stay primary; from 48rem the visual is a 12.5rem side panel. Local is a status card (model, ready, one tool line). GRE is a 2–3 bubble iMessage thread. Morning is one Slack briefing card. No abstract glyphs
@@ -108,9 +108,9 @@ Home Last shipped is a stacked deck of three ships. It is hidden on Home while `
 
 ## Content (workshop)
 
-Home hero is the locked letter (left) plus a warm-lit workshop still (right). Mobile stacks letter, then workshop. The contribution map comes next, then latest writing. Last shipped, when `showHomeLastShipped` is true, sits above the map.
+Home hero is the locked letter (left) plus a warm-lit workshop still (right). Mobile stacks letter, then workshop. The contribution map comes next, then My beliefs. Last shipped, when `showHomeLastShipped` is true, sits above the map.
 
-- Letter: compact editorial type (not billboard). Copy is locked in `HomeLetter.astro`: "I founded these, and I still design and build them." Then Wonderstand (the realtor OS, linked to wonderstand.ai), FirstDistro, and UseLay. Each product is an "is" sentence. No repeated "I'm building" or "I built". The Sinch line ends at messaging and AI for businesses. The reach line is X or email. Small screens: letter max 22rem, ~18px opener / ~14px body. From 64rem the letter column is 24rem, ~22px / 16px, with a gap before the Sinch line
+- Letter: compact editorial type (not billboard). Copy is locked in `HomeLetter.astro`: "I founded these, and I still design and build them." Then Wonderstand (the AI coworker in messages for realtors, linked to wonderstand.ai), FirstDistro, and UseLay. Each product is an "is" sentence. No repeated "I'm building" or "I built". The Sinch line ends at messaging and AI for businesses. The reach line is X or email. Small screens: letter max 22rem, ~18px opener / ~14px body. From 64rem the letter column is 24rem, ~22px / 16px, with a gap before the Sinch line
 - Phase 1: static still + HTML hotspot hit targets + glass cards. Invisible hits, small point + label on hover. No floating HUD
 - Phase 2: lazy `createWorkshop` Three.js scene over the still (OrbitControls, pause / reset). WebGL fail or reduced motion keeps the still + HTML hotspots
 - Still: `code/app/web/public/workshop/still.webp` (+ png fallback)
@@ -183,7 +183,7 @@ See `.cursor/commands/bump-dependencies.md` for npm + GHA tracks.
 | Blog prose + callouts | `code/app/web/src/style/prose.css` |
 | Last shipped | `code/app/web/src/content/shipped/`, `src/lib/shipped.ts`, `src/lib/product.ts` |
 | Workshop | `src/lib/workshop.ts`, `src/lib/createWorkshop.ts`, `src/component/WorkshopStage.tsx`, `public/workshop/` |
-| Contributions | `src/lib/github-contributions.ts`, `src/component/Contributions.astro`. Home section above Latest writing. Build-time GraphQL with `GITHUB_CONTRIBUTIONS_TOKEN` (`read:user`). Hide the section if the fetch fails. Squares are GitHub's dark graph greens. Daily refresh is `.github/workflows/refresh-contributions.yml` (`VERCEL_DEPLOY_HOOK`). |
+| Contributions | `src/lib/github-contributions.ts`, `src/component/Contributions.astro`. Home section above My beliefs. Build-time GraphQL with `GITHUB_CONTRIBUTIONS_TOKEN` (`read:user`). Hide the section if the fetch fails. Squares are GitHub's dark graph greens. Daily refresh is `.github/workflows/refresh-contributions.yml` (`VERCEL_DEPLOY_HOOK`). |
 | Learn | `.cursor/rules/learn.mdc`, `learn/INDEX.md` |
 | Lint | `biome.json`, knip |
 | CI | `.github/workflows/web-*.yml` |

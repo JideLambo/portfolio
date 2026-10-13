@@ -2,7 +2,7 @@ import type { CollectionEntry } from 'astro:content'
 import { getCollection } from 'astro:content'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { getHomepageWriting, getPostSlug, getPublishedPosts } from '@/lib/post'
+import { getPostSlug, getPublishedPosts } from '@/lib/post'
 
 const blogPost = (
   data: Partial<CollectionEntry<'blog'>['data']> &
@@ -81,37 +81,6 @@ describe('post', () => {
       await expect(getPublishedPosts()).rejects.toThrow(
         'Duplicate blog slug: duplicate-slug',
       )
-    })
-  })
-
-  describe('getHomepageWriting', () => {
-    it('returns the latest published post', async () => {
-      const posts = [
-        blogPost({
-          pubDate: new Date('2026-07-01T00:00:00.000Z'),
-          slug: 'latest-post',
-        }),
-        blogPost({
-          pubDate: new Date('2026-01-01T00:00:00.000Z'),
-          slug: 'older-post',
-        }),
-      ]
-
-      vi.mocked(getCollection).mockImplementation(
-        async (_collection, filter) => (filter ? posts.filter(filter) : posts),
-      )
-
-      const { latestPosts } = await getHomepageWriting()
-
-      expect(latestPosts.map(getPostSlug)).toEqual(['latest-post'])
-    })
-
-    it('returns an empty list when there are no published posts', async () => {
-      vi.mocked(getCollection).mockResolvedValue([])
-
-      const { latestPosts } = await getHomepageWriting()
-
-      expect(latestPosts).toEqual([])
     })
   })
 })

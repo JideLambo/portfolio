@@ -1,18 +1,16 @@
 ---
 import { getSocialLink } from '@shared/lib/site'
+import Beliefs from '@/component/Beliefs.astro'
 import Contributions from '@/component/Contributions.astro'
 import HomeLetter from '@/component/HomeLetter.astro'
 import LastShipped from '@/component/LastShipped.astro'
-import PostList from '@/component/PostList.astro'
 import WorkshopStage from '@/component/WorkshopStage'
 import Layout from '@/layout/Layout.astro'
 import {
   fetchContributionCalendar,
   githubLoginFromHref,
 } from '@/lib/github-contributions'
-import { getHomepageWriting } from '@/lib/post'
 
-const { latestPosts } = await getHomepageWriting()
 const githubLogin = githubLoginFromHref(getSocialLink('GitHub').href)
 const contributions = githubLogin
   ? await fetchContributionCalendar(githubLogin)
@@ -30,18 +28,6 @@ const contributions = githubLogin
 
     {contributions && <Contributions calendar={contributions} />}
 
-    {
-      latestPosts.length > 0 && (
-        <section class="home-section">
-          <div class="home-section__head">
-            <h2>Latest writing</h2>
-            <a class="home-section__all" href="/writing">
-              All writing →
-            </a>
-          </div>
-          <PostList posts={latestPosts} />
-        </section>
-      )
-    }
+    <Beliefs />
   </div>
 </Layout>

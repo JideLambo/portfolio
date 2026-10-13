@@ -360,6 +360,36 @@
   text-underline-offset: 0.22em;
 }
 
+.beliefs {
+  display: grid;
+  gap: 1.75rem;
+}
+
+.beliefs__group h3 {
+  margin: 0 0 0.45rem;
+  color: var(--text);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.3;
+}
+
+.beliefs__group ul {
+  margin: 0;
+  padding: 0 0 0 1.15rem;
+  color: var(--text);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.beliefs__group li + li {
+  margin-top: 0.4rem;
+}
+
+.beliefs__group li::marker {
+  color: var(--text);
+}
+
 .home-section__all {
   color: var(--text);
   font-size: 0.9rem;

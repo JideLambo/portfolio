@@ -10,6 +10,7 @@ import {
   useLayUrl,
   wonderstandUrl,
 } from '@shared/lib/site'
+import { beliefGroups } from '../src/content/beliefs.ts'
 import { showHomeLastShipped } from '../src/lib/site-flags.ts'
 
 const dist = new URL('../dist/', import.meta.url)
@@ -93,8 +94,8 @@ assert(
   'Home letter should describe UseLay',
 )
 assert(
-  home.includes('the realtor OS'),
-  'Home letter should name Wonderstand as the realtor OS',
+  home.includes('is the AI coworker in messages for realtors.'),
+  'Home letter should name Wonderstand as the AI coworker in messages for realtors',
 )
 assert(
   home.indexOf(`href="${wonderstandUrl}"`) <
@@ -150,10 +151,10 @@ assert(
 )
 const contributionsTitle = home.indexOf('id="contributions-title"')
 if (contributionsTitle !== -1) {
-  const latestWriting = home.indexOf('>Latest writing<')
+  const beliefsTitle = home.indexOf('>My beliefs<')
   assert(
-    latestWriting !== -1 && contributionsTitle < latestWriting,
-    'Contributions stay above Latest writing',
+    beliefsTitle !== -1 && contributionsTitle < beliefsTitle,
+    'Contributions stay above My beliefs',
   )
   assert(home.includes('GitHub →'), 'Contributions should link GitHub')
   assert(
@@ -236,11 +237,21 @@ assert(
     home.indexOf('workshop-stage'),
   'Home should be letter, then workshop',
 )
-assert(home.includes('Latest writing'), 'Home should include Latest writing')
-assert(
-  home.includes('All writing →'),
-  'Home Latest writing should keep the All writing row',
-)
+assert(home.includes('>My beliefs<'), 'Home should include My beliefs')
+assert(!home.includes('Latest writing'), 'Home must not include Latest writing')
+assert(!home.includes('All writing →'), 'Home must not keep the writing row')
+for (const group of beliefGroups) {
+  assert(
+    home.includes(`>${group.title}<`),
+    `Home should include ${group.title}`,
+  )
+  for (const item of group.items) {
+    assert(
+      home.includes(item.replaceAll("'", '&#39;')),
+      `Home should include: ${item}`,
+    )
+  }
+}
 assert(
   home.includes('Morning who needs you'),
   'Home workshop should still name the FirstDistro card',
