@@ -10,6 +10,18 @@ export type BeliefGroup = {
 
 export const beliefGroups: readonly BeliefGroup[] = [
   {
+    id: 'life',
+    items: [
+      "Be optimistic. It's the only stance that builds anything.",
+      'Agency beats permission. Just do it.',
+      "When it doesn't work, dust off and go again until it does.",
+      "Keep making bets, even after one doesn't land.",
+      'We must create, not just consume.',
+      'Abundance thinking builds the future.',
+    ],
+    title: 'Life',
+  },
+  {
     id: 'building',
     items: [
       'Meet people where they already are.',
@@ -41,17 +53,5 @@ export const beliefGroups: readonly BeliefGroup[] = [
       'Eloquence is clarity: people understand you the first time.',
     ],
     title: 'Work',
-  },
-  {
-    id: 'life',
-    items: [
-      "Be optimistic. It's the only stance that builds anything.",
-      'Agency beats permission. Just do it.',
-      "When it doesn't work, dust off and go again until it does.",
-      "Keep making bets, even after one doesn't land.",
-      'We must create, not just consume.',
-      'Abundance thinking builds the future.',
-    ],
-    title: 'Life',
   },
 ]

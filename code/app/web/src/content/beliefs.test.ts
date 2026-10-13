@@ -8,6 +8,18 @@ describe('beliefGroups', () => {
       beliefGroups.map(group => [group.id, group.title, group.items]),
     ).toEqual([
       [
+        'life',
+        'Life',
+        [
+          "Be optimistic. It's the only stance that builds anything.",
+          'Agency beats permission. Just do it.',
+          "When it doesn't work, dust off and go again until it does.",
+          "Keep making bets, even after one doesn't land.",
+          'We must create, not just consume.',
+          'Abundance thinking builds the future.',
+        ],
+      ],
+      [
         'building',
         'Building',
         [
@@ -38,18 +50,6 @@ describe('beliefGroups', () => {
           "Did you ship? What did you learn? Can we make it better? That's the whole meeting.",
           'Small teams beat large ones.',
           'Eloquence is clarity: people understand you the first time.',
-        ],
-      ],
-      [
-        'life',
-        'Life',
-        [
-          "Be optimistic. It's the only stance that builds anything.",
-          'Agency beats permission. Just do it.',
-          "When it doesn't work, dust off and go again until it does.",
-          "Keep making bets, even after one doesn't land.",
-          'We must create, not just consume.',
-          'Abundance thinking builds the future.',
         ],
       ],
     ])
