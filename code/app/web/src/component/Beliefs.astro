@@ -1,0 +1,23 @@
+---
+import { beliefGroups } from '@/content/beliefs'
+---
+
+<section class="home-section" aria-labelledby="beliefs-title">
+  <div class="home-section__head">
+    <h2 id="beliefs-title">My beliefs</h2>
+  </div>
+  <div class="beliefs">
+    {
+      beliefGroups.map(group => (
+        <section class="beliefs__group" aria-labelledby={`beliefs-${group.id}`}>
+          <h3 id={`beliefs-${group.id}`}>{group.title}</h3>
+          <ul>
+            {group.items.map(item => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
+  </div>
+</section>
