@@ -14,7 +14,7 @@ describe('beliefGroups', () => {
           'Meet people where they already are.',
           'Give value before you ask for anything.',
           'Give people something that works on day one, not a kit to build it.',
-          'Be the harness, not the system of record.',
+          'Be the harness, not the system of record. Then own what the harness learns.',
           'Start simple. Upgrade when it hurts.',
           'Founders should do the first sales themselves.',
         ],

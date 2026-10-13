@@ -8,7 +8,7 @@ The Home page no longer lists a latest post. It shows My beliefs in the same qui
 
 ## What changed
 
-- `code/app/web/src/content/beliefs.ts`: the four groups and their lines, in order. Building includes "Be the harness, not the system of record." after the day-one line. The AI line says every agent tool should return a next step.
+- `code/app/web/src/content/beliefs.ts`: the four groups and their lines, in order. Building includes one belief after the day-one line: "Be the harness, not the system of record. Then own what the harness learns." The AI line says every agent tool should return a next step.
 - `code/app/web/src/content/beliefs.test.ts`: locks that copy and order.
 - `code/app/web/src/component/Beliefs.astro`: reads the file and renders the section.
 - `code/app/web/src/pages/index.astro`: drops the latest-writing block and renders `Beliefs` after the contribution map.
