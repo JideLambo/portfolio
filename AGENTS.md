@@ -110,7 +110,7 @@ Home Last shipped is a stacked deck of three ships. It is hidden on Home while `
 
 Home hero is the locked letter (left) plus a warm-lit workshop still (right). Mobile stacks letter, then workshop. The contribution map comes next, then My beliefs. Last shipped, when `showHomeLastShipped` is true, sits above the map.
 
-- Letter: compact editorial type (not billboard). Copy is locked in `HomeLetter.astro`: "I founded these, and I still design and build them." Then Wonderstand (the AI coworker in messages for realtors, linked to wonderstand.ai), FirstDistro, and UseLay. Each product is an "is" sentence. No repeated "I'm building" or "I built". The Sinch line ends at messaging and AI for businesses. The reach line is X or email. Small screens: letter max 22rem, ~18px opener / ~14px body. From 64rem the letter column is 24rem, ~22px / 16px, with a gap before the Sinch line
+- Letter: compact editorial type (not billboard). Copy is locked in `HomeLetter.astro`: "I founded these, and I still design and build them." Then Wonderstand (the AI coworker in messages for realtors, linked to wonderstand.ai), FirstDistro, and UseLay. Each product is an "is" sentence. No repeated "I'm building" or "I built". No dayside / Sinch employer line. The reach line is X or email. Small screens: letter max 22rem, ~18px opener / ~14px body. From 64rem the letter column is 24rem, ~22px / 16px
 - Phase 1: static still + HTML hotspot hit targets + glass cards. Invisible hits, small point + label on hover. No floating HUD
 - Phase 2: lazy `createWorkshop` Three.js scene over the still (OrbitControls, pause / reset). WebGL fail or reduced motion keeps the still + HTML hotspots
 - Still: `code/app/web/public/workshop/still.webp` (+ png fallback)

@@ -4,7 +4,6 @@ import { fileURLToPath } from 'node:url'
 
 import {
   firstDistroUrl,
-  sinchUrl,
   siteEmail,
   siteUrl,
   useLayUrl,
@@ -135,10 +134,6 @@ assert(
 assert(
   home.includes(`href="${wonderstandUrl}"`),
   'Home letter should link Wonderstand from site.ts',
-)
-assert(
-  home.includes(`href="${sinchUrl}"`),
-  'Home letter should link Sinch from site.ts',
 )
 assert(
   home.includes(`mailto:${siteEmail}`),
