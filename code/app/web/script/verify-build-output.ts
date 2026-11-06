@@ -288,9 +288,13 @@ if (showHomeWorkshop) {
     'Home must not render the workshop stage while the reel is on',
   )
   assert(
-    home.indexOf("I'm Jide, a product design engineer.") <
-      home.indexOf('hero-reel'),
-    'Home should be letter, then reel',
+    home.indexOf('hero-reel') <
+      home.indexOf("I'm Jide, a product design engineer."),
+    'Home should be reel, then letter',
+  )
+  assert(
+    home.includes('home-hero--reel'),
+    'Home hero should use the stacked reel layout',
   )
 }
 assert(home.includes('>My beliefs<'), 'Home should include My beliefs')

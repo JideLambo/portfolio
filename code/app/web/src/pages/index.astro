@@ -21,9 +21,20 @@ const contributions = githubLogin
 
 <Layout>
   <div class="wrap">
-    <div class="home-hero">
-      <HomeLetter />
-      {showHomeWorkshop ? <WorkshopStage client:load /> : <HeroReel />}
+    <div class:list={['home-hero', { 'home-hero--reel': !showHomeWorkshop }]}>
+      {
+        showHomeWorkshop ? (
+          <>
+            <HomeLetter />
+            <WorkshopStage client:load />
+          </>
+        ) : (
+          <>
+            <HeroReel />
+            <HomeLetter />
+          </>
+        )
+      }
     </div>
 
     <LastShipped />

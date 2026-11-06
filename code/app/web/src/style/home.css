@@ -5,6 +5,10 @@
   gap: clamp(1.5rem, 4vw, 2rem);
 }
 
+.home-hero--reel {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 .home-letter {
   display: grid;
   max-width: 22rem;
@@ -30,7 +34,7 @@
 }
 
 @media (width >= 64rem) {
-  .home-hero {
+  .home-hero:not(.home-hero--reel) {
     grid-template-columns: 24rem minmax(0, 1fr);
     gap: 1.75rem;
     align-items: start;
@@ -613,8 +617,8 @@
 .hero-reel__avatar {
   position: absolute;
   z-index: 2;
+  top: 0.75rem;
   left: 0.75rem;
-  bottom: -0.4rem;
   width: 2.75rem;
   height: 2.75rem;
   border: 2px solid var(--bg);
@@ -625,8 +629,8 @@
 
 @media (width >= 48rem) {
   .hero-reel__avatar {
+    top: 1rem;
     left: 1rem;
-    bottom: -0.55rem;
     width: 3.5rem;
     height: 3.5rem;
   }
@@ -634,8 +638,8 @@
 
 @media (width >= 64rem) {
   .hero-reel__avatar {
+    top: 1.1rem;
     left: 1.1rem;
-    bottom: -0.65rem;
     width: 4.25rem;
     height: 4.25rem;
   }
