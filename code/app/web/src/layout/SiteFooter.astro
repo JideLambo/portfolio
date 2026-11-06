@@ -1,18 +1,28 @@
 ---
-import { siteAuthor, socialLinks } from '@shared/lib/site'
+import { navItems, siteAuthor, socialLinks } from '@shared/lib/site'
 
 const year = new Date().getFullYear()
+const pathname = Astro.url.pathname
+const isActive = (href: string) =>
+  href === '/' ? pathname === '/' : pathname.startsWith(href)
+const footerLinks = [...navItems, ...socialLinks]
 ---
 
 <footer class="site-footer">
   <div class="wrap site-footer__inner">
-    <p>© {year} {siteAuthor}</p>
-    <nav class="site-footer__links" aria-label="Elsewhere">
+    <p>
+      © {year}{' '}
+      <a class="site-footer__home" href="/">{siteAuthor}</a>
+    </p>
+    <nav class="site-footer__links" aria-label="Site">
       {
-        socialLinks.map(link => (
+        footerLinks.map(link => (
           <a
             class:list={[link.external && 'external-link']}
             href={link.href}
+            aria-current={
+              link.external ? undefined : isActive(link.href) ? 'page' : undefined
+            }
             rel={link.external ? 'noopener noreferrer' : undefined}
             target={link.external ? '_blank' : undefined}
           >

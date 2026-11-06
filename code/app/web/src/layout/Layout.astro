@@ -2,7 +2,6 @@
 import Analytics from '@vercel/analytics/astro'
 import BaseHead from '@/layout/BaseHead.astro'
 import SiteFooter from '@/layout/SiteFooter.astro'
-import SiteHeader from '@/layout/SiteHeader.astro'
 import { siteName, siteTagline } from '@shared/lib/site'
 
 type Props = {
@@ -35,7 +34,6 @@ const pageTitle = title ? `${title} · ${siteName}` : `${siteName} · ${siteTagl
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
-    <SiteHeader />
     <main id="main" class="page" tabindex="-1">
       <slot />
     </main>
