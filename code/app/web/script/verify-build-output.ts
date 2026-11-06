@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url'
 
 import {
   firstDistroUrl,
+  sinchUrl,
   siteEmail,
   siteUrl,
   useLayUrl,
@@ -61,6 +62,10 @@ assertExists('jide-reel/jide-reel.mp4')
 assertExists('jide-reel/jide-reel.webm')
 assertExists('jide-reel/jide-reel-poster.jpg')
 assertExists('jide.jpg')
+assertExists('brands/wonderstand.svg')
+assertExists('brands/firstdistro.svg')
+assertExists('brands/uselay.svg')
+assertExists('brands/sinch.png')
 
 const llms = read('llms.txt')
 assert(llms.includes('Jide Lambo'), 'llms.txt should identify Jide Lambo')
@@ -76,36 +81,59 @@ const home = read('index.html')
 assert(!home.includes('href="/about"'), 'Home must not link to /about')
 assert(home.includes('href="/writing"'), 'Home page should link to /writing')
 assert(
-  home.includes("I'm Jide, a product design engineer."),
-  'Home should open with the letter',
+  home.includes("I'm Jide, and I built"),
+  'Home should open with the new letter',
 )
 assert(
-  home.includes('I founded these, and I still design and build them.'),
-  'Home letter should tie the products to Jide before naming them',
+  home.includes('AI assistants in iMessage for vertical businesses'),
+  'Home letter should describe Wonderstand',
 )
 assert(
-  home.indexOf('I founded these, and I still design and build them.') <
-    home.indexOf(`href="${wonderstandUrl}"`),
-  'Home letter should introduce the products before Wonderstand',
-)
-assert(
-  home.includes('account intelligence for customer success'),
+  home.includes('account and revenue intelligence'),
   'Home letter should describe FirstDistro',
 )
 assert(
-  home.includes('pins comments to the UI'),
+  home.includes('in-app feedback that pins comments to your UI'),
   'Home letter should describe UseLay',
 )
 assert(
-  home.includes('is the AI coworker in messages for realtors.'),
-  'Home letter should name Wonderstand as the AI coworker in messages for realtors',
+  home.includes('building an intelligent inbox'),
+  'Home letter should mention the Sinch intelligent inbox',
 )
 assert(
   home.indexOf(`href="${wonderstandUrl}"`) <
     home.indexOf(`href="${firstDistroUrl}"`) &&
     home.indexOf(`href="${firstDistroUrl}"`) <
-      home.indexOf(`href="${useLayUrl}"`),
-  'Home letter should name Wonderstand, then FirstDistro, then UseLay',
+      home.indexOf(`href="${useLayUrl}"`) &&
+    home.indexOf(`href="${useLayUrl}"`) < home.indexOf(`href="${sinchUrl}"`),
+  'Home letter should name Wonderstand, FirstDistro, UseLay, then Sinch',
+)
+assert(
+  home.includes('/brands/wonderstand.svg') &&
+    home.includes('/brands/firstdistro.svg') &&
+    home.includes('/brands/uselay.svg') &&
+    home.includes('/brands/sinch.png'),
+  'Home letter should show inline product logos',
+)
+assert(
+  home.includes('home-letter__product') && home.includes('home-letter__logo'),
+  'Home letter product names should use the notable product link style',
+)
+assert(
+  !home.includes("I'm Jide, a product design engineer."),
+  'Home letter must not keep the old opener',
+)
+assert(
+  !home.includes('I founded these, and I still design and build them.'),
+  'Home letter must not keep the old founder line',
+)
+assert(
+  !home.includes('is the AI coworker in messages for realtors.'),
+  'Home letter must not keep the old Wonderstand clause',
+)
+assert(
+  !home.includes('account intelligence for customer success'),
+  'Home letter must not keep the old FirstDistro clause',
 )
 assert(
   !home.includes("I'm building") && !home.includes('I also built'),
@@ -121,7 +149,7 @@ assert(
 )
 assert(
   !home.includes('account intelligence for lean CS'),
-  'Home letter must not keep the old FirstDistro clause',
+  'Home letter must not keep the older FirstDistro clause',
 )
 assert(
   !home.includes('shipping small agent experiments'),
@@ -140,10 +168,17 @@ assert(
   'Home letter should link Wonderstand from site.ts',
 )
 assert(
-  home.includes(`mailto:${siteEmail}`),
-  'Home letter should link email from site.ts',
+  home.includes(`href="${sinchUrl}"`),
+  'Home letter should link Sinch from site.ts',
 )
-assert(home.includes('https://x.com/JideLambo'), 'Home letter should link X')
+assert(
+  !home.includes('Reach me on'),
+  'Home letter must not keep the reach line',
+)
+assert(
+  !home.includes(`mailto:${siteEmail}`),
+  'Home letter must not keep the email reach link',
+)
 assert(
   !home.includes('or GitHub'),
   'Home letter should not offer GitHub as a way to reach me',
@@ -239,8 +274,7 @@ if (showHomeWorkshop) {
     'Workshop should load the art-direction still',
   )
   assert(
-    home.indexOf("I'm Jide, a product design engineer.") <
-      home.indexOf('workshop-stage'),
+    home.indexOf("I'm Jide, and I built") < home.indexOf('workshop-stage'),
     'Home should be letter, then workshop',
   )
   assert(
@@ -288,8 +322,7 @@ if (showHomeWorkshop) {
     'Home must not render the workshop stage while the reel is on',
   )
   assert(
-    home.indexOf('hero-reel') <
-      home.indexOf("I'm Jide, a product design engineer."),
+    home.indexOf('hero-reel') < home.indexOf("I'm Jide, and I built"),
     'Home should be reel, then letter',
   )
   assert(
@@ -603,6 +636,12 @@ assert(
     (cssBundle.includes('border-radius:9999px') ||
       cssBundle.includes('border-radius: 9999px')),
   'Hero reel avatar should be round',
+)
+assert(
+  cssBundle.includes('.home-letter__product') &&
+    (cssBundle.includes('font-weight:600') ||
+      cssBundle.includes('font-weight: 600')),
+  'Home letter product names should read clearly bolder than body text',
 )
 assert(
   !cssBundle.includes('home-intro__photo'),

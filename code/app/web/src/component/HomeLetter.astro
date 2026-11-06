@@ -1,47 +1,79 @@
 ---
 import {
   firstDistroUrl,
-  getSocialLink,
-  siteEmail,
+  sinchUrl,
   useLayUrl,
   wonderstandUrl,
 } from '@shared/lib/site'
 
-const x = getSocialLink('X')
+const products = [
+  {
+    href: wonderstandUrl,
+    label: 'Wonderstand',
+    logo: '/brands/wonderstand.svg',
+    blurb: 'AI assistants in iMessage for vertical businesses',
+  },
+  {
+    href: firstDistroUrl,
+    label: 'FirstDistro',
+    logo: '/brands/firstdistro.svg',
+    blurb: 'account and revenue intelligence',
+  },
+  {
+    href: useLayUrl,
+    label: 'UseLay',
+    logo: '/brands/uselay.svg',
+    blurb: 'in-app feedback that pins comments to your UI',
+  },
+] as const
 ---
 
 <section class="home-letter" aria-label="Introduction">
-  <h1>I'm Jide, a product design engineer.</h1>
-  <p>I founded these, and I still design and build them.</p>
+  <h1 class="visually-hidden">I'm Jide</h1>
   <p>
-    <a href={wonderstandUrl} rel="noopener noreferrer" target="_blank">
-      Wonderstand
+    I'm Jide, and I built{' '}
+    {
+      products.map((product, index) => (
+        <>
+          {index === products.length - 1 ? ' and ' : index > 0 ? ', ' : null}
+          <a
+            class="home-letter__product"
+            href={product.href}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              class="home-letter__logo"
+              src={product.logo}
+              alt=""
+              width="16"
+              height="16"
+              decoding="async"
+            />
+            {product.label}
+            <span class="visually-hidden"> (opens in new tab)</span>
+          </a>
+          {' '}
+          ({product.blurb})
+        </>
+      ))
+    }. I'm also working at{' '}
+    <a
+      class="home-letter__product"
+      href={sinchUrl}
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      <img
+        class="home-letter__logo"
+        src="/brands/sinch.png"
+        alt=""
+        width="16"
+        height="16"
+        decoding="async"
+      />
+      Sinch
       <span class="visually-hidden"> (opens in new tab)</span>
-    </a>{' '}
-    is the AI coworker in messages for realtors. From iMessage, SMS, and WhatsApp, AI agents answer
-    buyers, and realtors send them to handle customers, listings, and
-    contracts.
-  </p>
-  <p>
-    <a href={firstDistroUrl} rel="noopener noreferrer" target="_blank">
-      FirstDistro
-      <span class="visually-hidden"> (opens in new tab)</span>
-    </a>{' '}
-    is account intelligence for customer success.
-  </p>
-  <p>
-    <a href={useLayUrl} rel="noopener noreferrer" target="_blank">
-      UseLay
-      <span class="visually-hidden"> (opens in new tab)</span>
-    </a>{' '}
-    is in-app feedback that pins comments to the UI.
-  </p>
-  <p>
-    Reach me on{' '}
-    <a href={x.href} rel="noopener noreferrer" target="_blank">
-      X
-      <span class="visually-hidden"> (opens in new tab)</span>
-    </a>{' '}
-    or <a href={`mailto:${siteEmail}`}>email</a>.
+    </a>, building an intelligent inbox.
   </p>
 </section>

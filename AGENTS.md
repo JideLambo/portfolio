@@ -112,7 +112,7 @@ Home hero is either the silent build reel stacked above the locked letter (`Hero
 
 - Reel (default): full content width above the letter. `public/jide-reel/` mp4 + webm + poster, 16:10, autoplay muted loop, no controls, poster under `prefers-reduced-motion`. Round `/jide.jpg` avatar sits on the top-left corner of the video frame as page UI, not inside the encode.
 
-- Letter: compact editorial type (not billboard). Copy is locked in `HomeLetter.astro`: "I founded these, and I still design and build them." Then Wonderstand (the AI coworker in messages for realtors, linked to wonderstand.ai), FirstDistro, and UseLay. Each product is an "is" sentence. No repeated "I'm building" or "I built". No dayside / Sinch employer line. The reach line is X or email. Small screens: letter max 22rem, ~18px opener / ~14px body. From 64rem the letter column is 24rem, ~22px / 16px
+- Letter: one paragraph in `HomeLetter.astro`: "I'm Jide, and I built Wonderstand / FirstDistro / UseLay … I'm also working at Sinch, building an intelligent inbox." Each product name is a medium-weight link with a small inline logo from `public/brands/`. No X/email reach line in the letter. Under the reel layout the letter can widen to ~40rem; workshop mode still uses the compact column
 - Phase 1: static still + HTML hotspot hit targets + glass cards. Invisible hits, small point + label on hover. No floating HUD
 - Phase 2: lazy `createWorkshop` Three.js scene over the still (OrbitControls, pause / reset). WebGL fail or reduced motion keeps the still + HTML hotspots
 - Still: `code/app/web/public/workshop/still.webp` (+ png fallback)

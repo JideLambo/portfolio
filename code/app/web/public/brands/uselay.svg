@@ -1,0 +1,14 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg"><title>UseLay</title>
+  <circle cx="256" cy="256" r="148" fill="#F26A21" />
+  <circle
+    cx="256"
+    cy="256"
+    r="198"
+    stroke="#F26A21"
+    stroke-opacity="0.55"
+    stroke-width="34"
+    stroke-linecap="round"
+    stroke-dasharray="760 430"
+    transform="rotate(-28 256 256)"
+  />
+</svg>

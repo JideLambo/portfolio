@@ -33,6 +33,26 @@
   line-height: 1.45;
 }
 
+.home-hero--reel .home-letter {
+  max-width: 40rem;
+}
+
+.home-letter__product {
+  display: inline;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.home-letter__logo {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-right: 0.28em;
+  vertical-align: -0.15em;
+  object-fit: contain;
+  border-radius: 0.15em;
+}
+
 @media (width >= 64rem) {
   .home-hero:not(.home-hero--reel) {
     grid-template-columns: 24rem minmax(0, 1fr);
