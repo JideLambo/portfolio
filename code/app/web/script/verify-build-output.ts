@@ -80,6 +80,21 @@ assert(llms.includes(wonderstandUrl), 'llms.txt should link Wonderstand')
 const home = read('index.html')
 assert(!home.includes('href="/about"'), 'Home must not link to /about')
 assert(home.includes('href="/writing"'), 'Home page should link to /writing')
+assert(home.includes('href="/work"'), 'Home page should link to /work')
+assert(
+  !home.includes('site-header') && !home.includes('site-nav'),
+  'Home must not render the top navbar',
+)
+assert(
+  !home.includes('aria-label="Primary"'),
+  'Home must not keep the primary header nav',
+)
+assert(home.includes('aria-label="Site"'), 'Footer should expose the site menu')
+assert(
+  home.includes('site-footer__home') &&
+    home.indexOf('site-footer') < home.indexOf('site-footer__links'),
+  'Footer name should link Home beside the site menu',
+)
 assert(
   home.includes("I'm Jide, and I built"),
   'Home should open with the new letter',
@@ -646,6 +661,15 @@ assert(
 assert(
   !cssBundle.includes('home-intro__photo'),
   'Built CSS must not keep the Home portrait layout',
+)
+assert(
+  !cssBundle.includes('.site-header') && !cssBundle.includes('.site-nav'),
+  'Built CSS must not keep the top navbar',
+)
+assert(
+  cssBundle.includes('.site-footer__links') &&
+    cssBundle.includes('.site-footer__home'),
+  'Built CSS should style the footer site menu and Home name link',
 )
 
 const aboutMissing = !existsSync(file('about/index.html'))

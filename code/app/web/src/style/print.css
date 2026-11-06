@@ -27,7 +27,6 @@
   }
 
   /* Chrome is navigation, and paper has no navigation. */
-  .site-header,
   .site-footer,
   .back-link {
     display: none;
