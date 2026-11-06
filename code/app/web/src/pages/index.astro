@@ -2,6 +2,7 @@
 import { getSocialLink } from '@shared/lib/site'
 import Beliefs from '@/component/Beliefs.astro'
 import Contributions from '@/component/Contributions.astro'
+import HeroReel from '@/component/HeroReel.astro'
 import HomeLetter from '@/component/HomeLetter.astro'
 import LastShipped from '@/component/LastShipped.astro'
 import WorkshopStage from '@/component/WorkshopStage'
@@ -10,6 +11,7 @@ import {
   fetchContributionCalendar,
   githubLoginFromHref,
 } from '@/lib/github-contributions'
+import { showHomeWorkshop } from '@/lib/site-flags'
 
 const githubLogin = githubLoginFromHref(getSocialLink('GitHub').href)
 const contributions = githubLogin
@@ -19,9 +21,20 @@ const contributions = githubLogin
 
 <Layout>
   <div class="wrap">
-    <div class="home-hero">
-      <HomeLetter />
-      <WorkshopStage client:load />
+    <div class:list={['home-hero', { 'home-hero--reel': !showHomeWorkshop }]}>
+      {
+        showHomeWorkshop ? (
+          <>
+            <HomeLetter />
+            <WorkshopStage client:load />
+          </>
+        ) : (
+          <>
+            <HeroReel />
+            <HomeLetter />
+          </>
+        )
+      }
     </div>
 
     <LastShipped />

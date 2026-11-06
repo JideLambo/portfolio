@@ -4,13 +4,14 @@ import { fileURLToPath } from 'node:url'
 
 import {
   firstDistroUrl,
+  sinchUrl,
   siteEmail,
   siteUrl,
   useLayUrl,
   wonderstandUrl,
 } from '@shared/lib/site'
 import { beliefGroups } from '../src/content/beliefs.ts'
-import { showHomeLastShipped } from '../src/lib/site-flags.ts'
+import { showHomeLastShipped, showHomeWorkshop } from '../src/lib/site-flags.ts'
 
 const dist = new URL('../dist/', import.meta.url)
 const distPath = fileURLToPath(dist)
@@ -57,6 +58,14 @@ assertExists('llms.txt')
 assertExists('robots.txt')
 assertExists('workshop/still.webp')
 assertExists('workshop/still.png')
+assertExists('jide-reel/jide-reel.mp4')
+assertExists('jide-reel/jide-reel.webm')
+assertExists('jide-reel/jide-reel-poster.jpg')
+assertExists('jide.jpg')
+assertExists('brands/wonderstand.svg')
+assertExists('brands/firstdistro.svg')
+assertExists('brands/uselay.svg')
+assertExists('brands/sinch.png')
 
 const llms = read('llms.txt')
 assert(llms.includes('Jide Lambo'), 'llms.txt should identify Jide Lambo')
@@ -72,36 +81,59 @@ const home = read('index.html')
 assert(!home.includes('href="/about"'), 'Home must not link to /about')
 assert(home.includes('href="/writing"'), 'Home page should link to /writing')
 assert(
-  home.includes("I'm Jide, a product design engineer."),
-  'Home should open with the letter',
+  home.includes("I'm Jide, and I built"),
+  'Home should open with the new letter',
 )
 assert(
-  home.includes('I founded these, and I still design and build them.'),
-  'Home letter should tie the products to Jide before naming them',
+  home.includes('AI assistants in iMessage for vertical businesses'),
+  'Home letter should describe Wonderstand',
 )
 assert(
-  home.indexOf('I founded these, and I still design and build them.') <
-    home.indexOf(`href="${wonderstandUrl}"`),
-  'Home letter should introduce the products before Wonderstand',
-)
-assert(
-  home.includes('account intelligence for customer success'),
+  home.includes('account and revenue intelligence'),
   'Home letter should describe FirstDistro',
 )
 assert(
-  home.includes('pins comments to the UI'),
+  home.includes('in-app feedback that pins comments to your UI'),
   'Home letter should describe UseLay',
 )
 assert(
-  home.includes('is the AI coworker in messages for realtors.'),
-  'Home letter should name Wonderstand as the AI coworker in messages for realtors',
+  home.includes('building an intelligent inbox'),
+  'Home letter should mention the Sinch intelligent inbox',
 )
 assert(
   home.indexOf(`href="${wonderstandUrl}"`) <
     home.indexOf(`href="${firstDistroUrl}"`) &&
     home.indexOf(`href="${firstDistroUrl}"`) <
-      home.indexOf(`href="${useLayUrl}"`),
-  'Home letter should name Wonderstand, then FirstDistro, then UseLay',
+      home.indexOf(`href="${useLayUrl}"`) &&
+    home.indexOf(`href="${useLayUrl}"`) < home.indexOf(`href="${sinchUrl}"`),
+  'Home letter should name Wonderstand, FirstDistro, UseLay, then Sinch',
+)
+assert(
+  home.includes('/brands/wonderstand.svg') &&
+    home.includes('/brands/firstdistro.svg') &&
+    home.includes('/brands/uselay.svg') &&
+    home.includes('/brands/sinch.png'),
+  'Home letter should show inline product logos',
+)
+assert(
+  home.includes('home-letter__product') && home.includes('home-letter__logo'),
+  'Home letter product names should use the notable product link style',
+)
+assert(
+  !home.includes("I'm Jide, a product design engineer."),
+  'Home letter must not keep the old opener',
+)
+assert(
+  !home.includes('I founded these, and I still design and build them.'),
+  'Home letter must not keep the old founder line',
+)
+assert(
+  !home.includes('is the AI coworker in messages for realtors.'),
+  'Home letter must not keep the old Wonderstand clause',
+)
+assert(
+  !home.includes('account intelligence for customer success'),
+  'Home letter must not keep the old FirstDistro clause',
 )
 assert(
   !home.includes("I'm building") && !home.includes('I also built'),
@@ -117,7 +149,7 @@ assert(
 )
 assert(
   !home.includes('account intelligence for lean CS'),
-  'Home letter must not keep the old FirstDistro clause',
+  'Home letter must not keep the older FirstDistro clause',
 )
 assert(
   !home.includes('shipping small agent experiments'),
@@ -136,10 +168,17 @@ assert(
   'Home letter should link Wonderstand from site.ts',
 )
 assert(
-  home.includes(`mailto:${siteEmail}`),
-  'Home letter should link email from site.ts',
+  home.includes(`href="${sinchUrl}"`),
+  'Home letter should link Sinch from site.ts',
 )
-assert(home.includes('https://x.com/JideLambo'), 'Home letter should link X')
+assert(
+  !home.includes('Reach me on'),
+  'Home letter must not keep the reach line',
+)
+assert(
+  !home.includes(`mailto:${siteEmail}`),
+  'Home letter must not keep the email reach link',
+)
 assert(
   !home.includes('or GitHub'),
   'Home letter should not offer GitHub as a way to reach me',
@@ -168,70 +207,129 @@ assert(
   !home.includes('id="projects"'),
   'Home must not render a Projects section',
 )
-assert(!home.includes('/jide.jpg'), 'Home must not include a portrait')
 assert(!home.includes('id="career"'), 'Home must not render Career')
 assert(
   !home.includes("Hi, I'm Jide"),
   'Home must not keep the old About heading',
 )
-assert(
-  home.includes('workshop-stage'),
-  'Home should include the workshop stage',
-)
-assert(
-  home.includes('data-workshop-id="local-ai"'),
-  'Workshop should include the laptop hotspot',
-)
-assert(
-  home.includes('data-workshop-id="imessage"'),
-  'Workshop should include the phone hotspot',
-)
-assert(
-  home.includes('data-workshop-id="firstdistro"'),
-  'Workshop should include the mini-PC hotspot',
-)
-assert(
-  home.includes('data-workshop-id="uselay"'),
-  'Workshop should include the pinboard hotspot',
-)
-assert(
-  home.includes('workshop-hotspot__mark'),
-  'Workshop hotspots should use a small mark, not a glass hit box',
-)
-assert(
-  home.includes('data-label-x="start"') && home.includes('data-label-x="end"'),
-  'Workshop hover labels should clamp to the pinboard and mini-PC edges',
-)
-assert(
-  home.includes('data-lamp="on"'),
-  'Workshop lamp should start on, matching the lit still',
-)
-assert(
-  !home.includes('workshop-hud'),
-  'Workshop must not render a floating laptop HUD',
-)
-assert(
-  !home.includes('workshop-card__signal'),
-  'Workshop must not render a Ready or GitHub-count strip on cards',
-)
-assert(!home.includes('open PRs'), 'Workshop must not show open PR counts')
-assert(
-  home.includes('workshop-stage__canvas'),
-  'Workshop should include a lazy WebGL canvas over the still',
-)
-assert(
-  !home.includes('Cursor cloud') && !home.includes('Grok Bot'),
-  'Workshop must not show parked Cursor or Grok agent counts',
-)
-assert(
-  home.includes('/workshop/still.webp') || home.includes('/workshop/still.png'),
-  'Workshop should load the art-direction still',
-)
-assert(
-  home.indexOf("I'm Jide, a product design engineer.") <
-    home.indexOf('workshop-stage'),
-  'Home should be letter, then workshop',
-)
+
+if (showHomeWorkshop) {
+  assert(
+    !home.includes('/jide.jpg'),
+    'Workshop home must not include a portrait',
+  )
+  assert(
+    home.includes('workshop-stage'),
+    'Home should include the workshop stage',
+  )
+  assert(
+    home.includes('data-workshop-id="local-ai"'),
+    'Workshop should include the laptop hotspot',
+  )
+  assert(
+    home.includes('data-workshop-id="imessage"'),
+    'Workshop should include the phone hotspot',
+  )
+  assert(
+    home.includes('data-workshop-id="firstdistro"'),
+    'Workshop should include the mini-PC hotspot',
+  )
+  assert(
+    home.includes('data-workshop-id="uselay"'),
+    'Workshop should include the pinboard hotspot',
+  )
+  assert(
+    home.includes('workshop-hotspot__mark'),
+    'Workshop hotspots should use a small mark, not a glass hit box',
+  )
+  assert(
+    home.includes('data-label-x="start"') &&
+      home.includes('data-label-x="end"'),
+    'Workshop hover labels should clamp to the pinboard and mini-PC edges',
+  )
+  assert(
+    home.includes('data-lamp="on"'),
+    'Workshop lamp should start on, matching the lit still',
+  )
+  assert(
+    !home.includes('workshop-hud'),
+    'Workshop must not render a floating laptop HUD',
+  )
+  assert(
+    !home.includes('workshop-card__signal'),
+    'Workshop must not render a Ready or GitHub-count strip on cards',
+  )
+  assert(!home.includes('open PRs'), 'Workshop must not show open PR counts')
+  assert(
+    home.includes('workshop-stage__canvas'),
+    'Workshop should include a lazy WebGL canvas over the still',
+  )
+  assert(
+    !home.includes('Cursor cloud') && !home.includes('Grok Bot'),
+    'Workshop must not show parked Cursor or Grok agent counts',
+  )
+  assert(
+    home.includes('/workshop/still.webp') ||
+      home.includes('/workshop/still.png'),
+    'Workshop should load the art-direction still',
+  )
+  assert(
+    home.indexOf("I'm Jide, and I built") < home.indexOf('workshop-stage'),
+    'Home should be letter, then workshop',
+  )
+  assert(
+    !home.includes('hero-reel'),
+    'Workshop home must not render the hero reel',
+  )
+} else {
+  assert(
+    home.includes('hero-reel'),
+    'Home should include the hero reel when the workshop is off',
+  )
+  assert(
+    home.includes('/jide-reel/jide-reel.mp4'),
+    'Hero reel should include the mp4 source',
+  )
+  assert(
+    home.includes('/jide-reel/jide-reel.webm'),
+    'Hero reel should include the webm source',
+  )
+  assert(
+    home.includes('/jide-reel/jide-reel-poster.jpg'),
+    'Hero reel should include the poster',
+  )
+  assert(
+    home.includes('/jide.jpg'),
+    'Hero reel should show the corner portrait',
+  )
+  assert(
+    home.includes('hero-reel__avatar'),
+    'Hero reel should place the portrait as a UI avatar',
+  )
+  assert(
+    home.includes('autoplay') &&
+      home.includes('muted') &&
+      home.includes('loop') &&
+      home.includes('playsinline'),
+    'Hero reel video should autoplay muted loop playsinline',
+  )
+  assert(
+    !/<video\b[^>]*\scontrols\b/i.test(home),
+    'Hero reel must not expose video controls',
+  )
+  assert(
+    !home.includes('workshop-stage'),
+    'Home must not render the workshop stage while the reel is on',
+  )
+  assert(
+    home.indexOf('hero-reel') < home.indexOf("I'm Jide, and I built"),
+    'Home should be reel, then letter',
+  )
+  assert(
+    home.includes('home-hero--reel'),
+    'Home hero should use the stacked reel layout',
+  )
+}
 assert(home.includes('>My beliefs<'), 'Home should include My beliefs')
 assert(!home.includes('Latest writing'), 'Home must not include Latest writing')
 assert(!home.includes('All writing →'), 'Home must not keep the writing row')
@@ -247,18 +345,20 @@ for (const group of beliefGroups) {
     )
   }
 }
-assert(
-  home.includes('Morning who needs you'),
-  'Home workshop should still name the FirstDistro card',
-)
-assert(
-  home.includes('Wonderstand, Phone'),
-  'Home workshop should name the Wonderstand card',
-)
-assert(
-  home.includes('Local AI on your machine'),
-  'Home workshop should still name the local AI card',
-)
+if (showHomeWorkshop) {
+  assert(
+    home.includes('Morning who needs you'),
+    'Home workshop should still name the FirstDistro card',
+  )
+  assert(
+    home.includes('Wonderstand, Phone'),
+    'Home workshop should name the Wonderstand card',
+  )
+  assert(
+    home.includes('Local AI on your machine'),
+    'Home workshop should still name the local AI card',
+  )
+}
 assert(
   !home.includes('Point at what'),
   'Home must not include placeholder example ships',
@@ -293,8 +393,10 @@ assert(!home.includes('href="/blog"'), 'Home page must not link to /blog')
 if (showHomeLastShipped) {
   assert(home.includes('Last shipped'), 'Home page should include Last shipped')
   assert(
-    home.indexOf('workshop-stage') < home.indexOf('Last shipped'),
-    'Home should be workshop, then Last shipped',
+    (showHomeWorkshop
+      ? home.indexOf('workshop-stage')
+      : home.indexOf('hero-reel')) < home.indexOf('Last shipped'),
+    'Home should be hero visual, then Last shipped',
   )
   assert(
     home.includes('I shipped a morning Slack briefing automation'),
@@ -521,7 +623,25 @@ assert(
 assert(
   cssBundle.includes('.workshop-stage') &&
     cssBundle.includes('prefers-reduced-motion'),
-  'Workshop must sit on Home and honor reduced motion',
+  'Workshop styles must stay available and honor reduced motion',
+)
+assert(
+  cssBundle.includes('.hero-reel') &&
+    (cssBundle.includes('aspect-ratio:16/10') ||
+      cssBundle.includes('aspect-ratio: 16 / 10')),
+  'Hero reel should keep a 16:10 frame',
+)
+assert(
+  cssBundle.includes('.hero-reel__avatar') &&
+    (cssBundle.includes('border-radius:9999px') ||
+      cssBundle.includes('border-radius: 9999px')),
+  'Hero reel avatar should be round',
+)
+assert(
+  cssBundle.includes('.home-letter__product') &&
+    (cssBundle.includes('font-weight:600') ||
+      cssBundle.includes('font-weight: 600')),
+  'Home letter product names should read clearly bolder than body text',
 )
 assert(
   !cssBundle.includes('home-intro__photo'),

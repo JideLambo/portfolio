@@ -1,0 +1,61 @@
+---
+const poster = '/jide-reel/jide-reel-poster.jpg'
+const webm = '/jide-reel/jide-reel.webm'
+const mp4 = '/jide-reel/jide-reel.mp4'
+const portrait = '/jide.jpg'
+---
+
+<section class="hero-reel" aria-label="Build reel">
+  <div class="hero-reel__frame">
+    <img
+      class="hero-reel__fallback"
+      src={poster}
+      alt=""
+      width="1920"
+      height="1200"
+      decoding="async"
+    />
+    <video
+      class="hero-reel__video"
+      data-hero-reel
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+      poster={poster}
+      width="1920"
+      height="1200"
+      aria-label="Silent looping reel of product builds"
+    >
+      <source src={webm} type="video/webm" />
+      <source src={mp4} type="video/mp4" />
+    </video>
+  </div>
+  <img
+    class="hero-reel__avatar"
+    src={portrait}
+    alt="Jide Lambo"
+    width="400"
+    height="400"
+    decoding="async"
+  />
+</section>
+
+<script>
+  const video = document.querySelector('[data-hero-reel]')
+  if (video instanceof HTMLVideoElement) {
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const syncMotion = () => {
+      if (motion.matches) {
+        video.pause()
+        video.removeAttribute('autoplay')
+      } else if (video.paused) {
+        video.setAttribute('autoplay', '')
+        void video.play().catch(() => {})
+      }
+    }
+    syncMotion()
+    motion.addEventListener('change', syncMotion)
+  }
+</script>
