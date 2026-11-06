@@ -32,12 +32,13 @@ describe('site', () => {
   })
 
   describe('nav', () => {
-    it('does not include About after the Home letter lock', () => {
+    it('keeps Home, Work, and Writing for the footer menu', () => {
       expect(navItems.map(item => item.href)).toEqual([
         '/',
         '/work',
         '/writing',
       ])
+      expect(navItems.some(item => item.label === 'About')).toBe(false)
     })
   })
 

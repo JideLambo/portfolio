@@ -66,7 +66,7 @@ Vite overrides in root `package.json` keep `@vitejs/plugin-react` on v6 with Ast
 
 Redirects (see `vercel.json`): `/blog` → `/writing`, `/about` → `/`, `/projects` → `/`, `/reading` → `/`.
 
-Nav: Home · Work · Writing.
+Nav: no top bar. Home · Work · Writing live in the footer with X · LinkedIn · GitHub. The footer name also links Home.
 
 ---
 
